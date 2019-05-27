@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: aa894f4a64e83824f8c0ddccc90b903c
+ScriptedImporter:
+  fileIDToRecycleName:
+    11400002: Assets/Examples/Chase/Brains/HuntedBrain.nn
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 83221ad3db87f4b3b91b041047cb2bc5, type: 3}
