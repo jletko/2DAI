@@ -416,10 +416,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 275458917}
-  - component: {fileID: 275458923}
   - component: {fileID: 275458922}
-  - component: {fileID: 275458921}
   - component: {fileID: 275458920}
+  - component: {fileID: 275458921}
+  - component: {fileID: 275458923}
+  - component: {fileID: 275458919}
+  - component: {fileID: 275458918}
   m_Layer: 0
   m_Name: LeftPlayer
   m_TagString: LeftPlayer
@@ -444,6 +446,45 @@ Transform:
   m_Father: {fileID: 1570944495}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &275458918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275458916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  RepeatAction: 1
+  offsetStep: 0
+--- !u!114 &275458919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275458916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    vectorObservationSize: 1
+    numStackedVectorObservations: 1
+    vectorActionSize: 01000000
+    vectorActionDescriptions: []
+    vectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  m_TeamID: 0
+  m_UseChildSensors: 1
 --- !u!233 &275458920
 HingeJoint2D:
   m_ObjectHideFlags: 0
@@ -1433,10 +1474,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1399182113}
-  - component: {fileID: 1399182112}
   - component: {fileID: 1399182116}
   - component: {fileID: 1399182115}
   - component: {fileID: 1399182114}
+  - component: {fileID: 1399182112}
+  - component: {fileID: 1399182118}
+  - component: {fileID: 1399182117}
   m_Layer: 0
   m_Name: RightPlayer
   m_TagString: RightPlayer
@@ -1553,6 +1596,45 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1399182117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399182111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  RepeatAction: 1
+  offsetStep: 0
+--- !u!114 &1399182118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399182111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    vectorObservationSize: 1
+    numStackedVectorObservations: 1
+    vectorActionSize: 01000000
+    vectorActionDescriptions: []
+    vectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  m_TeamID: 0
+  m_UseChildSensors: 1
 --- !u!1 &1570944494
 GameObject:
   m_ObjectHideFlags: 0

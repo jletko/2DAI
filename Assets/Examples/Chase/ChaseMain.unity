@@ -182,8 +182,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 120586344}
-  - component: {fileID: 120586345}
   - component: {fileID: 120586346}
+  - component: {fileID: 120586345}
+  - component: {fileID: 120586349}
+  - component: {fileID: 120586348}
   m_Layer: 0
   m_Name: Hunter 1
   m_TagString: Hunter
@@ -247,6 +249,45 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &120586348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120586343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  RepeatAction: 1
+  offsetStep: 0
+--- !u!114 &120586349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120586343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    vectorObservationSize: 1
+    numStackedVectorObservations: 1
+    vectorActionSize: 01000000
+    vectorActionDescriptions: []
+    vectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  m_TeamID: 0
+  m_UseChildSensors: 1
 --- !u!1 &326113461
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,8 +667,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 912030416}
-  - component: {fileID: 912030417}
   - component: {fileID: 912030418}
+  - component: {fileID: 912030417}
+  - component: {fileID: 912030420}
+  - component: {fileID: 912030419}
   m_Layer: 0
   m_Name: Hunted
   m_TagString: Hunted
@@ -691,6 +734,45 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &912030419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912030415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  RepeatAction: 1
+  offsetStep: 0
+--- !u!114 &912030420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912030415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    vectorObservationSize: 1
+    numStackedVectorObservations: 1
+    vectorActionSize: 01000000
+    vectorActionDescriptions: []
+    vectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  m_TeamID: 0
+  m_UseChildSensors: 1
 --- !u!1 &1133837997
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,8 +829,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1390518453}
-  - component: {fileID: 1390518455}
   - component: {fileID: 1390518454}
+  - component: {fileID: 1390518455}
+  - component: {fileID: 1390518457}
+  - component: {fileID: 1390518456}
   m_Layer: 0
   m_Name: Hunter 2
   m_TagString: Hunter
@@ -812,6 +896,45 @@ MonoBehaviour:
   maxStep: 0
   _maxMoveForce: 400
   _maxTorqueForce: 40
+--- !u!114 &1390518456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390518452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  RepeatAction: 1
+  offsetStep: 0
+--- !u!114 &1390518457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390518452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    vectorObservationSize: 1
+    numStackedVectorObservations: 1
+    vectorActionSize: 01000000
+    vectorActionDescriptions: []
+    vectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  m_TeamID: 0
+  m_UseChildSensors: 1
 --- !u!1 &1422307121
 GameObject:
   m_ObjectHideFlags: 0

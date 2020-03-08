@@ -18009,8 +18009,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1811746661}
-  - component: {fileID: 1811746662}
   - component: {fileID: 1811746663}
+  - component: {fileID: 1811746662}
+  - component: {fileID: 1811746665}
+  - component: {fileID: 1811746664}
   m_Layer: 0
   m_Name: PlayerO
   m_TagString: PlayerO
@@ -18063,6 +18065,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gym: {fileID: 44593303}
   _casNaPartii: 60
+--- !u!114 &1811746664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811746660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  RepeatAction: 1
+  offsetStep: 0
+--- !u!114 &1811746665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811746660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    vectorObservationSize: 1
+    numStackedVectorObservations: 1
+    vectorActionSize: 01000000
+    vectorActionDescriptions: []
+    vectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  m_TeamID: 0
+  m_UseChildSensors: 1
 --- !u!1 &1823304865
 GameObject:
   m_ObjectHideFlags: 0
@@ -21072,8 +21113,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2116257883}
-  - component: {fileID: 2116257884}
   - component: {fileID: 2116257885}
+  - component: {fileID: 2116257884}
+  - component: {fileID: 2116257887}
+  - component: {fileID: 2116257886}
   m_Layer: 0
   m_Name: PlayerX
   m_TagString: PlayerX
@@ -21126,6 +21169,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gym: {fileID: 44593303}
   _casNaPartii: 600
+--- !u!114 &2116257886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116257882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  RepeatAction: 1
+  offsetStep: 0
+--- !u!114 &2116257887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116257882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    vectorObservationSize: 1
+    numStackedVectorObservations: 1
+    vectorActionSize: 01000000
+    vectorActionDescriptions: []
+    vectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  m_TeamID: 0
+  m_UseChildSensors: 1
 --- !u!1 &2116438811
 GameObject:
   m_ObjectHideFlags: 0
