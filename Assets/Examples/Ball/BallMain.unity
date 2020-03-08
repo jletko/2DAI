@@ -283,17 +283,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 1
+    vectorObservationSize: 86
     numStackedVectorObservations: 1
-    vectorActionSize: 01000000
+    vectorActionSize: 02000000
     vectorActionDescriptions: []
-    vectorActionSpaceType: 0
-  m_Model: {fileID: 0}
+    vectorActionSpaceType: 1
+  m_Model: {fileID: 5022602860645237092, guid: c62b945b34b63574bb65c19db4cd6f63, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Ball
   m_TeamID: 0
-  m_UseChildSensors: 1
+  m_UseChildSensors: 0
 --- !u!114 &682444610
 MonoBehaviour:
   m_ObjectHideFlags: 0

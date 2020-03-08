@@ -6,7 +6,6 @@ namespace Common
     internal class TrainingSceneInitializer : MonoBehaviour
     {
         [SerializeField] private GameObject _rootPrefab;
-        [SerializeField] private Academy _academy;
         [SerializeField] private Transform _gym;
         [SerializeField] private int _rootCount = 10;
         [SerializeField] private float _padding;
@@ -21,7 +20,7 @@ namespace Common
 #if !UNITY_EDITOR
             _lastViewSize = GetMainGameViewSize();
 #endif
-            _rootsPerRowCount = _academy.IsCommunicatorOn ? Mathf.FloorToInt(Mathf.Sqrt(_rootCount)) : 1;
+            _rootsPerRowCount = IsCommunicatorOn ? Mathf.FloorToInt(Mathf.Sqrt(_rootCount)) : 1;
 
             InstantiateRoots(_rootPrefab, _gym.transform.localScale, _padding, _rootsPerRowCount);
             AlignCameraSize(GetMainGameViewSize(), _gym.transform.localScale, _padding, _rootsPerRowCount);
@@ -38,6 +37,9 @@ namespace Common
         }
 #endif
         }
+
+        //TODO: add real logic
+        private bool IsCommunicatorOn => false;
 
         private static void InstantiateRoots(Object rootPrefab, Vector2 areaSize, float padding, int rowColumnCount)
         {

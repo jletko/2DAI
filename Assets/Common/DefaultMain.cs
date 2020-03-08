@@ -12,7 +12,6 @@ namespace Common
         [SerializeField] private Text _timeScaleTextBox;
         [SerializeField] private Slider _timeScaleSlider;
         [SerializeField] private Button _restartButton;
-        [SerializeField] private Academy _academy;
         [SerializeField] private float _trainingTimeScale = 10;
         [SerializeField] private float _maxTimeScale = 30;
         [SerializeField] private Vector2 _gravity = new Vector2(0, 0);
@@ -26,7 +25,7 @@ namespace Common
             Physics2D.gravity = _gravity;
             _allReferees = FindObjectsOfType<BaseReferee>().ToList();
             _restartButton.gameObject.SetActive(_allReferees.Any());
-            _timeScaleSlider.value = Mathf.Log(1 + (_academy.IsCommunicatorOn ? _trainingTimeScale : 1)) / Mathf.Log(_maxTimeScale + 1);
+            _timeScaleSlider.value = Mathf.Log(1 + (IsCommunicatorOn ? _trainingTimeScale : 1)) / Mathf.Log(_maxTimeScale + 1);
             OnTimeScaleChanged();
         }
 
@@ -34,7 +33,7 @@ namespace Common
         {
             CheckDoubleClick();
 
-            if (_academy.IsCommunicatorOn)
+            if (IsCommunicatorOn)
             {
                 Camera.main.orthographicSize -= 2 * Input.mouseScrollDelta.y;
             }
@@ -60,6 +59,9 @@ namespace Common
             _timeScaleTextBox.text = $"Time scale: {logValue:F2}";
         }
 
+        //TODO: add real logic
+        private bool IsCommunicatorOn => false;
+        
         private void CheckDoubleClick()
         {
             if (Input.GetMouseButtonDown(0))
