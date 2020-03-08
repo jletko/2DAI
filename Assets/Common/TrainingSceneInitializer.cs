@@ -21,7 +21,7 @@ namespace Common
 #if !UNITY_EDITOR
             _lastViewSize = GetMainGameViewSize();
 #endif
-            _rootsPerRowCount = _academy.IsCommunicatorOn() ? Mathf.FloorToInt(Mathf.Sqrt(_rootCount)) : 1;
+            _rootsPerRowCount = _academy.IsCommunicatorOn ? Mathf.FloorToInt(Mathf.Sqrt(_rootCount)) : 1;
 
             InstantiateRoots(_rootPrefab, _gym.transform.localScale, _padding, _rootsPerRowCount);
             AlignCameraSize(GetMainGameViewSize(), _gym.transform.localScale, _padding, _rootsPerRowCount);

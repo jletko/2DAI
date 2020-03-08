@@ -12,7 +12,8 @@ namespace Examples.TicTac
         private string PlayerTag => gameObject.tag;
         private readonly List<int> _myLastMaskedActions = new List<int>();
 
-        public bool IsEnabled => brain != null;
+        //TODO: fix
+        public bool IsEnabled => true;
 
         public override void CollectObservations()
         {
@@ -47,7 +48,7 @@ namespace Examples.TicTac
             SetActionMask(0, _myLastMaskedActions);
         }
 
-        public override void AgentAction(float[] vectorAction, string textAction)
+        public override void AgentAction(float[] vectorAction)
         {
             if (vectorAction == null)
             {

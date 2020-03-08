@@ -525,14 +525,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0913bbb4112f8444090e6751a4b3c02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brain: {fileID: 11400000, guid: 0ba9c60e72cfc0448bfb75d3c0d95437, type: 2}
   agentParameters:
-    agentCameras: []
-    agentRenderTextures: []
     maxStep: 0
-    resetOnDone: 1
-    onDemandDecision: 0
-    numberOfActionsBetweenDecisions: 5
+  hasUpgradedFromAgentParameters: 1
+  maxStep: 0
   _leftHandRigidbody: {fileID: 1800636968}
   _rightHandRigidbody: {fileID: 1245857257}
   _otherPlayer: {fileID: 1399182113}
@@ -1460,14 +1456,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0913bbb4112f8444090e6751a4b3c02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brain: {fileID: 11400000, guid: 0ba9c60e72cfc0448bfb75d3c0d95437, type: 2}
   agentParameters:
-    agentCameras: []
-    agentRenderTextures: []
     maxStep: 0
-    resetOnDone: 1
-    onDemandDecision: 0
-    numberOfActionsBetweenDecisions: 5
+  hasUpgradedFromAgentParameters: 1
+  maxStep: 0
   _leftHandRigidbody: {fileID: 1928045666}
   _rightHandRigidbody: {fileID: 203417337}
   _otherPlayer: {fileID: 275458917}
@@ -1561,68 +1553,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!1 &1472937542
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1472937544}
-  - component: {fileID: 1472937543}
-  m_Layer: 0
-  m_Name: Academy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1472937543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1472937542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 074f71dacbc780f47a923c308423535a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  broadcastHub:
-    broadcastingBrains:
-    - {fileID: 11400000, guid: 0ba9c60e72cfc0448bfb75d3c0d95437, type: 2}
-    _brainsToControl: []
-  maxSteps: 0
-  trainingConfiguration:
-    width: 640
-    height: 480
-    qualityLevel: 1
-    timeScale: 10
-    targetFrameRate: -1
-  inferenceConfiguration:
-    width: 1280
-    height: 720
-    qualityLevel: 5
-    timeScale: 1
-    targetFrameRate: 60
-  resetParameters:
-    resetParameters: []
---- !u!4 &1472937544
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1472937542}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1570944494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1906,7 +1836,7 @@ PrefabInstance:
         type: 3}
       propertyPath: academy
       value: 
-      objectReference: {fileID: 1472937543}
+      objectReference: {fileID: 0}
     - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
       propertyPath: gym
@@ -1921,7 +1851,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _academy
       value: 
-      objectReference: {fileID: 1472937543}
+      objectReference: {fileID: 0}
     - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
       propertyPath: _gym
@@ -1965,7 +1895,7 @@ PrefabInstance:
     - target: {fileID: 2799415686648315777, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2799415686648315777, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
@@ -1991,7 +1921,7 @@ PrefabInstance:
         type: 3}
       propertyPath: academy
       value: 
-      objectReference: {fileID: 1472937543}
+      objectReference: {fileID: 0}
     - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
       propertyPath: trainingTimeScale
@@ -2011,7 +1941,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _academy
       value: 
-      objectReference: {fileID: 1472937543}
+      objectReference: {fileID: 0}
     - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
       propertyPath: _gravity.y

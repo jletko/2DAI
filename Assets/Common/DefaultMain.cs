@@ -26,7 +26,7 @@ namespace Common
             Physics2D.gravity = _gravity;
             _allReferees = FindObjectsOfType<BaseReferee>().ToList();
             _restartButton.gameObject.SetActive(_allReferees.Any());
-            _timeScaleSlider.value = Mathf.Log(1 + (_academy.IsCommunicatorOn() ? _trainingTimeScale : 1)) / Mathf.Log(_maxTimeScale + 1);
+            _timeScaleSlider.value = Mathf.Log(1 + (_academy.IsCommunicatorOn ? _trainingTimeScale : 1)) / Mathf.Log(_maxTimeScale + 1);
             OnTimeScaleChanged();
         }
 
@@ -34,7 +34,7 @@ namespace Common
         {
             CheckDoubleClick();
 
-            if (_academy.IsCommunicatorOn())
+            if (_academy.IsCommunicatorOn)
             {
                 Camera.main.orthographicSize -= 2 * Input.mouseScrollDelta.y;
             }

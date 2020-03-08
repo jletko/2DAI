@@ -73,7 +73,7 @@ namespace Examples.Volleyball
             AddVectorObs((_otherPlayer.position.x - transform.position.x) * _playerSign);
         }
 
-        public override void AgentAction(float[] vectorAction, string textAction)
+        public override void AgentAction(float[] vectorAction)
         {
             Move(vectorAction);
             MoveHands(vectorAction);
