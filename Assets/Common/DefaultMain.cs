@@ -59,9 +59,8 @@ namespace Common
             _timeScaleTextBox.text = $"Time scale: {logValue:F2}";
         }
 
-        //TODO: add real logic
-        private bool IsCommunicatorOn => false;
-        
+        private bool IsCommunicatorOn => Academy.Instance.IsCommunicatorOn;
+
         private void CheckDoubleClick()
         {
             if (Input.GetMouseButtonDown(0))

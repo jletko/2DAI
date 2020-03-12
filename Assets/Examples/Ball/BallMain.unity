@@ -289,7 +289,7 @@ MonoBehaviour:
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
   m_Model: {fileID: 5022602860645237092, guid: c62b945b34b63574bb65c19db4cd6f63, type: 3}
-  m_InferenceDevice: 0
+  m_InferenceDevice: 1
   m_BehaviorType: 0
   m_BehaviorName: Ball
   m_TeamID: 0

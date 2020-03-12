@@ -38,8 +38,7 @@ namespace Common
 #endif
         }
 
-        //TODO: add real logic
-        private bool IsCommunicatorOn => false;
+        private bool IsCommunicatorOn => Academy.Instance.IsCommunicatorOn;
 
         private static void InstantiateRoots(Object rootPrefab, Vector2 areaSize, float padding, int rowColumnCount)
         {
