@@ -288,8 +288,8 @@ MonoBehaviour:
     vectorActionSize: 02000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: c62b945b34b63574bb65c19db4cd6f63, type: 3}
-  m_InferenceDevice: 1
+  m_Model: {fileID: 5022602860645237092, guid: a7e4df0754a48f44682fd5ae58d27cb5, type: 3}
+  m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Ball
   m_TeamID: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   maxStep: 0
   _maxMoveForce: 300
-  _maxTorqueForce: 50
+  _maxTorqueForce: 25
 --- !u!1 &705442258
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +466,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main
       objectReference: {fileID: 0}
+    - target: {fileID: 1855812852722625638, guid: beadbd66347167b4799f5c96c54b705e,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855812852722625639, guid: beadbd66347167b4799f5c96c54b705e,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Time scale: 1'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855812853024220326, guid: beadbd66347167b4799f5c96c54b705e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855812853073198145, guid: beadbd66347167b4799f5c96c54b705e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -80
+      objectReference: {fileID: 0}
     - target: {fileID: 1855812853288821927, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -506,6 +526,11 @@ PrefabInstance:
       propertyPath: _gym
       value: 
       objectReference: {fileID: 1281660655}
+    - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
+        type: 3}
+      propertyPath: _rootCount
+      value: 49
+      objectReference: {fileID: 0}
     - target: {fileID: 2799415686648315777, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -570,6 +595,16 @@ PrefabInstance:
         type: 3}
       propertyPath: _academy
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
+        type: 3}
+      propertyPath: _maxTimeScale
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
+        type: 3}
+      propertyPath: _trainingTimeScale
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beadbd66347167b4799f5c96c54b705e, type: 3}

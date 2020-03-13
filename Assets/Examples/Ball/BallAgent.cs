@@ -34,7 +34,6 @@ namespace Examples.Ball
             string[] detectableObjects = { Tags.OBSTACLE, Tags.TARGET };
             IEnumerable<float> perceptions = _rayPerception.Perceive(detectableObjects);
             AddVectorObs(perceptions);
-
             AddVectorObs(_rigidBody.velocity);
         }
 

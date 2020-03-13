@@ -20,9 +20,9 @@ namespace Examples.Ball
 
         private void FixedUpdate()
         {
-            _ballAgent.AddReward(-0.0001f);
+            _ballAgent.AddReward(-0.001f);
 
-            if (TimeSinceLastRestart > 50)
+            if (TimeSinceLastRestart > 25)
             {
                 Restart(-1);
             }

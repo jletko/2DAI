@@ -12,14 +12,10 @@ namespace Common
 
         private int _rootsPerRowCount;
 
-#if !UNITY_EDITOR
         private Vector2 _lastViewSize;
-#endif
         private void Start()
         {
-#if !UNITY_EDITOR
             _lastViewSize = GetMainGameViewSize();
-#endif
             _rootsPerRowCount = IsCommunicatorOn ? Mathf.FloorToInt(Mathf.Sqrt(_rootCount)) : 1;
 
             InstantiateRoots(_rootPrefab, _gym.transform.localScale, _padding, _rootsPerRowCount);
@@ -28,14 +24,12 @@ namespace Common
 
         private void Update()
         {
-#if !UNITY_EDITOR
-        var viewSize = GetMainGameViewSize();
-        if (_lastViewSize.x != viewSize.x || _lastViewSize.y != viewSize.y)
-        {
-            AlignCameraSize(viewSize, TicTacGym.transform.localScale, Padding, _rootsPerRowCount);
-            _lastViewSize = viewSize;
-        }
-#endif
+            var viewSize = GetMainGameViewSize();
+            if (_lastViewSize.x != viewSize.x || _lastViewSize.y != viewSize.y)
+            {
+                AlignCameraSize(GetMainGameViewSize(), _gym.transform.localScale, _padding, _rootsPerRowCount);
+                _lastViewSize = viewSize;
+            }
         }
 
         private bool IsCommunicatorOn => Academy.Instance.IsCommunicatorOn;
@@ -82,14 +76,7 @@ namespace Common
 
         private static Vector2 GetMainGameViewSize()
         {
-#if UNITY_EDITOR
-            var T = System.Type.GetType("UnityEditor.GameView,UnityEditor");
-            System.Reflection.MethodInfo getSizeOfMainGameView = T.GetMethod("GetSizeOfMainGameView", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-            var res = getSizeOfMainGameView.Invoke(null, null);
-            return (Vector2)res;
-#else
-        return new Vector2(Screen.width, Screen.height);
-#endif
+            return new Vector2(Screen.width, Screen.height);
         }
     }
 }
