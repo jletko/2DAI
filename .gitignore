@@ -58,3 +58,4 @@ crashlytics-build.properties
 
 [Bb]in/
 /UnitySDK.log
+/Assets/ML-Agents/Timers/BallMain_timers.json
