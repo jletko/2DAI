@@ -34,7 +34,7 @@ namespace Examples.Ball
 
             if (_ballAgent.IsCrashed)
             {
-                _ballAgent.AddReward(-0.001f);
+                _ballAgent.AddReward(-0.01f);
             }
         }
 

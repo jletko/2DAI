@@ -1,6 +1,5 @@
 ﻿using Common;
 using MLAgents;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Examples.Ball
@@ -31,15 +30,12 @@ namespace Examples.Ball
 
         public override void CollectObservations()
         {
-            string[] detectableObjects = { Tags.OBSTACLE, Tags.TARGET };
-            IEnumerable<float> perceptions = _rayPerception.Perceive(detectableObjects);
-            AddVectorObs(perceptions);
             AddVectorObs(_rigidBody.velocity);
         }
 
         public override void AgentAction(float[] vectorAction)
         {
-            _rigidBody.AddForce(_maxMoveForce * Mathf.Clamp(vectorAction[0], -1f, 1f) * transform.right);
+            _rigidBody.AddForce(_maxMoveForce * Mathf.Clamp(vectorAction[0], -1f, 1f) * transform.up);
             _rigidBody.AddTorque(_maxTorqueForce * Mathf.Clamp(vectorAction[1], -1f, 1f));
         }
 
