@@ -1,6 +1,5 @@
 ﻿using Common;
 using MLAgents;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Examples.Chase
@@ -31,17 +30,8 @@ namespace Examples.Chase
 
         public override void AgentAction(float[] vectorAction)
         {
-            RigidBody.AddForce(_maxMoveForce * Mathf.Clamp(vectorAction[0], -1f, 1f) * transform.right);
+            RigidBody.AddForce(_maxMoveForce * Mathf.Clamp(vectorAction[0], -1f, 1f) * transform.up);
             RigidBody.AddTorque(_maxTorqueForce * Mathf.Clamp(vectorAction[1], -1f, 1f));
-        }
-
-        public override void CollectObservations()
-        {
-            string[] detectableObjects = GetDetectableObjectTags();
-            IEnumerable<float> perceptions = RayPerception.Perceive(detectableObjects);
-            AddVectorObs(perceptions);
-
-            AddVectorObs(RigidBody.velocity);
         }
 
         protected virtual void OnCollisionStay2D(Collision2D collision)
@@ -53,7 +43,5 @@ namespace Examples.Chase
         {
             IsCrashed = false;
         }
-
-        protected abstract string[] GetDetectableObjectTags();
     }
 }

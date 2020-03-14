@@ -11,54 +11,55 @@ namespace Examples.Chase
 
         public override void Restart()
         {
-            Restart(0, 0);
+            base.Restart();
+
+            _hunted.Done();
+            _hunted.Restart(GetRandomPositionInGym());
+
+            _hunters.ForEach(o => o.Done());
+            _hunters.ForEach(o => o.Restart(GetRandomPositionInGym()));
         }
 
         private void FixedUpdate()
         {
             if (TimeSinceLastRestart > 15)
             {
-                Restart(-1, 1);
+                AddRewardAndRestart(-1, 1);
             }
 
             if (_hunted.IsCatched)
             {
-                Restart(1, -1);
+                AddRewardAndRestart(1, -1);
             }
 
             if (_hunted.IsCrashed)
             {
-                RestartHunted(-1);
+                _hunted.AddReward(-0.002f);
             }
 
             foreach (HunterAgent hunter in _hunters)
             {
                 if (hunter.IsCrashed)
                 {
-                    RestartHunter(hunter, -1);
+                    hunter.AddReward(-0.002f);
                 }
             }
         }
 
-        private void RestartHunter(HunterAgent hunter, float hunterReward)
+        private void SetRewardAndRestart(float huntersReward, float huntedReward)
         {
-            hunter.SetReward(hunterReward);
-            hunter.Done();
-            hunter.Restart(GetRandomPositionInGym());
-        }
-
-        private void RestartHunted(float huntedReward)
-        {
+            _hunters.ForEach(o => o.SetReward(huntersReward));
             _hunted.SetReward(huntedReward);
-            _hunted.Done();
-            _hunted.Restart(GetRandomPositionInGym());
+
+            Restart();
         }
 
-        private void Restart(float huntersReward, float huntedReward)
+        private void AddRewardAndRestart(float huntersReward, float huntedReward)
         {
-            base.Restart();
-            _hunters.ForEach(o => RestartHunter(o, huntersReward));
-            RestartHunted(huntedReward);
+            _hunters.ForEach(o => o.AddReward(huntersReward));
+            _hunted.AddReward(huntedReward);
+
+            Restart();
         }
     }
 }

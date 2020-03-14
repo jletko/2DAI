@@ -15,7 +15,7 @@ namespace Common
         [SerializeField] [Range(0, 10)] private float _trainingTimeScale = MaxTimeScale;
         [SerializeField] private Vector2 _gravity = new Vector2(0, 0);
 
-        private const float MaxTimeScale = 10;
+        private const float MaxTimeScale = 15;
         private List<BaseReferee> _allReferees;
         private bool _isOneClick;
         private float _timerForDoubleClick;

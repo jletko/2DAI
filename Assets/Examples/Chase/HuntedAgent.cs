@@ -12,11 +12,6 @@ namespace Examples.Chase
             IsCatched = false;
         }
 
-        protected override string[] GetDetectableObjectTags()
-        {
-            return new[] { Tags.OBSTACLE, Tags.HUNTER, Tags.HUNTER_HEAD };
-        }
-
         protected override void OnCollisionStay2D(Collision2D other)
         {
             base.OnCollisionStay2D(other);
