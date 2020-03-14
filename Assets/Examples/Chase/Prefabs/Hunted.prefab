@@ -312,8 +312,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   maxStep: 0
-  _maxMoveForce: 800
-  _maxTorqueForce: 80
+  _maxMoveForce: 600
+  _maxTorqueForce: 60
 --- !u!114 &5211304079690016247
 MonoBehaviour:
   m_ObjectHideFlags: 0
