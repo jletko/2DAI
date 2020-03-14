@@ -1,5 +1,4 @@
-﻿using Common;
-using MLAgents;
+﻿using MLAgents;
 using UnityEngine;
 
 namespace Examples.Ball
@@ -10,7 +9,6 @@ namespace Examples.Ball
         [SerializeField] private float _maxTorque;
 
         private Rigidbody2D _rigidBody;
-        private RayPerception2D _rayPerception;
 
         public bool IsCrashed { get; private set; }
         public bool IsTouchingTarget { get; private set; }
@@ -25,7 +23,6 @@ namespace Examples.Ball
         public override void InitializeAgent()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
-            _rayPerception = GetComponentInChildren<RayPerception2D>();
         }
 
         public override void AgentAction(float[] vectorAction)
