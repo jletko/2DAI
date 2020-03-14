@@ -11,7 +11,6 @@ namespace Examples.Ball
 
         private Rigidbody2D _rigidBody;
         private RayPerception2D _rayPerception;
-        private Vector2 _lastVelocity;
 
         public bool IsCrashed { get; private set; }
         public bool IsTouchingTarget { get; private set; }
@@ -27,13 +26,6 @@ namespace Examples.Ball
         {
             _rigidBody = GetComponent<Rigidbody2D>();
             _rayPerception = GetComponentInChildren<RayPerception2D>();
-        }
-
-        public override void CollectObservations()
-        {
-            AddVectorObs(_rigidBody.velocity);
-            AddVectorObs(_rigidBody.velocity - _lastVelocity);
-            _lastVelocity = _rigidBody.velocity;
         }
 
         public override void AgentAction(float[] vectorAction)
