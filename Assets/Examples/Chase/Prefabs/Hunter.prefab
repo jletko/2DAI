@@ -51,7 +51,7 @@ MonoBehaviour:
   - HunterHead
   raysPerDirection: 4
   maxRayDegrees: 90
-  sphereCastRadius: 0.4
+  sphereCastRadius: 0.3
   rayLength: 10
   rayLayerMask:
     serializedVersion: 2

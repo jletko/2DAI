@@ -1,5 +1,4 @@
-﻿using Common;
-using MLAgents;
+﻿using MLAgents;
 using UnityEngine;
 
 namespace Examples.Chase
@@ -10,7 +9,6 @@ namespace Examples.Chase
         [SerializeField] private float _maxTorqueForce;
 
         protected Rigidbody2D RigidBody;
-        protected RayPerception2D RayPerception;
 
         public bool IsCrashed { get; private set; }
 
@@ -25,7 +23,6 @@ namespace Examples.Chase
         public override void InitializeAgent()
         {
             RigidBody = GetComponent<Rigidbody2D>();
-            RayPerception = GetComponentInChildren<RayPerception2D>();
         }
 
         public override void AgentAction(float[] vectorAction)

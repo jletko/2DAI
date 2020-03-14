@@ -230,7 +230,7 @@ MonoBehaviour:
   - HunterHead
   raysPerDirection: 8
   maxRayDegrees: 180
-  sphereCastRadius: 0.4
+  sphereCastRadius: 0.3
   rayLength: 10
   rayLayerMask:
     serializedVersion: 2
@@ -312,8 +312,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   maxStep: 0
-  _maxMoveForce: 600
-  _maxTorqueForce: 60
+  _maxMoveForce: 800
+  _maxTorqueForce: 80
 --- !u!114 &5211304079690016247
 MonoBehaviour:
   m_ObjectHideFlags: 0

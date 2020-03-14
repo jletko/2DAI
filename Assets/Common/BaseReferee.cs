@@ -18,8 +18,8 @@ namespace Common
         protected Vector2 GetRandomPositionInGym()
         {
             return (Vector2)transform.position + Gym.localScale * new Vector2(
-                  Mathf.Sign(Random.Range(-1f, 1f)) * Random.Range(0.1f, 1f),
-                  Mathf.Sign(Random.Range(-1f, 1f)) * Random.Range(0.1f, 1f)
+                  Mathf.Sign(Random.Range(-1f, 1f)) * Random.Range(0.1f, 0.9f),
+                  Mathf.Sign(Random.Range(-1f, 1f)) * Random.Range(0.1f, 0.9f)
                  ) / 2;
         }
     }
