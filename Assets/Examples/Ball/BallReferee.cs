@@ -10,7 +10,10 @@ namespace Examples.Ball
 
         public override void Restart()
         {
-            Restart(0);
+            base.Restart();
+            _ballAgent.Done();
+            _ballAgent.Restart(transform.position);
+            _target.position = GetRandomPositionInGym();
         }
 
         private void Start()
@@ -22,29 +25,22 @@ namespace Examples.Ball
         {
             _ballAgent.AddReward(-0.001f);
 
-            if (TimeSinceLastRestart > 25)
+            if (TimeSinceLastRestart > 15)
             {
-                Restart(-1);
+                _ballAgent.SetReward(-1);
+                Restart();
             }
 
             if (_ballAgent.IsTouchingTarget)
             {
-                Restart(1);
+                _ballAgent.SetReward(1);
+                Restart();
             }
 
             if (_ballAgent.IsCrashed)
             {
-                _ballAgent.AddReward(-0.01f);
+                _ballAgent.AddReward(-0.1f);
             }
-        }
-
-        private void Restart(float reward)
-        {
-            base.Restart();
-            _ballAgent.SetReward(reward);
-            _ballAgent.Done();
-            _ballAgent.Restart(transform.position);
-            _target.position = GetRandomPositionInGym();
         }
     }
 }

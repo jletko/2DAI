@@ -12,10 +12,10 @@ namespace Common
         [SerializeField] private Text _timeScaleTextBox;
         [SerializeField] private Slider _timeScaleSlider;
         [SerializeField] private Button _restartButton;
-        [SerializeField] private float _trainingTimeScale = 10;
-        [SerializeField] private float _maxTimeScale = 30;
+        [SerializeField] [Range(0, 10)] private float _trainingTimeScale = MaxTimeScale;
         [SerializeField] private Vector2 _gravity = new Vector2(0, 0);
 
+        private const float MaxTimeScale = 10;
         private List<BaseReferee> _allReferees;
         private bool _isOneClick;
         private float _timerForDoubleClick;
@@ -25,7 +25,7 @@ namespace Common
             Physics2D.gravity = _gravity;
             _allReferees = FindObjectsOfType<BaseReferee>().ToList();
             _restartButton.gameObject.SetActive(_allReferees.Any());
-            _timeScaleSlider.value = Mathf.Log(1 + (IsCommunicatorOn ? _trainingTimeScale : 1)) / Mathf.Log(_maxTimeScale + 1);
+            _timeScaleSlider.value = Mathf.Log(1 + (IsCommunicatorOn ? _trainingTimeScale : 1)) / Mathf.Log(MaxTimeScale + 1);
             OnTimeScaleChanged();
         }
 
@@ -37,9 +37,6 @@ namespace Common
             {
                 Camera.main.orthographicSize -= 2 * Input.mouseScrollDelta.y;
             }
-
-            //ThreadPool.GetAvailableThreads(out int worker, out int io);
-            //Debug.Log($"Worker: {worker}, I/O: {io}");
         }
 
         public void OnRestart()
@@ -54,7 +51,7 @@ namespace Common
 
         public void OnTimeScaleChanged()
         {
-            float logValue = Mathf.Exp(Mathf.Log(_maxTimeScale + 1) * _timeScaleSlider.value) - 1;
+            float logValue = Mathf.Exp(Mathf.Log(MaxTimeScale + 1) * _timeScaleSlider.value) - 1;
             Time.timeScale = logValue;
             _timeScaleTextBox.text = $"Time scale: {logValue:F2}";
         }

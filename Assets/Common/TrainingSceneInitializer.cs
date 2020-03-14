@@ -1,5 +1,6 @@
 ﻿using MLAgents;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Common
 {
@@ -7,8 +8,8 @@ namespace Common
     {
         [SerializeField] private GameObject _rootPrefab;
         [SerializeField] private Transform _gym;
-        [SerializeField] private int _rootCount = 10;
         [SerializeField] private float _padding;
+        [SerializeField] private TraningGymsCount _gymsCount = TraningGymsCount.Nine;
 
         private int _rootsPerRowCount;
 
@@ -16,7 +17,7 @@ namespace Common
         private void Start()
         {
             _lastViewSize = GetMainGameViewSize();
-            _rootsPerRowCount = IsCommunicatorOn ? Mathf.FloorToInt(Mathf.Sqrt(_rootCount)) : 1;
+            _rootsPerRowCount = IsCommunicatorOn ? (int)Mathf.Sqrt((int)_gymsCount) : 1;
 
             InstantiateRoots(_rootPrefab, _gym.transform.localScale, _padding, _rootsPerRowCount);
             AlignCameraSize(GetMainGameViewSize(), _gym.transform.localScale, _padding, _rootsPerRowCount);

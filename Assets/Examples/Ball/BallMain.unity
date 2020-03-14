@@ -262,8 +262,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 50
-  m_AngularDrag: 50
+  m_LinearDrag: 40
+  m_AngularDrag: 150
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 1
@@ -341,8 +341,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   maxStep: 0
-  _maxMoveForce: 300
-  _maxTorqueForce: 25
+  _maxForce: 300
+  _maxTorque: 75
 --- !u!1 &705442258
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,6 +498,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
+      propertyPath: _test.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
+        type: 3}
       propertyPath: rootPrefab
       value: 
       objectReference: {fileID: 1288967242}
@@ -529,6 +534,11 @@ PrefabInstance:
     - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
       propertyPath: _rootCount
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
+        type: 3}
+      propertyPath: _gymsCount
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2799415686648315777, guid: beadbd66347167b4799f5c96c54b705e,
@@ -604,7 +614,7 @@ PrefabInstance:
     - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
       propertyPath: _trainingTimeScale
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beadbd66347167b4799f5c96c54b705e, type: 3}
@@ -1222,7 +1232,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052559047}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.51, z: 0}
+  m_LocalPosition: {x: 0, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 705442259}
@@ -1244,9 +1254,9 @@ MonoBehaviour:
   detectableTags:
   - Target
   - Obstacle
-  raysPerDirection: 10
+  raysPerDirection: 6
   maxRayDegrees: 90
-  sphereCastRadius: 0
+  sphereCastRadius: 0.5
   rayLength: 15
   rayLayerMask:
     serializedVersion: 2

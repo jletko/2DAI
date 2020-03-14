@@ -6,11 +6,12 @@ namespace Examples.Ball
 {
     public class BallAgent : Agent
     {
-        [SerializeField] private float _maxMoveForce;
-        [SerializeField] private float _maxTorqueForce;
+        [SerializeField] private float _maxForce;
+        [SerializeField] private float _maxTorque;
 
         private Rigidbody2D _rigidBody;
         private RayPerception2D _rayPerception;
+        private Vector2 _lastVelocity;
 
         public bool IsCrashed { get; private set; }
         public bool IsTouchingTarget { get; private set; }
@@ -31,12 +32,19 @@ namespace Examples.Ball
         public override void CollectObservations()
         {
             AddVectorObs(_rigidBody.velocity);
+            AddVectorObs(_rigidBody.velocity - _lastVelocity);
+            _lastVelocity = _rigidBody.velocity;
         }
 
         public override void AgentAction(float[] vectorAction)
         {
-            _rigidBody.AddForce(_maxMoveForce * Mathf.Clamp(vectorAction[0], -1f, 1f) * transform.up);
-            _rigidBody.AddTorque(_maxTorqueForce * Mathf.Clamp(vectorAction[1], -1f, 1f));
+            _rigidBody.AddForce(_maxForce * Mathf.Clamp(vectorAction[0], -1f, 1f) * transform.up);
+            _rigidBody.AddTorque(_maxTorque * Mathf.Clamp(vectorAction[1], -1f, 1f));
+        }
+
+        public override float[] Heuristic()
+        {
+            return new[] { Input.GetAxis("Vertical"), -Input.GetAxis("Horizontal") };
         }
 
         private void OnCollisionStay2D(Collision2D collision)
