@@ -12,6 +12,7 @@ set BRAINS_DIR_PATH=%UNITY_PROJECT_DIR_PATH%\Assets\Brains
 set RUN_DIR_NAME=Run%fullstamp%
 
 mlagents-learn %TRAINING_DIR_PATH%\trainer_config.yaml --run-id=%RUN_DIR_NAME% --train
+if not exist %BRAINS_DIR_PATH% MkDir %BRAINS_DIR_PATH%
 for /F %%b in ('dir /b models\%RUN_DIR_NAME%\*.nn') do copy models\Run%fullstamp%\%%b %BRAINS_DIR_PATH%\%%~nb_%fullstamp%%%~xb
 
 if %ERRORLEVEL% EQU 0 exit
