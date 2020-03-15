@@ -1,1 +1,0 @@
-powershell.exe -command ".\script\train.ps1" -run_id "Volleyball" -clean_board $True -brains_path "C:\Users\Juraj\Documents\_projects\2DAI\Assets\Examples\Volleyball\Brains" -brains "VolleyballBrain"
