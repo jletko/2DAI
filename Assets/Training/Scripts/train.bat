@@ -1,0 +1,1 @@
+start /min train_copy.bat
