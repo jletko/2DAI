@@ -942,7 +942,7 @@ MonoBehaviour:
     vectorActionSize: 03000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 24f0ea0a9c77eeb4b945ae8147ada279, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: fc9284d022b74f143a85bea6763201b9, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: VolleyballPlayer
@@ -2088,7 +2088,7 @@ MonoBehaviour:
     vectorActionSize: 03000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 24f0ea0a9c77eeb4b945ae8147ada279, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: fc9284d022b74f143a85bea6763201b9, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: VolleyballPlayer
