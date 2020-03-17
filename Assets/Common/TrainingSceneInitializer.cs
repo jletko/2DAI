@@ -9,7 +9,7 @@ namespace Common
         [SerializeField] private GameObject _rootPrefab;
         [SerializeField] private Transform _gym;
         [SerializeField] private float _padding;
-        [SerializeField] private TraningGymsCount _gymsCount = TraningGymsCount.Nine;
+        [SerializeField] private TraningGymsCount _gymsCount = TraningGymsCount.TwentyFive;
 
         private int _rootsPerRowCount;
 

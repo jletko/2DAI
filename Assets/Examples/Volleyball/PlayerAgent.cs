@@ -57,26 +57,21 @@ namespace Examples.Volleyball
         public override void CollectObservations()
         {
             AddVectorObs((transform.position.x - _gym.position.x) * _playerSign);
-            AddVectorObs(_rigidbody.velocity.x * _playerSign);
-
             AddVectorObs((_ballRigidBody.transform.position.x - transform.position.x) * _playerSign);
             AddVectorObs(_ballRigidBody.transform.position.y - transform.position.y);
-            AddVectorObs(_ballRigidBody.velocity.x * _playerSign);
-            AddVectorObs(_ballRigidBody.velocity.y);
-
             AddVectorObs(_leftHandRigidbody.transform.position.y - transform.position.y);
             AddVectorObs(_rightHandRigidbody.transform.position.y - transform.position.y);
-
-            AddVectorObs(_leftHandRigidbody.velocity.y);
-            AddVectorObs(_rightHandRigidbody.velocity.y);
-
-            AddVectorObs((_otherPlayer.position.x - transform.position.x) * _playerSign);
         }
 
         public override void AgentAction(float[] vectorAction)
         {
             Move(vectorAction);
             MoveHands(vectorAction);
+        }
+
+        public override float[] Heuristic()
+        {
+            return new[] { Input.GetAxis("Horizontal"), Input.GetAxis("Fire2"), Input.GetAxis("Fire1") };
         }
 
         private void Move(float[] vectorAction)

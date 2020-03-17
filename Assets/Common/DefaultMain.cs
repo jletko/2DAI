@@ -8,14 +8,15 @@ namespace Common
 {
     public class DefaultMain : MonoBehaviour
     {
+        private const float MaxTimeScale = 20;
+
         [SerializeField] private Canvas _mainCanvas;
         [SerializeField] private Text _timeScaleTextBox;
         [SerializeField] private Slider _timeScaleSlider;
         [SerializeField] private Button _restartButton;
-        [SerializeField] [Range(0, 10)] private float _trainingTimeScale = MaxTimeScale;
+        [SerializeField] [Range(0, MaxTimeScale)] private float _trainingTimeScale = MaxTimeScale;
         [SerializeField] private Vector2 _gravity = new Vector2(0, 0);
 
-        private const float MaxTimeScale = 15;
         private List<BaseReferee> _allReferees;
         private bool _isOneClick;
         private float _timerForDoubleClick;

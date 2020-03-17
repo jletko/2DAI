@@ -137,8 +137,6 @@ namespace Examples.Volleyball
             _rightScore = 0;
             _leftScoreText.text = _leftScore.ToString();
             _rightScoreText.text = _rightScore.ToString();
-            _rightPlayer.SetReward(0);
-            _leftPlayer.SetReward(0);
             _rightPlayer.Done();
             _leftPlayer.Done();
 
