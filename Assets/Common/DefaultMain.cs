@@ -1,6 +1,8 @@
 ﻿using MLAgents;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +14,8 @@ namespace Common
 
         [SerializeField] private Canvas _mainCanvas;
         [SerializeField] private Text _timeScaleTextBox;
+        [SerializeField] private Text _stepTextBox;
+        [SerializeField] private Text _timeTextBox;
         [SerializeField] private Slider _timeScaleSlider;
         [SerializeField] private Button _restartButton;
         [SerializeField] [Range(0, MaxTimeScale)] private float _trainingTimeScale = MaxTimeScale;
@@ -20,6 +24,7 @@ namespace Common
         private List<BaseReferee> _allReferees;
         private bool _isOneClick;
         private float _timerForDoubleClick;
+        private int _fixedUpdatesCount;
 
         protected virtual void Start()
         {
@@ -27,7 +32,16 @@ namespace Common
             _allReferees = FindObjectsOfType<BaseReferee>().ToList();
             _restartButton.gameObject.SetActive(_allReferees.Any());
             _timeScaleSlider.value = Mathf.Log(1 + (IsCommunicatorOn ? _trainingTimeScale : 1)) / Mathf.Log(MaxTimeScale + 1);
+            _fixedUpdatesCount = 0;
+            EditorApplication.playModeStateChanged += ModeChanged;
             OnTimeScaleChanged();
+        }
+
+        private void FixedUpdate()
+        {
+            _fixedUpdatesCount++;
+            _timeTextBox.text = $"Time: {SecondsToTime(Time.fixedTime)}";
+            _stepTextBox.text = $"Time step: {_fixedUpdatesCount}";
         }
 
         private void Update()
@@ -94,6 +108,25 @@ namespace Common
         private void OnDoubleClick()
         {
             _mainCanvas.enabled = !_mainCanvas.enabled;
+        }
+
+        private void ModeChanged(PlayModeStateChange stateChange)
+        {
+            if (!EditorApplication.isPlayingOrWillChangePlaymode &&
+                EditorApplication.isPlaying)
+            {
+                Debug.Log($"Exit fixed time: {SecondsToTime(Time.fixedTime + Time.fixedDeltaTime)}");
+                Debug.Log($"Exit fixed delta time: {Time.fixedDeltaTime}");
+                Debug.Log($"Exit fixed updates count: {_fixedUpdatesCount}");
+                Debug.Log($"Exit step count: {Academy.Instance.GetStepCount()}");
+                Debug.Log($"Exit episode count: {Academy.Instance.GetEpisodeCount()}");
+            }
+        }
+
+        private string SecondsToTime(float seconds)
+        {
+            TimeSpan time = TimeSpan.FromSeconds(seconds);
+            return time.ToString(@"hh\:mm\:ss");
         }
     }
 }

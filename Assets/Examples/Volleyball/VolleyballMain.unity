@@ -942,7 +942,7 @@ MonoBehaviour:
     vectorActionSize: 03000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 45ece5107ee53ca46843164a1785eda5, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 24f0ea0a9c77eeb4b945ae8147ada279, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: VolleyballPlayer
@@ -1968,54 +1968,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
-      propertyPath: RootPrefab
-      value: 
-      objectReference: {fileID: 1570944494}
-    - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: Academy
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: Gym
-      value: 
-      objectReference: {fileID: 1331874933}
-    - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: rootPrefab
-      value: 
-      objectReference: {fileID: 1570944494}
-    - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: academy
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: gym
-      value: 
-      objectReference: {fileID: 1331874933}
-    - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
       propertyPath: _rootPrefab
       value: 
       objectReference: {fileID: 1570944494}
     - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
-      propertyPath: _academy
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
       propertyPath: _gym
       value: 
       objectReference: {fileID: 1331874933}
-    - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: _gymsCount
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 2799415686648315777, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2070,46 +2030,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: Academy
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: academy
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: trainingTimeScale
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: maxTimeScale
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: gravity.y
-      value: -9.81
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: _academy
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: _gravity.y
-      value: -9.81
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: _trainingTimeScale
-      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beadbd66347167b4799f5c96c54b705e, type: 3}
@@ -2168,7 +2088,7 @@ MonoBehaviour:
     vectorActionSize: 03000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 45ece5107ee53ca46843164a1785eda5, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 24f0ea0a9c77eeb4b945ae8147ada279, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: VolleyballPlayer
