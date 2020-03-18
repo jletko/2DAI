@@ -1,9 +1,8 @@
 @echo off
 
-SET PATH=%PATH%;D:\Documents\_git\2DAI\Training\Scripts
-d:
-cd D:\Documents\_git\ml-agents
-cmd /k D:\Programs\Python\Virtual\MLAgents\Scripts\activate
+SET PATH=%PATH%;%PROJECTS_DIRECTORY_PATH%\2DAI\Training\Scripts
+cd /d %PROJECTS_DIRECTORY_PATH%\ml-agents
+cmd /k %ML_PYTHON_DIRECTORY_PATH%\Scripts\activate
 
 
 
