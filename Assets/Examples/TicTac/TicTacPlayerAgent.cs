@@ -5,24 +5,34 @@ using UnityEngine;
 
 namespace Examples.TicTac
 {
+    [RequireComponent(typeof(HeuristicPlayer))]
+    [RequireComponent(typeof(BehaviorParameters))]
     public class TicTacPlayerAgent : Agent
     {
         [SerializeField] private TicTacGym _gym;
 
+        private HeuristicPlayer _heuristicPlayer;
+        private BehaviorParameters _behaviorParameters;
+
         private string PlayerTag => gameObject.tag;
+
         private readonly List<int> _myLastMaskedActions = new List<int>();
 
-        //TODO: fix
-        public bool IsEnabled => true;
+        public override void InitializeAgent()
+        {
+            _heuristicPlayer = GetComponent<HeuristicPlayer>();
+            _behaviorParameters = GetComponent<BehaviorParameters>();
+            base.InitializeAgent();
+        }
 
         public override void CollectObservations()
         {
             _myLastMaskedActions.Clear();
 
             int index = 0;
-            for (int i = 0; i < _gym.Cells.GetLength(0); i++)
+            for (int i = 0; i < _gym.GymSize; i++)
             {
-                for (int j = 0; j < _gym.Cells.GetLength(1); j++)
+                for (int j = 0; j < _gym.GymSize; j++)
                 {
                     AddVectorObs(_gym.Cells[i, j].State.Equals(CellState.EMPTY));
                     if (PlayerTag.Equals(CellState.PLAYER_O))
@@ -50,11 +60,6 @@ namespace Examples.TicTac
 
         public override void AgentAction(float[] vectorAction)
         {
-            if (vectorAction == null)
-            {
-                return;
-            }
-
             if (vectorAction.Length != 1)
             {
                 throw new Exception($"Incorrect actions count. Expected: 1, actual: {vectorAction.Length}");
@@ -66,12 +71,48 @@ namespace Examples.TicTac
                 return;
             }
 
-            _gym.SetMarkForCurrentPlayer(cellIndex / _gym.Cells.GetLength(0), cellIndex % _gym.Cells.GetLength(0));
+            _gym.SetMarkForCurrentPlayer(cellIndex / _gym.GymSize, cellIndex % _gym.GymSize);
         }
 
         public override float[] Heuristic()
         {
-            return base.Heuristic();
+            return _heuristicPlayer.Result;
+        }
+
+        public override void AgentReset()
+        {
+            _heuristicPlayer.Done();
+            base.AgentReset();
+        }
+
+        public bool IsHeuristic =>
+                _behaviorParameters.Behavior == BehaviorParameters.BehaviorType.HeuristicOnly
+                || (_behaviorParameters.Behavior == BehaviorParameters.BehaviorType.Default
+                    && _behaviorParameters.Model == null);
+
+        public bool IsHeuristicEnabled => IsHeuristic && _heuristicPlayer.IsEnabled;
+
+        public void RequestDecisionEx()
+        {
+            if (!IsHeuristic)
+            {
+                RequestDecision();
+                return;
+            }
+
+            if (IsHeuristicEnabled)
+            {
+                _heuristicPlayer.RequestDecision();
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (IsHeuristicEnabled && _heuristicPlayer.HasValidResult)
+            {
+                RequestDecision();
+                _heuristicPlayer.InvalidateResult();
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace MLAgents
     public class BehaviorParameters : MonoBehaviour
     {
         [Serializable]
-        enum BehaviorType
+        public enum BehaviorType
         {
             Default,
             HeuristicOnly,
@@ -22,19 +22,19 @@ namespace MLAgents
 
         [HideInInspector]
         [SerializeField]
-        BrainParameters m_BrainParameters = new BrainParameters();
+        private BrainParameters m_BrainParameters = new BrainParameters();
         [HideInInspector]
         [SerializeField]
-        NNModel m_Model;
+        private NNModel m_Model;
         [HideInInspector]
         [SerializeField]
-        InferenceDevice m_InferenceDevice;
+        private InferenceDevice m_InferenceDevice;
         [HideInInspector]
         [SerializeField]
-        BehaviorType m_BehaviorType;
+        private BehaviorType m_BehaviorType;
         [HideInInspector]
         [SerializeField]
-        string m_BehaviorName = "My Behavior";
+        private string m_BehaviorName = "My Behavior";
         [HideInInspector]
         [SerializeField]
         public int m_TeamID;
@@ -42,7 +42,7 @@ namespace MLAgents
         [HideInInspector]
         [SerializeField]
         [Tooltip("Use all Sensor components attached to child GameObjects of this Agent.")]
-        bool m_UseChildSensors = true;
+        private bool m_UseChildSensors = true;
 
         public BrainParameters brainParameters
         {
@@ -57,6 +57,16 @@ namespace MLAgents
         public string behaviorName
         {
             get { return m_BehaviorName; }
+        }
+
+        public BehaviorType Behavior
+        {
+            get { return m_BehaviorType; }
+        }
+
+        public NNModel Model
+        {
+            get { return m_Model; }
         }
 
         /// <summary>

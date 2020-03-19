@@ -61,14 +61,14 @@ namespace Examples.TicTac
         {
             var currentPlayerGameObject = GameObject.FindGameObjectWithTag(CurrentPlayer);
             var currentPlayerAgent = currentPlayerGameObject.GetComponent<TicTacPlayerAgent>();
-            var currentHeuristicPlayer = currentPlayerGameObject.GetComponent<HeuristicPlayer>();
 
-            if (currentPlayerAgent.IsEnabled || currentHeuristicPlayer.IsEnabled)
+            if (!currentPlayerAgent.IsHeuristic || currentPlayerAgent.IsHeuristicEnabled)
             {
                 return;
             }
 
             Cell cell = sender as Cell;
+            // ReSharper disable once PossibleNullReferenceException
             cell.State = CurrentPlayer;
             IsTurnCompleted = true;
         }

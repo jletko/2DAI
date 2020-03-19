@@ -10,8 +10,6 @@ namespace Examples.TicTac
         [SerializeField] private TicTacGym _gym;
         [SerializeField] private TicTacPlayerAgent _playerO;
         [SerializeField] private TicTacPlayerAgent _playerX;
-        [SerializeField] private HeuristicPlayer _heuristicO;
-        [SerializeField] private HeuristicPlayer _heuristicX;
         [SerializeField] private TicTacPlayerAgent _startingPlayer;
         [SerializeField] private Text _oScoreText;
         [SerializeField] private Text _xScoreText;
@@ -101,30 +99,10 @@ namespace Examples.TicTac
             switch (_gym.CurrentPlayer)
             {
                 case Tags.PLAYER_O:
-                    if (_playerO.IsEnabled)
-                    {
-                        _playerO.RequestDecision();
-                        return;
-                    }
-                    if (_heuristicO.IsEnabled)
-                    {
-                        _heuristicO.RequestDecision();
-                        return;
-                    }
-
+                    _playerO.RequestDecisionEx();
                     return;
                 case Tags.PLAYER_X:
-                    if (_playerX.IsEnabled)
-                    {
-                        _playerX.RequestDecision();
-                        return;
-                    }
-                    if (_heuristicX.IsEnabled)
-                    {
-                        _heuristicX.RequestDecision();
-                        return;
-                    }
-
+                    _playerX.RequestDecisionEx();
                     return;
                 default:
                     throw new Exception($"Unknown current player tag: {_gym.CurrentPlayer}");
@@ -149,9 +127,9 @@ namespace Examples.TicTac
                     return;
             }
 
-            for (int i = 0; i < _gym.Cells.GetLength(0); i++)
+            for (int i = 0; i < _gym.GymSize; i++)
             {
-                for (int j = 0; j < _gym.Cells.GetLength(1); j++)
+                for (int j = 0; j < _gym.GymSize; j++)
                 {
                     if (_gym.Cells[i, j].State == CellState.EMPTY)
                     {
@@ -169,8 +147,6 @@ namespace Examples.TicTac
             _playerO.Done();
             _playerX.SetReward(rewardX);
             _playerX.Done();
-            _heuristicO.Done();
-            _heuristicX.Done();
             _isRestartRequested = true;
         }
 
@@ -179,7 +155,7 @@ namespace Examples.TicTac
             var winningPlayerTag = string.Empty;
             foreach (byte[,] winKernel in _winKernels)
             {
-                winningPlayerTag = GetWinningPlayerTagByKernel(winKernel, _gym.Cells);
+                winningPlayerTag = GetWinningPlayerTagByKernel(winKernel, _gym);
                 if (!string.IsNullOrEmpty(winningPlayerTag))
                 {
                     return winningPlayerTag;
@@ -189,10 +165,10 @@ namespace Examples.TicTac
             return winningPlayerTag;
         }
 
-        private string GetWinningPlayerTagByKernel(byte[,] kernel, Cell[,] boardCells)
+        private string GetWinningPlayerTagByKernel(byte[,] kernel, TicTacGym gym)
         {
-            int boardColumnsCount = boardCells.GetLength(0);
-            int boardRowsCount = boardCells.GetLength(1);
+            int boardColumnsCount = gym.GymSize;
+            int boardRowsCount = gym.GymSize;
 
             int halfKernelColumnsCount = kernel.GetLength(0) / 2;
             int halfKernelRowsCount = kernel.GetLength(1) / 2;
@@ -216,7 +192,7 @@ namespace Examples.TicTac
                                 continue;
                             }
 
-                            switch (boardCells[i + k, j + l].State)
+                            switch (gym.Cells[i + k, j + l].State)
                             {
                                 case CellState.PLAYER_O:
                                     sum++;
