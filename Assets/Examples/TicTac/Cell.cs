@@ -17,7 +17,10 @@ namespace Examples.TicTac
 
         public string State
         {
-            get => _state;
+            get
+            {
+                return _state;
+            }
 
             set
             {

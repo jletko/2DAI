@@ -73,10 +73,9 @@ namespace Examples.TicTac
                 _isRestartRequested = false;
             }
 
-            CheckIfGameIsFinished();
-
             if (_gym.IsTurnCompleted)
             {
+                CheckIfGameIsFinished();
                 SwitchCurrentPlayer();
                 RequestTurn();
             }

@@ -68,5 +68,10 @@ namespace Examples.TicTac
 
             _gym.SetMarkForCurrentPlayer(cellIndex / _gym.Cells.GetLength(0), cellIndex % _gym.Cells.GetLength(0));
         }
+
+        public override float[] Heuristic()
+        {
+            return base.Heuristic();
+        }
     }
 }

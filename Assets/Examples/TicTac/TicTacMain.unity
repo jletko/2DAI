@@ -18012,7 +18012,6 @@ GameObject:
   - component: {fileID: 1811746663}
   - component: {fileID: 1811746662}
   - component: {fileID: 1811746665}
-  - component: {fileID: 1811746664}
   m_Layer: 0
   m_Name: PlayerO
   m_TagString: PlayerO
@@ -18058,28 +18057,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811746660}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20a4fe05f2c64469afda57441853feef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _gym: {fileID: 44593303}
   _casNaPartii: 60
---- !u!114 &1811746664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811746660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecisionPeriod: 5
-  RepeatAction: 1
-  offsetStep: 0
 --- !u!114 &1811746665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18103,7 +18087,7 @@ MonoBehaviour:
   m_BehaviorType: 0
   m_BehaviorName: TicTacPlayer
   m_TeamID: 0
-  m_UseChildSensors: 1
+  m_UseChildSensors: 0
 --- !u!1 &1823304865
 GameObject:
   m_ObjectHideFlags: 0
@@ -21116,7 +21100,6 @@ GameObject:
   - component: {fileID: 2116257885}
   - component: {fileID: 2116257884}
   - component: {fileID: 2116257887}
-  - component: {fileID: 2116257886}
   m_Layer: 0
   m_Name: PlayerX
   m_TagString: PlayerX
@@ -21168,22 +21151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gym: {fileID: 44593303}
-  _casNaPartii: 600
---- !u!114 &2116257886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2116257882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecisionPeriod: 5
-  RepeatAction: 1
-  offsetStep: 1
+  _casNaPartii: 60
 --- !u!114 &2116257887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21207,7 +21175,7 @@ MonoBehaviour:
   m_BehaviorType: 0
   m_BehaviorName: TicTacPlayer
   m_TeamID: 0
-  m_UseChildSensors: 1
+  m_UseChildSensors: 0
 --- !u!1 &2116438811
 GameObject:
   m_ObjectHideFlags: 0
