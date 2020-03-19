@@ -18082,7 +18082,7 @@ MonoBehaviour:
     vectorActionSpaceType: 0
   m_Model: {fileID: 5022602860645237092, guid: c78a48caeb33dbd4798dd88fd6983424, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: TicTacPlayer
   m_TeamID: 0
   m_UseChildSensors: 0
