@@ -1,4 +1,5 @@
 ﻿using MLAgents;
+using System.Linq;
 using UnityEngine;
 
 namespace Examples.Volleyball
@@ -10,16 +11,33 @@ namespace Examples.Volleyball
         [SerializeField] private Transform _otherPlayer;
         [SerializeField] private Transform _gym;
         [SerializeField] private float _moveSpeed;
-        [SerializeField] private float _handHitForce;
+        [SerializeField] private float _handTorque;
         [SerializeField] private Rigidbody2D _ballRigidBody;
 
         private Rigidbody2D _rigidbody;
+        private HingeJoint2D _leftHingeJoint2D;
+        private HingeJoint2D _rightHingeJoint2D;
         private float _playerSign;
         private bool _isLeftPlayer;
 
         public string CollisionTag { get; private set; }
         public Hand LeftHand { get; private set; }
         public Hand RightHand { get; private set; }
+
+        public override void InitializeAgent()
+        {
+            _rigidbody = GetComponent<Rigidbody2D>();
+            _playerSign = Tags.GetPlayerSign(tag);
+            _isLeftPlayer = Tags.IsLeftPlayer(tag);
+            LeftHand = transform.Find("LeftHand").GetComponent<Hand>();
+            RightHand = transform.Find("RightHand").GetComponent<Hand>();
+            _leftHingeJoint2D = GetComponents<HingeJoint2D>().Single(o => o.connectedBody.Equals(_leftHandRigidbody));
+            _rightHingeJoint2D = GetComponents<HingeJoint2D>().Single(o => o.connectedBody.Equals(_rightHandRigidbody));
+            _leftHandRigidbody.centerOfMass = _leftHingeJoint2D.connectedAnchor;
+            _rightHandRigidbody.centerOfMass = _rightHingeJoint2D.connectedAnchor;
+
+            base.InitializeAgent();
+        }
 
         public void Restart()
         {
@@ -41,17 +59,6 @@ namespace Examples.Volleyball
             Restart();
             Ball ball = _ballRigidBody.GetComponent<Ball>();
             ball.Restart((Vector2)transform.position + new Vector2(2f * _playerSign, Random.Range(5f, _gym.localScale.y / 2)));
-        }
-
-        public override void InitializeAgent()
-        {
-            _rigidbody = GetComponent<Rigidbody2D>();
-            _playerSign = Tags.GetPlayerSign(tag);
-            _isLeftPlayer = Tags.IsLeftPlayer(tag);
-            LeftHand = transform.Find("LeftHand").GetComponent<Hand>();
-            RightHand = transform.Find("RightHand").GetComponent<Hand>();
-
-            base.InitializeAgent();
         }
 
         public override void CollectObservations()
@@ -83,23 +90,16 @@ namespace Examples.Volleyball
         private void MoveHands(float[] vectorAction)
         {
             float leftHand = Mathf.Clamp01(vectorAction[1]);
-            if (_isLeftPlayer)
-            {
-                _rightHandRigidbody.AddRelativeForce(_handHitForce * leftHand * Vector2.up, ForceMode2D.Impulse);
-            }
-            else
-            {
-                _leftHandRigidbody.AddRelativeForce(_handHitForce * leftHand * Vector2.up, ForceMode2D.Impulse);
-            }
-
             float rightHand = Mathf.Clamp01(vectorAction[2]);
             if (_isLeftPlayer)
             {
-                _leftHandRigidbody.AddRelativeForce(_handHitForce * rightHand * Vector2.up, ForceMode2D.Impulse);
+                _leftHandRigidbody.AddTorque(-_handTorque * rightHand);
+                _rightHandRigidbody.AddTorque(_handTorque * leftHand);
             }
             else
             {
-                _rightHandRigidbody.AddRelativeForce(_handHitForce * rightHand * Vector2.up, ForceMode2D.Impulse);
+                _rightHandRigidbody.AddTorque(_handTorque * rightHand);
+                _leftHandRigidbody.AddTorque(-_handTorque * leftHand);
             }
         }
 
