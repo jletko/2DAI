@@ -20,6 +20,7 @@ namespace Common
         [SerializeField] private Button _restartButton;
         [SerializeField] [Range(0, MaxTimeScale)] private float _trainingTimeScale = MaxTimeScale;
         [SerializeField] private Vector2 _gravity = new Vector2(0, 0);
+        [SerializeField] private float _fixedTimestamp = 0.02f;
 
         private List<BaseReferee> _allReferees;
         private bool _isOneClick;
@@ -29,6 +30,7 @@ namespace Common
         protected virtual void Start()
         {
             Physics2D.gravity = _gravity;
+            Time.fixedDeltaTime = _fixedTimestamp;
             _allReferees = FindObjectsOfType<BaseReferee>().ToList();
             _restartButton.gameObject.SetActive(_allReferees.Any());
             _timeScaleSlider.value = Mathf.Log(1 + (IsCommunicatorOn ? _trainingTimeScale : 1)) / Mathf.Log(MaxTimeScale + 1);
