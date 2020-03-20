@@ -18055,7 +18055,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811746660}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20a4fe05f2c64469afda57441853feef, type: 3}
   m_Name: 
@@ -18082,7 +18082,7 @@ MonoBehaviour:
     vectorActionSpaceType: 0
   m_Model: {fileID: 5022602860645237092, guid: c78a48caeb33dbd4798dd88fd6983424, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: TicTacPlayer
   m_TeamID: 0
   m_UseChildSensors: 0
@@ -21143,7 +21143,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2116257882}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20a4fe05f2c64469afda57441853feef, type: 3}
   m_Name: 
@@ -21170,7 +21170,7 @@ MonoBehaviour:
     vectorActionSpaceType: 0
   m_Model: {fileID: 5022602860645237092, guid: c78a48caeb33dbd4798dd88fd6983424, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: TicTacPlayer
   m_TeamID: 0
   m_UseChildSensors: 0

@@ -33,7 +33,9 @@ namespace Common
             _restartButton.gameObject.SetActive(_allReferees.Any());
             _timeScaleSlider.value = Mathf.Log(1 + (IsCommunicatorOn ? _trainingTimeScale : 1)) / Mathf.Log(MaxTimeScale + 1);
             _fixedUpdatesCount = 0;
+#if UNITY_EDITOR
             EditorApplication.playModeStateChanged += ModeChanged;
+#endif
             OnTimeScaleChanged();
         }
 
@@ -109,7 +111,7 @@ namespace Common
         {
             _mainCanvas.enabled = !_mainCanvas.enabled;
         }
-
+#if UNITY_EDITOR
         private void ModeChanged(PlayModeStateChange stateChange)
         {
             if (!EditorApplication.isPlayingOrWillChangePlaymode &&
@@ -122,6 +124,7 @@ namespace Common
                 Debug.Log($"Exit episode count: {Academy.Instance.GetEpisodeCount()}");
             }
         }
+#endif
 
         private string SecondsToTime(float seconds)
         {

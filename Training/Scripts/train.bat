@@ -1,1 +1,1 @@
-start /min train_copy.bat
+start /min train_copy.bat %1
