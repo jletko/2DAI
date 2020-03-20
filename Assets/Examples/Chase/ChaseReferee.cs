@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Examples.Chase
 {
-    public class ChaseReferee : BaseReferee
+    public class ChaseReferee : Referee
     {
         [SerializeField] private List<HunterAgent> _hunters;
         [SerializeField] private HuntedAgent _hunted;

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Common
 {
-    public class DefaultMain : MonoBehaviour
+    public class Main : MonoBehaviour
     {
         private const float MaxTimeScale = 20;
 
@@ -22,7 +22,7 @@ namespace Common
         [SerializeField] private Vector2 _gravity = new Vector2(0, 0);
         [SerializeField] private float _fixedTimestamp = 0.02f;
 
-        private List<BaseReferee> _allReferees;
+        private List<Referee> _allReferees;
         private bool _isOneClick;
         private float _timerForDoubleClick;
         private int _fixedUpdatesCount;
@@ -31,7 +31,7 @@ namespace Common
         {
             Physics2D.gravity = _gravity;
             Time.fixedDeltaTime = _fixedTimestamp;
-            _allReferees = FindObjectsOfType<BaseReferee>().ToList();
+            _allReferees = FindObjectsOfType<Referee>().ToList();
             _restartButton.gameObject.SetActive(_allReferees.Any());
             _timeScaleSlider.value = Mathf.Log(1 + (IsCommunicatorOn ? _trainingTimeScale : 1)) / Mathf.Log(MaxTimeScale + 1);
             _fixedUpdatesCount = 0;

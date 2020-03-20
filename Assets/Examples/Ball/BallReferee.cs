@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Examples.Ball
 {
-    public class BallReferee : BaseReferee
+    public class BallReferee : Referee
     {
         [SerializeField] private BallAgent _ballAgent;
         [SerializeField] private Transform _target;

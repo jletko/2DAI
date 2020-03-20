@@ -2,7 +2,7 @@
 
 namespace Common
 {
-    public abstract class BaseReferee : MonoBehaviour
+    public abstract class Referee : MonoBehaviour
     {
         [SerializeField] protected Transform Gym;
 
