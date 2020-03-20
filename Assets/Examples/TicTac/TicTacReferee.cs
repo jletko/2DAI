@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,42 +16,6 @@ namespace Examples.TicTac
         private bool _isRestartRequested;
         private int _oScore;
         private int _xScore;
-
-        private readonly List<byte[,]> _winKernels = new List<byte[,]>
-        {
-            new byte[,]
-            {
-                {0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0},
-                {1, 1, 1, 1, 1},
-                {0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0}
-            },
-            new byte[,]
-            {
-                {0, 0, 1, 0, 0},
-                {0, 0, 1, 0, 0},
-                {0, 0, 1, 0, 0},
-                {0, 0, 1, 0, 0},
-                {0, 0, 1, 0, 0}
-            },
-            new byte[,]
-            {
-                {1, 0, 0, 0, 0},
-                {0, 1, 0, 0, 0},
-                {0, 0, 1, 0, 0},
-                {0, 0, 0, 1, 0},
-                {0, 0, 0, 0, 1}
-            },
-            new byte[,]
-            {
-                {0, 0, 0, 0, 1},
-                {0, 0, 0, 1, 0},
-                {0, 0, 1, 0, 0},
-                {0, 1, 0, 0, 0},
-                {1, 0, 0, 0, 0}
-            }
-        };
 
         private void Start()
         {
@@ -111,7 +74,7 @@ namespace Examples.TicTac
 
         private void CheckIfGameIsFinished()
         {
-            string winningPlayerTag = GetWinningPlayerTag();
+            string winningPlayerTag = PositionEvaluator.GetWinningPlayerTag(_gym.Cells);
 
             switch (winningPlayerTag)
             {
@@ -138,7 +101,7 @@ namespace Examples.TicTac
                 }
             }
 
-            Done(0, 0);
+            Done(1, 1);
         }
 
         private void Done(float rewardO, float rewardX)
@@ -148,75 +111,6 @@ namespace Examples.TicTac
             _playerX.SetReward(rewardX);
             _playerX.Done();
             _isRestartRequested = true;
-        }
-
-        private string GetWinningPlayerTag()
-        {
-            var winningPlayerTag = string.Empty;
-            foreach (byte[,] winKernel in _winKernels)
-            {
-                winningPlayerTag = GetWinningPlayerTagByKernel(winKernel, _gym);
-                if (!string.IsNullOrEmpty(winningPlayerTag))
-                {
-                    return winningPlayerTag;
-                }
-            }
-
-            return winningPlayerTag;
-        }
-
-        private string GetWinningPlayerTagByKernel(byte[,] kernel, TicTacGym gym)
-        {
-            int boardColumnsCount = gym.GymSize;
-            int boardRowsCount = gym.GymSize;
-
-            int halfKernelColumnsCount = kernel.GetLength(0) / 2;
-            int halfKernelRowsCount = kernel.GetLength(1) / 2;
-
-            for (int i = 0; i < boardColumnsCount; i++)
-            {
-                for (int j = 0; j < boardRowsCount; j++)
-                {
-                    int sum = 0;
-                    for (int k = -halfKernelColumnsCount; k <= halfKernelColumnsCount; k++)
-                    {
-                        for (int l = -halfKernelRowsCount; l <= halfKernelRowsCount; l++)
-                        {
-                            if (i + k < 0 || j + l < 0 || i + k >= boardColumnsCount || j + l >= boardRowsCount)
-                            {
-                                continue;
-                            }
-
-                            if (kernel[k + halfKernelColumnsCount, l + halfKernelRowsCount] != 1)
-                            {
-                                continue;
-                            }
-
-                            switch (gym.Cells[i + k, j + l].State)
-                            {
-                                case CellState.PLAYER_O:
-                                    sum++;
-                                    break;
-                                case CellState.PLAYER_X:
-                                    sum--;
-                                    break;
-                                default:
-                                    sum = (int)Mathf.Sign(sum) * Mathf.Max(Mathf.Abs(sum) - 1, 0);
-                                    break;
-                            }
-                        }
-                    }
-
-                    if (Mathf.Abs(sum) < kernel.GetLength(0))
-                    {
-                        continue;
-                    }
-
-                    return sum > 0 ? Tags.PLAYER_O : Tags.PLAYER_X;
-                }
-            }
-
-            return string.Empty;
         }
     }
 }

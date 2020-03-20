@@ -57,7 +57,7 @@ namespace Examples.TicTac
             }
         }
 
-        private void OnCellClicked(object sender, EventArgs e)
+        private void OnCellClicked(Cell cell, EventArgs e)
         {
             var currentPlayerGameObject = GameObject.FindGameObjectWithTag(CurrentPlayer);
             var currentPlayerAgent = currentPlayerGameObject.GetComponent<TicTacPlayerAgent>();
@@ -67,8 +67,6 @@ namespace Examples.TicTac
                 return;
             }
 
-            Cell cell = sender as Cell;
-            // ReSharper disable once PossibleNullReferenceException
             cell.State = CurrentPlayer;
             IsTurnCompleted = true;
         }

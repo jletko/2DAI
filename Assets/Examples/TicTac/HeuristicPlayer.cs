@@ -14,6 +14,7 @@ namespace Examples.TicTac
         private BarvaKamene[,] _hraciPole;
         private BarvaKamene _barvaKamene;
         private Task<SouradnicePole> _najdiNejlepsiTahTask;
+        private bool _isRotated90Degree;
 
         public bool IsEnabled => enabled;
 
@@ -21,9 +22,10 @@ namespace Examples.TicTac
         {
             _barvaKamene = ConvertToBarvaKamene(gameObject.tag);
             _hraciPole = new BarvaKamene[_gym.GymSize, _gym.GymSize];
-            InvalidateResult();
             Result = new float[1];
+            _isRotated90Degree = false;
             ResetEngine();
+            InvalidateResult();
         }
 
         private void FixedUpdate()
@@ -33,10 +35,7 @@ namespace Examples.TicTac
                 return;
             }
 
-            SouradnicePole nejlepsiTah = _najdiNejlepsiTahTask.Result;
-            _najdiNejlepsiTahTask = null;
-
-            Result[0] = nejlepsiTah.Radek * _gym.GymSize + nejlepsiTah.Sloupec;
+            EncodeResult(_najdiNejlepsiTahTask.Result);
             HasValidResult = true;
         }
 
@@ -58,7 +57,7 @@ namespace Examples.TicTac
                 return;
             }
 
-            UpdateHraciPole(_gym);
+            DecodeGym(_gym);
             _najdiNejlepsiTahTask = Task.Run(() => _piskvorkyEngine.NajdiNejlepsiTah(_hraciPole, _barvaKamene, TimeSpan.FromSeconds(_casNaPartii)));
         }
 
@@ -69,6 +68,7 @@ namespace Examples.TicTac
                 return;
             }
 
+            //_isRotated90Degree = !_isRotated90Degree;
             ResetEngine();
             InvalidateResult();
         }
@@ -79,14 +79,34 @@ namespace Examples.TicTac
             _piskvorkyEngine = new EngineA30732();
         }
 
-        private void UpdateHraciPole(TicTacGym gym)
+        private void EncodeResult(SouradnicePole souradnicePole)
+        {
+            if (_isRotated90Degree)
+            {
+                Result[0] = souradnicePole.Radek + souradnicePole.Sloupec * _gym.GymSize;
+            }
+            else
+            {
+                Result[0] = souradnicePole.Radek * _gym.GymSize + souradnicePole.Sloupec;
+            }
+        }
+
+        private void DecodeGym(TicTacGym gym)
         {
             for (int i = 0; i < gym.GymSize; i++)
             {
                 for (int j = 0; j < gym.GymSize; j++)
                 {
-                    BarvaKamene barvaKamene = ConvertToBarvaKamene(gym.Cells[i, j].State);
-                    _hraciPole[i, j] = barvaKamene;
+                    if (_isRotated90Degree)
+                    {
+                        BarvaKamene barvaKamene = ConvertToBarvaKamene(gym.Cells[j, i].State);
+                        _hraciPole[j, i] = barvaKamene;
+                    }
+                    else
+                    {
+                        BarvaKamene barvaKamene = ConvertToBarvaKamene(gym.Cells[i, j].State);
+                        _hraciPole[i, j] = barvaKamene;
+                    }
                 }
             }
         }

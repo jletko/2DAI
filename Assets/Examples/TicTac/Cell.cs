@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,7 +14,7 @@ namespace Examples.TicTac
 
         private string _state = CellState.EMPTY;
 
-        public event EventHandler Clicked;
+        public event EventHandler<Cell, EventArgs> Clicked;
 
         public string State
         {
