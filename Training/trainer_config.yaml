@@ -48,6 +48,7 @@ VolleyballPlayer:
     max_steps: 0.50e6
     buffer_size: 4096
     batch_size: 256
+    learning_rate: 1.0e-3
     
 TicTacPlayer:
     time_horizon: 128

@@ -919,7 +919,7 @@ MonoBehaviour:
   _ball: {fileID: 1600094719}
   _leftScoreText: {fileID: 1399001464}
   _rightScoreText: {fileID: 1326186669}
-  _holdTimeout: 1
+  _holdTimeout: 0.3
 --- !u!1 &1600094714
 GameObject:
   m_ObjectHideFlags: 0

@@ -408,7 +408,7 @@ HingeJoint2D:
   m_ConnectedAnchor: {x: 0.5, y: 0.3}
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: 300
+    m_MotorSpeed: 500
     m_MaximumMotorForce: 500
   m_UseLimits: 1
   m_AngleLimits:
@@ -432,7 +432,7 @@ HingeJoint2D:
   m_ConnectedAnchor: {x: -0.5, y: 0.3}
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: -300
+    m_MotorSpeed: -500
     m_MaximumMotorForce: 500
   m_UseLimits: 1
   m_AngleLimits:
@@ -459,7 +459,7 @@ MonoBehaviour:
   _otherPlayer: {fileID: 0}
   _gym: {fileID: 0}
   _moveSpeed: 0.7
-  _handTorque: 3000
+  _handTorque: 2500
   _ballRigidBody: {fileID: 0}
 --- !u!114 &2337440270465166560
 MonoBehaviour:
@@ -479,7 +479,7 @@ MonoBehaviour:
     vectorActionSize: 03000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: fc9284d022b74f143a85bea6763201b9, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: b94820e020565c24eb7504fdb6c5e5eb, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: VolleyballPlayer
