@@ -36,6 +36,7 @@ namespace Examples.TicTac
             }
 
             EncodeResult(_najdiNejlepsiTahTask.Result);
+            _najdiNejlepsiTahTask = null;
             HasValidResult = true;
         }
 
