@@ -14,7 +14,6 @@ namespace Examples.TicTac
         private BarvaKamene[,] _hraciPole;
         private BarvaKamene _barvaKamene;
         private Task<SouradnicePole> _najdiNejlepsiTahTask;
-        private bool _isRotated90Degree;
 
         public bool IsEnabled => enabled;
 
@@ -23,7 +22,6 @@ namespace Examples.TicTac
             _barvaKamene = ConvertToBarvaKamene(gameObject.tag);
             _hraciPole = new BarvaKamene[_gym.GymSize, _gym.GymSize];
             Result = new float[1];
-            _isRotated90Degree = false;
             ResetEngine();
             InvalidateResult();
         }
@@ -69,7 +67,6 @@ namespace Examples.TicTac
                 return;
             }
 
-            //_isRotated90Degree = !_isRotated90Degree;
             ResetEngine();
             InvalidateResult();
         }
@@ -82,14 +79,7 @@ namespace Examples.TicTac
 
         private void EncodeResult(SouradnicePole souradnicePole)
         {
-            if (_isRotated90Degree)
-            {
-                Result[0] = souradnicePole.Radek + souradnicePole.Sloupec * _gym.GymSize;
-            }
-            else
-            {
-                Result[0] = souradnicePole.Radek * _gym.GymSize + souradnicePole.Sloupec;
-            }
+            Result[0] = souradnicePole.Radek * _gym.GymSize + souradnicePole.Sloupec;
         }
 
         private void DecodeGym(TicTacGym gym)
@@ -98,16 +88,8 @@ namespace Examples.TicTac
             {
                 for (int j = 0; j < gym.GymSize; j++)
                 {
-                    if (_isRotated90Degree)
-                    {
-                        BarvaKamene barvaKamene = ConvertToBarvaKamene(gym.Cells[j, i].State);
-                        _hraciPole[j, i] = barvaKamene;
-                    }
-                    else
-                    {
-                        BarvaKamene barvaKamene = ConvertToBarvaKamene(gym.Cells[i, j].State);
-                        _hraciPole[i, j] = barvaKamene;
-                    }
+                    BarvaKamene barvaKamene = ConvertToBarvaKamene(gym.Cells[i, j].State);
+                    _hraciPole[i, j] = barvaKamene;
                 }
             }
         }
