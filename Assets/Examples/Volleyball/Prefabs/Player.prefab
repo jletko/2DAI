@@ -474,12 +474,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 5
+    vectorObservationSize: 7
     numStackedVectorObservations: 2
     vectorActionSize: 03000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 4ba98fe0dc0c45445a58012df14ff29b, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 84602b715907fd8429749d2f0f6e5bed, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: VolleyballPlayer

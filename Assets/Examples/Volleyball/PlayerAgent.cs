@@ -66,6 +66,8 @@ namespace Examples.Volleyball
             AddVectorObs((transform.position.x - _gym.position.x) * _playerSign);
             AddVectorObs((_ballRigidBody.transform.position.x - transform.position.x) * _playerSign);
             AddVectorObs(_ballRigidBody.transform.position.y - transform.position.y);
+            AddVectorObs(_ballRigidBody.velocity.x * _playerSign);
+            AddVectorObs(_ballRigidBody.velocity.y);
             AddVectorObs(_leftHandRigidbody.transform.position.y - transform.position.y);
             AddVectorObs(_rightHandRigidbody.transform.position.y - transform.position.y);
         }
