@@ -479,7 +479,7 @@ MonoBehaviour:
     vectorActionSize: 03000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: b94820e020565c24eb7504fdb6c5e5eb, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 2afb9dace06f88541a5839e4b72e7718, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: VolleyballPlayer

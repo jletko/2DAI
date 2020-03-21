@@ -45,9 +45,9 @@ Hunted:
     max_steps: 3e5
   
 VolleyballPlayer:
-    max_steps: 0.50e6
+    max_steps: 1e6
     buffer_size: 4096
-    batch_size: 256
+    batch_size: 128
     learning_rate: 1.0e-3
     
 TicTacPlayer:
