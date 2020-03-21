@@ -32,16 +32,17 @@ namespace Examples.Volleyball
 
         private void FixedUpdate()
         {
+            _leftPlayer.AddReward(0.001f);
+            _rightPlayer.AddReward(0.001f);
+
             if (_leftPlayer.CollisionTag.Equals(Tags.NET) || _leftPlayer.CollisionTag.Equals(Tags.WALL))
             {
-                RestartRound(Tags.RIGHT_PLAYER);
-                return;
+                _leftPlayer.AddReward(-0.1f);
             }
 
             if (_rightPlayer.CollisionTag.Equals(Tags.NET) || _rightPlayer.CollisionTag.Equals(Tags.WALL))
             {
-                RestartRound(Tags.LEFT_PLAYER);
-                return;
+                _rightPlayer.AddReward(-0.1f);
             }
 
             switch (_ball.CollisionTag)
@@ -101,8 +102,8 @@ namespace Examples.Volleyball
 
             float playerSign = Tags.GetPlayerSign(winningPlayer);
 
-            _rightPlayer.SetReward(playerSign);
-            _leftPlayer.SetReward(-playerSign);
+            _rightPlayer.AddReward(playerSign);
+            _leftPlayer.AddReward(-playerSign);
 
             _leftPlayer.Done();
             _rightPlayer.Done();
