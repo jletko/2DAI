@@ -48,7 +48,7 @@ namespace Examples.Volleyball
             Vector2 gymQuarterScale = _gym.localScale / 4;
             float randomXOffset = gymQuarterScale.x * Random.Range(-0.8f, 0.8f);
             float xPosition = _gym.position.x + _playerSign * gymQuarterScale.x + randomXOffset;
-            float yPosition = _gym.position.y - 2 * gymQuarterScale.y + 1.1f;
+            float yPosition = _gym.position.y - 2 * gymQuarterScale.y + 2.6f;
 
             transform.position = new Vector2(xPosition, yPosition);
             _rigidbody.velocity = Vector2.zero;
