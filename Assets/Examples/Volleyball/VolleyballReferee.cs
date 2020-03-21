@@ -57,8 +57,9 @@ namespace Examples.Volleyball
 
                 case Tags.LEFT_PLAYER:
                 case Tags.RIGHT_PLAYER:
-                    if (CheckBallHoldAndTouch())
+                    if (CheckBallHold() || CheckBallDoubleTouch())
                     {
+                        RestartRound(Tags.GetOtherPlayer(_ball.CollisionTag));
                         return;
                     }
                     break;
@@ -67,32 +68,42 @@ namespace Examples.Volleyball
             _oldBallCollisionTag = _ball.CollisionTag;
         }
 
-        private bool CheckBallHoldAndTouch()
+        private bool CheckBallHold()
         {
             if (_ball.CollisionTag == _oldBallCollisionTag)
             {
                 _holdTimeDelta += Time.fixedDeltaTime;
                 if (_holdTimeDelta > _holdTimeout)
                 {
-                    RestartRound(Tags.GetOtherPlayer(_ball.CollisionTag));
+
                     return true;
                 }
             }
             else
             {
                 _holdTimeDelta = 0;
-
-                if (_ball.CollisionTag != _lastTouchPlayer)
-                {
-                    _lastTouchTime = Time.fixedTime;
-                    _lastTouchPlayer = _ball.CollisionTag;
-                }
-                else if (Time.fixedTime - _lastTouchTime > _holdTimeout)
-                {
-                    RestartRound(Tags.GetOtherPlayer(_ball.CollisionTag));
-                    return true;
-                }
             }
+
+            return false;
+        }
+
+        private bool CheckBallDoubleTouch()
+        {
+            if (_ball.CollisionTag == _oldBallCollisionTag)
+            {
+                return false;
+            }
+
+            if (_ball.CollisionTag != _lastTouchPlayer)
+            {
+                _lastTouchTime = Time.fixedTime;
+                _lastTouchPlayer = _ball.CollisionTag;
+            }
+            else if (Time.fixedTime - _lastTouchTime > _holdTimeout)
+            {
+                return true;
+            }
+
             return false;
         }
 
