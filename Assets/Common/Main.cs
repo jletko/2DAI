@@ -50,7 +50,10 @@ namespace Common
 
         private void Update()
         {
-            CheckDoubleClick();
+            if (Input.GetMouseButtonDown(2))
+            {
+                _mainCanvas.enabled = !_mainCanvas.enabled;
+            }
 
             if (IsCommunicatorOn)
             {
@@ -65,7 +68,11 @@ namespace Common
 
         public void OnQuit()
         {
-            Application.Quit();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+         Application.Quit();
+#endif
         }
 
         public void OnTimeScaleChanged()
@@ -77,42 +84,6 @@ namespace Common
 
         private bool IsCommunicatorOn => Academy.Instance.IsCommunicatorOn;
 
-        private void CheckDoubleClick()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (!_isOneClick) // first click no previous clicks
-                {
-                    _isOneClick = true;
-
-                    // save the current time
-                    _timerForDoubleClick = Time.time;
-
-                    // do one click things
-                }
-                else
-                {
-                    _isOneClick = false; // found a double click, now reset
-
-                    // do double click things
-                    OnDoubleClick();
-                }
-            }
-            if (_isOneClick)
-            {
-                // if the time now is delay seconds more than when the first click started. 
-                if ((Time.time - _timerForDoubleClick) > 0.75f * Time.timeScale)
-                {
-                    //basically if thats true its been too long and we want to reset so the next click is simply a single click and not a double click.
-                    _isOneClick = false;
-                }
-            }
-        }
-
-        private void OnDoubleClick()
-        {
-            _mainCanvas.enabled = !_mainCanvas.enabled;
-        }
 #if UNITY_EDITOR
         private void ModeChanged(PlayModeStateChange stateChange)
         {
