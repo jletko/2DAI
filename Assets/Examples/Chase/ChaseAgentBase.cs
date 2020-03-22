@@ -25,6 +25,11 @@ namespace Examples.Chase
             RigidBody = GetComponent<Rigidbody2D>();
         }
 
+        public override float[] Heuristic()
+        {
+            return new[] { Input.GetAxis("Vertical"), -Input.GetAxis("Horizontal") };
+        }
+
         public override void AgentAction(float[] vectorAction)
         {
             RigidBody.AddForce(_maxMoveForce * Mathf.Clamp(vectorAction[0], -1f, 1f) * transform.up);

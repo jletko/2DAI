@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 5211304079690016242}
   - component: {fileID: 5211304079690016247}
   - component: {fileID: 5211304079690016240}
+  - component: {fileID: 1928001371573586983}
   m_Layer: 0
   m_Name: Hunted
   m_TagString: Hunted
@@ -332,7 +333,7 @@ MonoBehaviour:
     vectorActionSize: 02000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 8a81fe52c067fa54494c2177bc25b771, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 57d6def6b60a72143a5d3ae2217b616c, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Hunted
@@ -353,3 +354,16 @@ MonoBehaviour:
   DecisionPeriod: 5
   RepeatAction: 1
   offsetStep: 0
+--- !u!114 &1928001371573586983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5211304079690016236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0d1f1b66794dcdac2c8f619c730467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _period: 1

@@ -294,6 +294,7 @@ GameObject:
   - component: {fileID: 6950122827193789745}
   - component: {fileID: 6950122827193789749}
   - component: {fileID: 6950122827193789748}
+  - component: {fileID: 4384513918921261701}
   m_Layer: 0
   m_Name: Hunter
   m_TagString: Hunter
@@ -374,7 +375,7 @@ MonoBehaviour:
     vectorActionSize: 02000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 0156cb57a62432346858cb801ae856ce, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: a23c0f0694706fc4ab6fef7c65137fa1, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Hunter
@@ -395,3 +396,16 @@ MonoBehaviour:
   DecisionPeriod: 5
   RepeatAction: 1
   offsetStep: 0
+--- !u!114 &4384513918921261701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6950122827193789759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0d1f1b66794dcdac2c8f619c730467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _period: 1
