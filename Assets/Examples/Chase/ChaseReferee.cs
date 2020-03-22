@@ -22,23 +22,22 @@ namespace Examples.Chase
 
         private void FixedUpdate()
         {
-            AddSpeedRewardForAgents(0.0001f, 0.1f, 3, _hunted);
-            AddSpeedRewardForAgents(0.0001f, 0.1f, 3, _hunters.ToArray());
+            AddReward(-0.001f, 0.001f);
 
             if (TimeSinceLastRestart > 30)
             {
-                AddRewardAndRestart(-1f, 1f);
+                SetRewardAndRestart(-1f, 1f);
             }
 
             if (_hunted.IsCatched)
             {
-                AddRewardAndRestart(1f, -1f);
+                SetRewardAndRestart(1f, -1f);
             }
         }
 
-        private void AddRewardAndRestart(float huntersReward, float huntedReward)
+        private void SetRewardAndRestart(float huntersReward, float huntedReward)
         {
-            AddReward(huntersReward, huntedReward);
+            SetReward(huntersReward, huntedReward);
             Restart();
         }
 
@@ -46,6 +45,12 @@ namespace Examples.Chase
         {
             _hunters.ForEach(o => o.AddReward(huntersReward));
             _hunted.AddReward(huntedReward);
+        }
+
+        private void SetReward(float huntersReward, float huntedReward)
+        {
+            _hunters.ForEach(o => o.SetReward(huntersReward));
+            _hunted.SetReward(huntedReward);
         }
     }
 }

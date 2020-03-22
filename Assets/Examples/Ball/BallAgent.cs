@@ -1,9 +1,9 @@
-﻿using Common;
+﻿using MLAgents;
 using UnityEngine;
 
 namespace Examples.Ball
 {
-    public class BallAgent : AgentBase
+    public class BallAgent : Agent
     {
         [SerializeField] private float _maxForce;
         [SerializeField] private float _maxTorque;

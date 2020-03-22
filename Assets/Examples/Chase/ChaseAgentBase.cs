@@ -1,9 +1,9 @@
-﻿using Common;
+﻿using MLAgents;
 using UnityEngine;
 
 namespace Examples.Chase
 {
-    public abstract class ChaseAgentBase : AgentBase
+    public abstract class ChaseAgentBase : Agent
     {
         [SerializeField] private float _maxMoveForce;
         [SerializeField] private float _maxTorqueForce;
