@@ -22,44 +22,43 @@ namespace Examples.Chase
 
         private void FixedUpdate()
         {
-            if (TimeSinceLastRestart > 15)
+            AddSpeedRewardForAgents(0.0001f, 0.1f, 3, _hunted);
+            AddSpeedRewardForAgents(0.0001f, 0.1f, 3, _hunters.ToArray());
+
+            if (TimeSinceLastRestart > 30)
             {
-                AddRewardAndRestart(-1, 1);
+                AddRewardAndRestart(-1f, 1f);
             }
 
             if (_hunted.IsCatched)
             {
-                AddRewardAndRestart(1, -1);
+                AddRewardAndRestart(1f, -1f);
             }
-
-            if (_hunted.IsCrashed)
-            {
-                _hunted.AddReward(-0.002f);
-            }
-
-            foreach (HunterAgent hunter in _hunters)
-            {
-                if (hunter.IsCrashed)
-                {
-                    hunter.AddReward(-0.002f);
-                }
-            }
-        }
-
-        private void SetRewardAndRestart(float huntersReward, float huntedReward)
-        {
-            _hunters.ForEach(o => o.SetReward(huntersReward));
-            _hunted.SetReward(huntedReward);
-
-            Restart();
         }
 
         private void AddRewardAndRestart(float huntersReward, float huntedReward)
         {
+            AddReward(huntersReward, huntedReward);
+            Restart();
+        }
+
+        private void AddReward(float huntersReward, float huntedReward)
+        {
             _hunters.ForEach(o => o.AddReward(huntersReward));
             _hunted.AddReward(huntedReward);
+        }
 
-            Restart();
+        private void AddSpeedRewardForAgents(float coefficient, float minspeed, float maxspeed, params ChaseAgentBase[] agents)
+        {
+            foreach (ChaseAgentBase agent in agents)
+            {
+                if (agent.Speed < minspeed)
+                {
+                    continue;
+                }
+
+                agent.AddReward(coefficient * Mathf.Clamp(agent.Speed, 0, maxspeed));
+            }
         }
     }
 }

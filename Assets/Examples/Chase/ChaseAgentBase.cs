@@ -12,6 +12,8 @@ namespace Examples.Chase
 
         public bool IsCrashed { get; private set; }
 
+        public float Speed => RigidBody.velocity.magnitude;
+
         public virtual void Restart(Vector2 startPosition)
         {
             RigidBody.angularVelocity = 0;
