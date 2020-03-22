@@ -409,6 +409,11 @@ PrefabInstance:
       propertyPath: _trainingTimeScale
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
+        type: 3}
+      propertyPath: _gravity.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beadbd66347167b4799f5c96c54b705e, type: 3}
 --- !u!1 &1279200569
