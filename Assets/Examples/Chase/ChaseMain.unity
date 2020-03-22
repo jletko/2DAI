@@ -501,6 +501,11 @@ PrefabInstance:
       propertyPath: _academy
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
+        type: 3}
+      propertyPath: _gravity.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beadbd66347167b4799f5c96c54b705e, type: 3}
 --- !u!1001 &5211304079315951395
@@ -569,11 +574,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5211304079690016247, guid: cc26c929796847a4c97f544825f6a827,
-        type: 3}
-      propertyPath: m_BehaviorType
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc26c929796847a4c97f544825f6a827, type: 3}
