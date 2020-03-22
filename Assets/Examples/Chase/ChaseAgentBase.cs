@@ -1,9 +1,9 @@
-﻿using MLAgents;
+﻿using Common;
 using UnityEngine;
 
 namespace Examples.Chase
 {
-    public abstract class ChaseAgentBase : Agent
+    public abstract class ChaseAgentBase : AgentBase
     {
         [SerializeField] private float _maxMoveForce;
         [SerializeField] private float _maxTorqueForce;
@@ -11,8 +11,6 @@ namespace Examples.Chase
         protected Rigidbody2D RigidBody;
 
         public bool IsCrashed { get; private set; }
-
-        public float Speed => RigidBody.velocity.magnitude;
 
         public virtual void Restart(Vector2 startPosition)
         {

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Examples.Volleyball
 {
-    public class VolleyballReferee : Referee
+    public class VolleyballReferee : RefereeBase
     {
         [SerializeField] private PlayerAgent _leftPlayer;
         [SerializeField] private PlayerAgent _rightPlayer;

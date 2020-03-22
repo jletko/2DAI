@@ -203,7 +203,7 @@ MonoBehaviour:
     vectorActionSize: 02000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: c51d2775bf6376d43971420457554f74, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 5c17ad7cb9745f6459c53845ab1a3d59, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Ball

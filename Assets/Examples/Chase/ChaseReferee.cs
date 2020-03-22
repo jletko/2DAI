@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Examples.Chase
 {
-    public class ChaseReferee : Referee
+    public class ChaseReferee : RefereeBase
     {
         [SerializeField] private List<HunterAgent> _hunters;
         [SerializeField] private HuntedAgent _hunted;
@@ -46,19 +46,6 @@ namespace Examples.Chase
         {
             _hunters.ForEach(o => o.AddReward(huntersReward));
             _hunted.AddReward(huntedReward);
-        }
-
-        private void AddSpeedRewardForAgents(float coefficient, float minspeed, float maxspeed, params ChaseAgentBase[] agents)
-        {
-            foreach (ChaseAgentBase agent in agents)
-            {
-                if (agent.Speed < minspeed)
-                {
-                    continue;
-                }
-
-                agent.AddReward(coefficient * Mathf.Clamp(agent.Speed, 0, maxspeed));
-            }
         }
     }
 }
