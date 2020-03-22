@@ -13,7 +13,7 @@ namespace MLAgents
     public class BehaviorParameters : MonoBehaviour
     {
         [Serializable]
-        public enum BehaviorType
+        private enum BehaviorType
         {
             Default,
             HeuristicOnly,
@@ -59,16 +59,6 @@ namespace MLAgents
             get { return m_BehaviorName; }
         }
 
-        public BehaviorType Behavior
-        {
-            get { return m_BehaviorType; }
-        }
-
-        public NNModel Model
-        {
-            get { return m_Model; }
-        }
-
         /// <summary>
         /// Returns the behavior name, concatenated with any other metadata (i.e. team id).
         /// </summary>
@@ -111,6 +101,35 @@ namespace MLAgents
             m_Model = model;
             m_InferenceDevice = inferenceDevice;
             m_BehaviorName = newBehaviorName;
+        }
+
+        public bool IsHeuristic
+        {
+            get
+            {
+                switch (m_BehaviorType)
+                {
+                    case BehaviorType.HeuristicOnly:
+                        return true;
+                    case BehaviorType.InferenceOnly:
+                        return false;
+                    case BehaviorType.Default:
+                        if (Academy.Instance.IsCommunicatorOn)
+                        {
+                            return false;
+                        }
+                        if (m_Model != null)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    default:
+                        return true;
+                }
+            }
         }
     }
 }

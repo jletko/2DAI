@@ -85,10 +85,7 @@ namespace Examples.TicTac
             base.AgentReset();
         }
 
-        public bool IsHeuristic =>
-                _behaviorParameters.Behavior == BehaviorParameters.BehaviorType.HeuristicOnly
-                || (_behaviorParameters.Behavior == BehaviorParameters.BehaviorType.Default
-                    && _behaviorParameters.Model == null);
+        public bool IsHeuristic => _behaviorParameters.IsHeuristic;
 
         public bool IsHeuristicEnabled => IsHeuristic && _heuristicPlayer.IsEnabled;
 

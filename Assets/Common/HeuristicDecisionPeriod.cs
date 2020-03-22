@@ -11,11 +11,7 @@ namespace Common
 
         private void Start()
         {
-            BehaviorParameters behaviorParameters = GetComponent<BehaviorParameters>();
-
-            if (behaviorParameters.Behavior == BehaviorParameters.BehaviorType.HeuristicOnly
-                || (behaviorParameters.Behavior == BehaviorParameters.BehaviorType.Default
-                    && behaviorParameters.Model == null))
+            if (GetComponent<BehaviorParameters>().IsHeuristic)
             {
                 GetComponent<DecisionRequester>().DecisionPeriod = _period;
             }
