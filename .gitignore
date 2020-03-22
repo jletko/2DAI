@@ -72,3 +72,5 @@ crashlytics-build.properties
 [Bb]in/
 /UnitySDK.log
 *_timers.json
+/[Aa]ssets/[Bb]rainsTmp/*
+/[Aa]ssets/[Bb]rainsTmp.meta
