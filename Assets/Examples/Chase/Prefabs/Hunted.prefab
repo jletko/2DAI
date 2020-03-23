@@ -333,7 +333,7 @@ MonoBehaviour:
     vectorActionSize: 02000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: ad01bed05da789647a239aaa65817d48, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 427e00d737d6d304589d82cfc4f8e06c, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Hunted
