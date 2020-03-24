@@ -84,23 +84,24 @@ namespace Examples.Volleyball
         {
             float[] actions = new float[3];
 
-            var horizontal = Input.GetAxis("Horizontal");
-            if (horizontal > 0)
+            //TODO: use axis but with "infinite" sensitivity so the action is instant 
+            // but consider other example scenes/agents are using the same axis and are analog based
+            if (Input.GetKey(KeyCode.RightArrow))
             {
                 actions[0] = 1;
             }
 
-            if (horizontal < 0)
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
                 actions[0] = 2;
             }
 
-            if (Input.GetAxis("Fire1") > 0)
+            if (Input.GetKey(KeyCode.LeftControl))
             {
                 actions[1] = 1;
             }
 
-            if (Input.GetAxis("Fire2") > 0)
+            if (Input.GetKey(KeyCode.LeftAlt))
             {
                 actions[2] = 1;
             }
