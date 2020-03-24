@@ -213,6 +213,12 @@ PrefabInstance:
       propertyPath: m_TagString
       value: LeftPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 2337440270465166560, guid: 5d29e5c0d2792ef4cafd757a3b51b73f,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 60473e9db6a48294fb2b3120c4c59702,
+        type: 3}
     - target: {fileID: 2337440270465166574, guid: 5d29e5c0d2792ef4cafd757a3b51b73f,
         type: 3}
       propertyPath: m_Name
@@ -543,6 +549,12 @@ PrefabInstance:
       propertyPath: m_TagString
       value: RightPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 2337440270465166560, guid: 5d29e5c0d2792ef4cafd757a3b51b73f,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 60473e9db6a48294fb2b3120c4c59702,
+        type: 3}
     - target: {fileID: 2337440270465166574, guid: 5d29e5c0d2792ef4cafd757a3b51b73f,
         type: 3}
       propertyPath: m_Name

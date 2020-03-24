@@ -23,6 +23,7 @@ namespace Examples.Volleyball
         public string CollisionTag { get; private set; }
         public Hand LeftHand { get; private set; }
         public Hand RightHand { get; private set; }
+        public float PowerApplied { get; private set; }
 
         public override void InitializeAgent()
         {
@@ -68,40 +69,92 @@ namespace Examples.Volleyball
             AddVectorObs(_ballRigidBody.transform.position.y - transform.position.y);
             AddVectorObs(_ballRigidBody.velocity.x * _playerSign);
             AddVectorObs(_ballRigidBody.velocity.y);
-            AddVectorObs(_leftHandRigidbody.transform.position.y - transform.position.y);
-            AddVectorObs(_rightHandRigidbody.transform.position.y - transform.position.y);
+            AddVectorObs(_leftHandRigidbody.transform.position.y - transform.position.y > 0 ? 1 : 0);
+            AddVectorObs(_rightHandRigidbody.transform.position.y - transform.position.y > 0 ? 1 : 0);
         }
 
         public override void AgentAction(float[] vectorAction)
         {
+            PowerApplied = 0;
             Move(vectorAction);
             MoveHands(vectorAction);
         }
 
         public override float[] Heuristic()
         {
-            return new[] { Input.GetAxis("Horizontal"), Input.GetAxis("Fire2"), Input.GetAxis("Fire1") };
+            float[] actions = new float[3];
+
+            var horizontal = Input.GetAxis("Horizontal");
+            if (horizontal > 0)
+            {
+                actions[0] = 1;
+            }
+
+            if (horizontal < 0)
+            {
+                actions[0] = 2;
+            }
+
+            if (Input.GetAxis("Fire1") > 0)
+            {
+                actions[1] = 1;
+            }
+
+            if (Input.GetAxis("Fire2") > 0)
+            {
+                actions[2] = 1;
+            }
+
+            return actions;
         }
 
         private void Move(float[] vectorAction)
         {
-            float movement = Mathf.Clamp(vectorAction[0], -1f, 1f);
-            _rigidbody.MovePosition(_rigidbody.position + _moveSpeed * movement * Vector2.left * _playerSign);
+            int movement = Mathf.FloorToInt(vectorAction[0]);
+            switch (movement)
+            {
+                case 1:
+                    _rigidbody.MovePosition(_rigidbody.position + _moveSpeed * Vector2.left * _playerSign);
+                    PowerApplied += 1;
+                    break;
+                case 2:
+                    _rigidbody.MovePosition(_rigidbody.position - _moveSpeed * Vector2.left * _playerSign);
+                    PowerApplied += 1;
+                    break;
+            }
         }
 
         private void MoveHands(float[] vectorAction)
         {
-            float leftHand = Mathf.Clamp01(vectorAction[1]);
-            float rightHand = Mathf.Clamp01(vectorAction[2]);
+            int leftHand = Mathf.FloorToInt(vectorAction[1]);
+            int rightHand = Mathf.FloorToInt(vectorAction[2]);
             if (_isLeftPlayer)
             {
-                _leftHandRigidbody.AddTorque(-_handTorque * rightHand);
-                _rightHandRigidbody.AddTorque(_handTorque * leftHand);
+                if (leftHand == 1)
+                {
+                    _leftHandRigidbody.AddTorque(-_handTorque);
+                    PowerApplied += 1;
+                }
+
+                if (rightHand == 1)
+                {
+                    _rightHandRigidbody.AddTorque(_handTorque);
+                    PowerApplied += 1;
+                }
             }
             else
             {
-                _rightHandRigidbody.AddTorque(_handTorque * rightHand);
-                _leftHandRigidbody.AddTorque(-_handTorque * leftHand);
+                if (leftHand == 1)
+                {
+                    _rightHandRigidbody.AddTorque(_handTorque);
+                    PowerApplied += 1;
+                }
+
+                if (rightHand == 1)
+                {
+                    _leftHandRigidbody.AddTorque(-_handTorque);
+                    PowerApplied += 1;
+                }
             }
         }
 

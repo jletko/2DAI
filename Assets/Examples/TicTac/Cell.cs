@@ -28,7 +28,6 @@ namespace Examples.TicTac
                 if (!_state.Equals(CellState.EMPTY) && !value.Equals(CellState.EMPTY))
                 {
                     throw new Exception("Trying to overwrite existing non empty cell state.");
-                    return;
                 }
 
                 _state = value;
