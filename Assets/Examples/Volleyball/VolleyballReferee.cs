@@ -35,8 +35,8 @@ namespace Examples.Volleyball
             _leftPlayer.AddReward(0.001f);
             _rightPlayer.AddReward(0.001f);
 
-            _leftPlayer.AddReward(-_leftPlayer.PowerApplied * 0.001f);
-            _rightPlayer.AddReward(-_rightPlayer.PowerApplied * 0.001f);
+            _leftPlayer.AddReward(-_leftPlayer.Power * 0.001f);
+            _rightPlayer.AddReward(-_rightPlayer.Power * 0.001f);
 
             if (_leftPlayer.CollisionTag.Equals(Tags.NET) || _leftPlayer.CollisionTag.Equals(Tags.WALL))
             {

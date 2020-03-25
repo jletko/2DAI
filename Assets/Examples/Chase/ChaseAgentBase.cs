@@ -11,6 +11,7 @@ namespace Examples.Chase
         protected Rigidbody2D RigidBody;
 
         public bool IsCrashed { get; private set; }
+        public float Power { get; private set; }
 
         public float Speed => RigidBody.velocity.magnitude;
 
@@ -34,8 +35,15 @@ namespace Examples.Chase
 
         public override void AgentAction(float[] vectorAction)
         {
-            RigidBody.AddForce(_maxMoveForce * Mathf.Clamp(vectorAction[0], -1f, 1f) * transform.up);
-            RigidBody.AddTorque(_maxTorqueForce * Mathf.Clamp(vectorAction[1], -1f, 1f));
+            Power = 0;
+
+            float move = Mathf.Clamp(vectorAction[0], -1f, 1f);
+            RigidBody.AddForce(_maxMoveForce * move * transform.up);
+            Power += Mathf.Abs(move);
+
+            float torque = Mathf.Clamp(vectorAction[1], -1f, 1f);
+            RigidBody.AddTorque(_maxTorqueForce * torque);
+            Power += Mathf.Abs(torque);
         }
 
         protected virtual void OnCollisionStay2D(Collision2D collision)

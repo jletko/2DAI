@@ -23,7 +23,7 @@ namespace Examples.Volleyball
         public string CollisionTag { get; private set; }
         public Hand LeftHand { get; private set; }
         public Hand RightHand { get; private set; }
-        public float PowerApplied { get; private set; }
+        public float Power { get; private set; }
 
         public override void InitializeAgent()
         {
@@ -75,7 +75,7 @@ namespace Examples.Volleyball
 
         public override void AgentAction(float[] vectorAction)
         {
-            PowerApplied = 0;
+            Power = 0;
             Move(vectorAction);
             MoveHands(vectorAction);
         }
@@ -116,11 +116,11 @@ namespace Examples.Volleyball
             {
                 case 1:
                     _rigidbody.MovePosition(_rigidbody.position + _moveSpeed * Vector2.left * _playerSign);
-                    PowerApplied += 1;
+                    Power += 1;
                     break;
                 case 2:
                     _rigidbody.MovePosition(_rigidbody.position - _moveSpeed * Vector2.left * _playerSign);
-                    PowerApplied += 1;
+                    Power += 1;
                     break;
             }
         }
@@ -134,13 +134,13 @@ namespace Examples.Volleyball
                 if (leftHand == 1)
                 {
                     _leftHandRigidbody.AddTorque(-_handTorque);
-                    PowerApplied += 1;
+                    Power += 1;
                 }
 
                 if (rightHand == 1)
                 {
                     _rightHandRigidbody.AddTorque(_handTorque);
-                    PowerApplied += 1;
+                    Power += 1;
                 }
             }
             else
@@ -148,13 +148,13 @@ namespace Examples.Volleyball
                 if (leftHand == 1)
                 {
                     _rightHandRigidbody.AddTorque(_handTorque);
-                    PowerApplied += 1;
+                    Power += 1;
                 }
 
                 if (rightHand == 1)
                 {
                     _leftHandRigidbody.AddTorque(-_handTorque);
-                    PowerApplied += 1;
+                    Power += 1;
                 }
             }
         }

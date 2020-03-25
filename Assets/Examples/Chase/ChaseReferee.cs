@@ -22,8 +22,7 @@ namespace Examples.Chase
 
         private void FixedUpdate()
         {
-            AddSpeedRewardForAgents(0.0001f, 0.1f, 3, _hunted);
-            AddSpeedRewardForAgents(0.0001f, 0.1f, 3, _hunters.ToArray());
+            ApplySpentEnergyPenaltyOnAgents(0.0005f);
 
             if (TimeSinceLastRestart > 30)
             {
@@ -54,17 +53,10 @@ namespace Examples.Chase
             _hunted.SetReward(huntedReward);
         }
 
-        private void AddSpeedRewardForAgents(float coefficient, float minspeed, float maxspeed, params ChaseAgentBase[] agents)
+        private void ApplySpentEnergyPenaltyOnAgents(float coefficient)
         {
-            foreach (ChaseAgentBase agent in agents)
-            {
-                if (agent.Speed < minspeed)
-                {
-                    continue;
-                }
-
-                agent.AddReward(coefficient * Mathf.Clamp(agent.Speed, 0, maxspeed));
-            }
+            _hunters.ForEach(o => o.AddReward(-coefficient * o.Power));
+            _hunted.AddReward(-coefficient * _hunted.Power);
         }
     }
 }
