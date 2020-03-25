@@ -52,7 +52,7 @@ MonoBehaviour:
   raysPerDirection: 4
   maxRayDegrees: 90
   sphereCastRadius: 0.3
-  rayLength: 10
+  rayLength: 5
   rayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
@@ -375,7 +375,7 @@ MonoBehaviour:
     vectorActionSize: 02000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: c4aafd13e150e7d4b86132d44d9a1ead, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 1ad9df550827e85478f5a97749e5bbf7, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Hunter

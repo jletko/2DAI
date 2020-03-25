@@ -231,7 +231,7 @@ MonoBehaviour:
   raysPerDirection: 8
   maxRayDegrees: 180
   sphereCastRadius: 0.3
-  rayLength: 10
+  rayLength: 5
   rayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
@@ -333,7 +333,7 @@ MonoBehaviour:
     vectorActionSize: 02000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 427e00d737d6d304589d82cfc4f8e06c, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 6449528c84225d44bb5d05b89835f7da, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Hunted

@@ -13,8 +13,6 @@ namespace Examples.Chase
         public bool IsCrashed { get; private set; }
         public float Power { get; private set; }
 
-        public float Speed => RigidBody.velocity.magnitude;
-
         public virtual void Restart(Vector2 startPosition)
         {
             RigidBody.angularVelocity = 0;
@@ -37,13 +35,13 @@ namespace Examples.Chase
         {
             Power = 0;
 
-            float move = Mathf.Clamp(vectorAction[0], -1f, 1f);
-            RigidBody.AddForce(_maxMoveForce * move * transform.up);
-            Power += Mathf.Abs(move);
+            float forceCoeff = Mathf.Clamp(vectorAction[0], -1f, 1f);
+            RigidBody.AddForce(_maxMoveForce * forceCoeff * transform.up);
+            Power += Mathf.Abs(forceCoeff);
 
-            float torque = Mathf.Clamp(vectorAction[1], -1f, 1f);
-            RigidBody.AddTorque(_maxTorqueForce * torque);
-            Power += Mathf.Abs(torque);
+            float torqueCoeff = Mathf.Clamp(vectorAction[1], -1f, 1f);
+            RigidBody.AddTorque(_maxTorqueForce * torqueCoeff);
+            Power += Mathf.Abs(torqueCoeff);
         }
 
         protected virtual void OnCollisionStay2D(Collision2D collision)
