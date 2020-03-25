@@ -24,6 +24,7 @@ namespace Examples.Ball
         private void FixedUpdate()
         {
             _ballAgent.AddReward(-0.001f);
+            _ballAgent.AddReward(-_ballAgent.Power * 0.001f);
 
             if (TimeSinceLastRestart > 15)
             {

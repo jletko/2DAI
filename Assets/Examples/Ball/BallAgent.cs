@@ -12,6 +12,7 @@ namespace Examples.Ball
 
         public bool IsCrashed { get; private set; }
         public bool IsTouchingTarget { get; private set; }
+        public float Power { get; private set; }
 
         public void Restart(Vector2 startPosition)
         {
@@ -27,8 +28,15 @@ namespace Examples.Ball
 
         public override void AgentAction(float[] vectorAction)
         {
-            _rigidBody.AddForce(_maxForce * Mathf.Clamp(vectorAction[0], -1f, 1f) * transform.up);
-            _rigidBody.AddTorque(_maxTorque * Mathf.Clamp(vectorAction[1], -1f, 1f));
+            Power = 0;
+
+            float forceCoeff = Mathf.Clamp(vectorAction[0], -1f, 1f);
+            _rigidBody.AddForce(_maxForce * forceCoeff * transform.up);
+            Power += Mathf.Abs(forceCoeff);
+
+            float torqueCoeff = Mathf.Clamp(vectorAction[1], -1f, 1f);
+            _rigidBody.AddTorque(_maxTorque * torqueCoeff);
+            Power += Mathf.Abs(torqueCoeff);
         }
 
         public override float[] Heuristic()
