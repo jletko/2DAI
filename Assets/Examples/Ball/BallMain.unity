@@ -259,26 +259,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main
       objectReference: {fileID: 0}
-    - target: {fileID: 1855812852722625638, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1855812852722625639, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: m_Text
-      value: 'Time scale: 1'
-      objectReference: {fileID: 0}
-    - target: {fileID: 1855812853024220326, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 1855812853073198145, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -80
-      objectReference: {fileID: 0}
     - target: {fileID: 1855812853288821927, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -288,6 +268,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855812854857893782, guid: beadbd66347167b4799f5c96c54b705e,
+        type: 3}
+      propertyPath: orthographic size
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2364157288660510608, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
@@ -388,26 +373,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: academy
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: _academy
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: _maxTimeScale
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
-        type: 3}
-      propertyPath: _trainingTimeScale
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
