@@ -214,6 +214,7 @@ MonoBehaviour:
   _restartButton: {fileID: 1855812853073198150}
   _trainingTimeScale: 20
   _gravity: {x: 0, y: -9.81}
+  _fixedTimestamp: 0.02
 --- !u!1 &1855812852722625633
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +482,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 120, y: -10}
+  m_AnchoredPosition: {x: 110, y: -10}
   m_SizeDelta: {x: 55, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1855812853024220325
@@ -610,7 +611,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -120, y: -10}
+  m_AnchoredPosition: {x: -110, y: -10}
   m_SizeDelta: {x: 50, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1855812853073198148
@@ -1257,7 +1258,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 23
+  orthographic size: 11
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
