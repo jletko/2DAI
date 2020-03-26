@@ -375,7 +375,7 @@ MonoBehaviour:
     vectorActionSize: 02000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 1ad9df550827e85478f5a97749e5bbf7, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 2c4e59f74f357ad409eb5f104602a75d, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Hunter

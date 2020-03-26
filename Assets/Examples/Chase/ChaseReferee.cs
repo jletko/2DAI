@@ -22,7 +22,7 @@ namespace Examples.Chase
 
         private void FixedUpdate()
         {
-            ApplySpentEnergyPenaltyOnAgents(0.0005f);
+            ApplySpentEnergyPenaltyOnAgents(0.0001f);
 
             if (TimeSinceLastRestart > 30)
             {
