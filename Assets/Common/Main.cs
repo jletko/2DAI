@@ -93,8 +93,8 @@ namespace Common
                 Debug.Log($"Exit fixed time: {SecondsToTime(Time.fixedTime + Time.fixedDeltaTime)}");
                 Debug.Log($"Exit fixed delta time: {Time.fixedDeltaTime}");
                 Debug.Log($"Exit fixed updates count: {_fixedUpdatesCount}");
-                Debug.Log($"Exit step count: {Academy.Instance.GetStepCount()}");
-                Debug.Log($"Exit episode count: {Academy.Instance.GetEpisodeCount()}");
+                Debug.Log($"Exit step count: {Academy.Instance.StepCount}");
+                Debug.Log($"Exit episode count: {Academy.Instance.EpisodeCount}");
             }
         }
 #endif

@@ -1,4 +1,6 @@
 ﻿using MLAgents;
+using MLAgents.Policies;
+using MLAgents.Sensors;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,14 +20,35 @@ namespace Examples.TicTac
 
         private readonly List<int> _myLastMaskedActions = new List<int>();
 
-        public override void InitializeAgent()
+        public override void Initialize()
         {
             _heuristicPlayer = GetComponent<HeuristicPlayer>();
             _behaviorParameters = GetComponent<BehaviorParameters>();
-            base.InitializeAgent();
+            base.Initialize();
         }
 
-        public override void CollectObservations()
+        public override void CollectObservations(VectorSensor sensor)
+        {
+            for (int i = 0; i < _gym.GymSize; i++)
+            {
+                for (int j = 0; j < _gym.GymSize; j++)
+                {
+                    sensor.AddObservation(_gym.Cells[i, j].State.Equals(CellState.EMPTY));
+                    if (PlayerTag.Equals(CellState.PLAYER_O))
+                    {
+                        sensor.AddObservation(_gym.Cells[i, j].State.Equals(CellState.PLAYER_O));
+                        sensor.AddObservation(_gym.Cells[i, j].State.Equals(CellState.PLAYER_X));
+                    }
+                    else
+                    {
+                        sensor.AddObservation(_gym.Cells[i, j].State.Equals(CellState.PLAYER_X));
+                        sensor.AddObservation(_gym.Cells[i, j].State.Equals(CellState.PLAYER_O));
+                    }
+                }
+            }
+        }
+
+        public override void CollectDiscreteActionMasks(DiscreteActionMasker actionMasker)
         {
             _myLastMaskedActions.Clear();
 
@@ -34,18 +57,6 @@ namespace Examples.TicTac
             {
                 for (int j = 0; j < _gym.GymSize; j++)
                 {
-                    AddVectorObs(_gym.Cells[i, j].State.Equals(CellState.EMPTY));
-                    if (PlayerTag.Equals(CellState.PLAYER_O))
-                    {
-                        AddVectorObs(_gym.Cells[i, j].State.Equals(CellState.PLAYER_O));
-                        AddVectorObs(_gym.Cells[i, j].State.Equals(CellState.PLAYER_X));
-                    }
-                    else
-                    {
-                        AddVectorObs(_gym.Cells[i, j].State.Equals(CellState.PLAYER_X));
-                        AddVectorObs(_gym.Cells[i, j].State.Equals(CellState.PLAYER_O));
-                    }
-
                     if (!_gym.Cells[i, j].State.Equals(CellState.EMPTY))
                     {
                         _myLastMaskedActions.Add(index);
@@ -55,10 +66,10 @@ namespace Examples.TicTac
                 }
             }
 
-            SetActionMask(0, _myLastMaskedActions);
+            actionMasker.SetMask(0, _myLastMaskedActions);
         }
 
-        public override void AgentAction(float[] vectorAction)
+        public override void OnActionReceived(float[] vectorAction)
         {
             if (vectorAction.Length != 1)
             {
@@ -79,10 +90,10 @@ namespace Examples.TicTac
             return _heuristicPlayer.Result;
         }
 
-        public override void AgentReset()
+        public override void OnEpisodeBegin()
         {
             _heuristicPlayer.Done();
-            base.AgentReset();
+            base.OnEpisodeBegin();
         }
 
         public bool IsHeuristic => _behaviorParameters.IsHeuristic;

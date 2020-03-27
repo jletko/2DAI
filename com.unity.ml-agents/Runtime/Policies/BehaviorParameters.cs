@@ -74,7 +74,7 @@ namespace MLAgents.Policies
         public InferenceDevice inferenceDevice
         {
             get { return m_InferenceDevice; }
-            set { m_InferenceDevice = value; UpdateAgentPolicy();}
+            set { m_InferenceDevice = value; UpdateAgentPolicy(); }
         }
 
         [HideInInspector, SerializeField]
@@ -135,6 +135,45 @@ namespace MLAgents.Policies
             get { return m_BehaviorName + "?team=" + TeamId; }
         }
 
+        public bool IsHeuristic
+        {
+            get
+            {
+                switch (m_BehaviorType)
+                {
+                    case BehaviorType.HeuristicOnly:
+                        return true;
+                    case BehaviorType.InferenceOnly:
+                        {
+                            if (m_Model == null)
+                            {
+                                var behaviorType = BehaviorType.InferenceOnly.ToString();
+                                throw new UnityAgentsException(
+                                    $"Can't use Behavior Type {behaviorType} without a model. " +
+                                    "Either assign a model, or change to a different Behavior Type."
+                                );
+                            }
+                            return false;
+                        }
+                    case BehaviorType.Default:
+                        if (Academy.Instance.IsCommunicatorOn)
+                        {
+                            return false;
+                        }
+                        if (m_Model != null)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    default:
+                        return true;
+                }
+            }
+        }
+
         internal IPolicy GeneratePolicy(Func<float[]> heuristic)
         {
             switch (m_BehaviorType)
@@ -142,17 +181,17 @@ namespace MLAgents.Policies
                 case BehaviorType.HeuristicOnly:
                     return new HeuristicPolicy(heuristic);
                 case BehaviorType.InferenceOnly:
-                {
-                    if (m_Model == null)
                     {
-                        var behaviorType = BehaviorType.InferenceOnly.ToString();
-                        throw new UnityAgentsException(
-                            $"Can't use Behavior Type {behaviorType} without a model. " +
-                            "Either assign a model, or change to a different Behavior Type."
-                        );
+                        if (m_Model == null)
+                        {
+                            var behaviorType = BehaviorType.InferenceOnly.ToString();
+                            throw new UnityAgentsException(
+                                $"Can't use Behavior Type {behaviorType} without a model. " +
+                                "Either assign a model, or change to a different Behavior Type."
+                            );
+                        }
+                        return new BarracudaPolicy(m_BrainParameters, m_Model, m_InferenceDevice);
                     }
-                    return new BarracudaPolicy(m_BrainParameters, m_Model, m_InferenceDevice);
-                }
                 case BehaviorType.Default:
                     if (Academy.Instance.IsCommunicatorOn)
                     {

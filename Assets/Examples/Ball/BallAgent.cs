@@ -21,12 +21,12 @@ namespace Examples.Ball
             transform.position = startPosition;
         }
 
-        public override void InitializeAgent()
+        public override void Initialize()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
         }
 
-        public override void AgentAction(float[] vectorAction)
+        public override void OnActionReceived(float[] vectorAction)
         {
             Power = 0;
 

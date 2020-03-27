@@ -207,7 +207,7 @@ MonoBehaviour:
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Ball
-  m_TeamID: 0
+  TeamId: 0
   m_UseChildSensors: 1
 --- !u!114 &1455822634996969309
 MonoBehaviour:
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
-  RepeatAction: 1
+  TakeActionsBetweenDecisions: 1
   offsetStep: 0
 --- !u!1 &1455822636104923466
 GameObject:
@@ -378,18 +378,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorName: RayPerceptionSensor
-  detectableTags:
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags:
   - Target
   - Obstacle
-  raysPerDirection: 6
-  maxRayDegrees: 90
-  sphereCastRadius: 0.25
-  rayLength: 5
-  rayLayerMask:
+  m_RaysPerDirection: 6
+  m_MaxRayDegrees: 90
+  m_SphereCastRadius: 0.25
+  m_RayLength: 5
+  m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
-  observationStacks: 1
+  m_ObservationStacks: 1
   rayHitColor: {r: 0, g: 1, b: 0.16210175, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  useWorldPositions: 1

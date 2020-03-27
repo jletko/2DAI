@@ -1,4 +1,5 @@
 ﻿using MLAgents;
+using MLAgents.Sensors;
 using System.Linq;
 using UnityEngine;
 
@@ -25,7 +26,7 @@ namespace Examples.Volleyball
         public Hand RightHand { get; private set; }
         public float Power { get; private set; }
 
-        public override void InitializeAgent()
+        public override void Initialize()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _playerSign = Tags.GetPlayerSign(tag);
@@ -37,7 +38,7 @@ namespace Examples.Volleyball
             _leftHandRigidbody.centerOfMass = _leftHingeJoint2D.connectedAnchor;
             _rightHandRigidbody.centerOfMass = _rightHingeJoint2D.connectedAnchor;
 
-            base.InitializeAgent();
+            base.Initialize();
         }
 
         public void Restart()
@@ -62,18 +63,18 @@ namespace Examples.Volleyball
             ball.Restart((Vector2)transform.position + new Vector2(2f * _playerSign, Random.Range(5f, _gym.localScale.y / 2)));
         }
 
-        public override void CollectObservations()
+        public override void CollectObservations(VectorSensor sensor)
         {
-            AddVectorObs((transform.position.x - _gym.position.x) * _playerSign);
-            AddVectorObs((_ballRigidBody.transform.position.x - transform.position.x) * _playerSign);
-            AddVectorObs(_ballRigidBody.transform.position.y - transform.position.y);
-            AddVectorObs(_ballRigidBody.velocity.x * _playerSign);
-            AddVectorObs(_ballRigidBody.velocity.y);
-            AddVectorObs(_leftHandRigidbody.transform.position.y - transform.position.y > 0 ? 1 : 0);
-            AddVectorObs(_rightHandRigidbody.transform.position.y - transform.position.y > 0 ? 1 : 0);
+            sensor.AddObservation((transform.position.x - _gym.position.x) * _playerSign);
+            sensor.AddObservation((_ballRigidBody.transform.position.x - transform.position.x) * _playerSign);
+            sensor.AddObservation(_ballRigidBody.transform.position.y - transform.position.y);
+            sensor.AddObservation(_ballRigidBody.velocity.x * _playerSign);
+            sensor.AddObservation(_ballRigidBody.velocity.y);
+            sensor.AddObservation(_leftHandRigidbody.transform.position.y - transform.position.y > 0 ? 1 : 0);
+            sensor.AddObservation(_rightHandRigidbody.transform.position.y - transform.position.y > 0 ? 1 : 0);
         }
 
-        public override void AgentAction(float[] vectorAction)
+        public override void OnActionReceived(float[] vectorAction)
         {
             Power = 0;
             Move(vectorAction);

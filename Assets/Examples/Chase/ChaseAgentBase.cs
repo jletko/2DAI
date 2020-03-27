@@ -21,7 +21,7 @@ namespace Examples.Chase
             IsCrashed = false;
         }
 
-        public override void InitializeAgent()
+        public override void Initialize()
         {
             RigidBody = GetComponent<Rigidbody2D>();
         }
@@ -31,7 +31,7 @@ namespace Examples.Chase
             return new[] { Input.GetAxis("Vertical"), -Input.GetAxis("Horizontal") };
         }
 
-        public override void AgentAction(float[] vectorAction)
+        public override void OnActionReceived(float[] vectorAction)
         {
             Power = 0;
 
