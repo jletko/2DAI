@@ -33,16 +33,20 @@ namespace Examples.TicTac
             {
                 for (int j = 0; j < _gym.GymSize; j++)
                 {
-                    sensor.AddObservation(_gym.Cells[i, j].State.Equals(CellState.EMPTY));
-                    if (PlayerTag.Equals(CellState.PLAYER_O))
+                    if (_gym.Cells[i, j].State == CellState.EMPTY)
                     {
-                        sensor.AddObservation(_gym.Cells[i, j].State.Equals(CellState.PLAYER_O));
-                        sensor.AddObservation(_gym.Cells[i, j].State.Equals(CellState.PLAYER_X));
+                        sensor.AddOneHotObservation(0, 3);
+                        return;
                     }
-                    else
+                    if (_gym.Cells[i, j].State == PlayerTag)
                     {
-                        sensor.AddObservation(_gym.Cells[i, j].State.Equals(CellState.PLAYER_X));
-                        sensor.AddObservation(_gym.Cells[i, j].State.Equals(CellState.PLAYER_O));
+                        sensor.AddOneHotObservation(1, 3);
+                        return;
+                    }
+                    if (_gym.Cells[i, j].State == Tags.GetOtherPlayer(PlayerTag))
+                    {
+                        sensor.AddOneHotObservation(2, 3);
+                        return;
                     }
                 }
             }
