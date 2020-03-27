@@ -13,10 +13,10 @@ namespace Examples.Chase
         {
             base.Restart();
 
-            _hunted.Done();
+            _hunted.EndEpisode();
             _hunted.Restart(GetRandomPositionInGym());
 
-            _hunters.ForEach(o => o.Done());
+            _hunters.ForEach(o => o.EndEpisode());
             _hunters.ForEach(o => o.Restart(GetRandomPositionInGym()));
         }
 

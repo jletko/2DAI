@@ -11,7 +11,7 @@ namespace Examples.Ball
         public override void Restart()
         {
             base.Restart();
-            _ballAgent.Done();
+            _ballAgent.EndEpisode();
             _ballAgent.Restart(transform.position);
             _target.position = GetRandomPositionInGym();
         }

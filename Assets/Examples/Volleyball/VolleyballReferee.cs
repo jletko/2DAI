@@ -119,8 +119,8 @@ namespace Examples.Volleyball
             _rightPlayer.AddReward(playerSign);
             _leftPlayer.AddReward(-playerSign);
 
-            _leftPlayer.Done();
-            _rightPlayer.Done();
+            _leftPlayer.EndEpisode();
+            _rightPlayer.EndEpisode();
 
             if (winningPlayer.Equals(Tags.LEFT_PLAYER))
             {
@@ -152,8 +152,8 @@ namespace Examples.Volleyball
             _rightScore = 0;
             _leftScoreText.text = _leftScore.ToString();
             _rightScoreText.text = _rightScore.ToString();
-            _rightPlayer.Done();
-            _leftPlayer.Done();
+            _rightPlayer.EndEpisode();
+            _leftPlayer.EndEpisode();
 
             _oldBallCollisionTag = string.Empty;
             _lastTouchPlayer = string.Empty;

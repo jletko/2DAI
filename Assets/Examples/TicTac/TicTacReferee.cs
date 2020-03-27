@@ -107,9 +107,9 @@ namespace Examples.TicTac
         private void Done(float rewardO, float rewardX)
         {
             _playerO.SetReward(rewardO);
-            _playerO.Done();
+            _playerO.EndEpisode();
             _playerX.SetReward(rewardX);
-            _playerX.Done();
+            _playerX.EndEpisode();
             _isRestartRequested = true;
         }
     }

@@ -1078,7 +1078,7 @@ PrefabInstance:
     - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
       propertyPath: _trainingTimeScale
-      value: 0.01
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
         type: 3}
@@ -11651,11 +11651,21 @@ PrefabInstance:
       propertyPath: _gym
       value: 
       objectReference: {fileID: 44593303}
+    - target: {fileID: 2502781395507727238, guid: 6bdd992ee5165754a86cebea85e7e1b4,
+        type: 3}
+      propertyPath: _casNaPartii
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2502781395507727239, guid: 6bdd992ee5165754a86cebea85e7e1b4,
         type: 3}
       propertyPath: _gym
       value: 
       objectReference: {fileID: 44593303}
+    - target: {fileID: 2502781395507727240, guid: 6bdd992ee5165754a86cebea85e7e1b4,
+        type: 3}
+      propertyPath: m_BehaviorType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bdd992ee5165754a86cebea85e7e1b4, type: 3}
 --- !u!4 &1097633622 stripped
@@ -12232,11 +12242,21 @@ PrefabInstance:
       propertyPath: _gym
       value: 
       objectReference: {fileID: 44593303}
+    - target: {fileID: 2502781395507727238, guid: 6bdd992ee5165754a86cebea85e7e1b4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2502781395507727239, guid: 6bdd992ee5165754a86cebea85e7e1b4,
         type: 3}
       propertyPath: _gym
       value: 
       objectReference: {fileID: 44593303}
+    - target: {fileID: 2502781395507727240, guid: 6bdd992ee5165754a86cebea85e7e1b4,
+        type: 3}
+      propertyPath: m_BehaviorType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bdd992ee5165754a86cebea85e7e1b4, type: 3}
 --- !u!4 &1145475903 stripped
