@@ -16,11 +16,13 @@ namespace Examples.TicTac
         private bool _isRestartRequested;
         private int _oScore;
         private int _xScore;
+        private byte[,] _byteCells;
 
         private void Start()
         {
             _oScoreText.text = _oScore.ToString();
             _xScoreText.text = _xScore.ToString();
+            _byteCells = new byte[_gym.GymSize, _gym.GymSize];
 
             _isRestartRequested = true;
         }
@@ -74,7 +76,8 @@ namespace Examples.TicTac
 
         private void CheckIfGameIsFinished()
         {
-            string winningPlayerTag = PositionEvaluator.GetWinningPlayerTag(_gym.Cells);
+            UpdateByteGymCells();
+            string winningPlayerTag = PositionEvaluator.GetWinningPlayerTag(_byteCells);
 
             switch (winningPlayerTag)
             {
@@ -102,6 +105,30 @@ namespace Examples.TicTac
             }
 
             Done(1, 1);
+        }
+
+        private void UpdateByteGymCells()
+        {
+            for (int i = 0; i < _gym.GymSize; i++)
+            {
+                for (int j = 0; j < _gym.GymSize; j++)
+                {
+                    switch (_gym.Cells[i, j].State)
+                    {
+                        case CellState.PLAYER_O:
+                            _byteCells[i, j] = 1;
+                            break;
+                        case CellState.PLAYER_X:
+                            _byteCells[i, j] = 2;
+                            break;
+                        case CellState.EMPTY:
+                            _byteCells[i, j] = 0;
+                            break;
+                        default:
+                            throw new ArgumentException($"Unknown cell state {_gym.Cells[i, j].State}");
+                    }
+                }
+            }
         }
 
         private void Done(float rewardO, float rewardX)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Examples.TicTac
@@ -41,7 +42,7 @@ namespace Examples.TicTac
                                                              }
                                                      };
 
-        public static string GetWinningPlayerTag(Cell[,] cells)
+        public static string GetWinningPlayerTag(byte[,] cells)
         {
             var winningPlayerTag = string.Empty;
             foreach (byte[,] winKernel in WinKernels)
@@ -56,7 +57,7 @@ namespace Examples.TicTac
             return winningPlayerTag;
         }
 
-        private static string GetWinningPlayerTagByKernel(byte[,] kernel, Cell[,] cells)
+        private static string GetWinningPlayerTagByKernel(byte[,] kernel, byte[,] cells)
         {
             int boardRowsCount = cells.GetLength(0);
             int boardColumnsCount = cells.GetLength(1);
@@ -83,17 +84,19 @@ namespace Examples.TicTac
                                 continue;
                             }
 
-                            switch (cells[i + k, j + l].State)
+                            switch (cells[i + k, j + l])
                             {
-                                case CellState.PLAYER_O:
+                                case 0:
+                                    sum = (int)Mathf.Sign(sum) * Mathf.Max(Mathf.Abs(sum) - 1, 0);
+                                    break;
+                                case 1:
                                     sum++;
                                     break;
-                                case CellState.PLAYER_X:
+                                case 2:
                                     sum--;
                                     break;
                                 default:
-                                    sum = (int)Mathf.Sign(sum) * Mathf.Max(Mathf.Abs(sum) - 1, 0);
-                                    break;
+                                    throw new ArgumentException($"Unknown cell value: {cells[i + k, j + l]}");
                             }
                         }
                     }
