@@ -77,16 +77,16 @@ namespace Examples.TicTac
         private void CheckIfGameIsFinished()
         {
             UpdateByteGymCells();
-            string winningPlayerTag = PositionEvaluator.GetWinningPlayerTag(_byteCells);
+            byte winningPlayer = PositionEvaluator.GetWinningPlayer(_byteCells);
 
-            switch (winningPlayerTag)
+            switch (winningPlayer)
             {
-                case Tags.PLAYER_O:
+                case 1:
                     Done(1, -1);
                     _oScore++;
                     _oScoreText.text = _oScore.ToString();
                     return;
-                case Tags.PLAYER_X:
+                case 2:
                     Done(-1, 1);
                     _xScore++;
                     _xScoreText.text = _xScore.ToString();
