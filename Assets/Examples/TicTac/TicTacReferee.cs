@@ -16,14 +16,14 @@ namespace Examples.TicTac
         private bool _isRestartRequested;
         private float _oScore;
         private float _xScore;
-        private byte[,] _byteCells;
+        private byte[,] _byteGymCells;
         private PositionEvaluator _positionEvaluator;
 
         private void Start()
         {
             _oScoreText.text = _oScore.ToString();
             _xScoreText.text = _xScore.ToString();
-            _byteCells = new byte[_gym.GymSize, _gym.GymSize];
+            _byteGymCells = new byte[_gym.GymSize, _gym.GymSize];
             _positionEvaluator = new PositionEvaluator();
 
             _isRestartRequested = true;
@@ -41,14 +41,26 @@ namespace Examples.TicTac
             if (_gym.IsTurnCompleted)
             {
                 UpdatePositionStats();
-
                 if (CheckWinner() || CheckDraw())
                 {
                     return;
                 }
 
+                AddPositionRewards();
                 SwitchCurrentPlayer();
                 RequestTurn();
+            }
+        }
+
+        private void AddPositionRewards()
+        {
+            if (_positionEvaluator.PositionStatsDelta[GetCellStateByte(_gym.CurrentPlayer), 3] > 0)
+            {
+                GetPlayer(_gym.CurrentPlayer).AddReward(0.01f);
+            }
+            if (_positionEvaluator.PositionStatsDelta[GetCellStateByte(Tags.GetOtherPlayer(_gym.CurrentPlayer)), 3] < 0)
+            {
+                GetPlayer(_gym.CurrentPlayer).AddReward(0.01f);
             }
         }
 
@@ -129,7 +141,7 @@ namespace Examples.TicTac
         private void UpdatePositionStats()
         {
             UpdateByteGymCells();
-            _positionEvaluator.UpdatePositionStats(_byteCells);
+            _positionEvaluator.UpdatePositionStats(_byteGymCells);
         }
 
         private void UpdateByteGymCells()
@@ -138,42 +150,57 @@ namespace Examples.TicTac
             {
                 for (int j = 0; j < _gym.GymSize; j++)
                 {
-                    switch (_gym.Cells[i, j].State)
-                    {
-                        case CellState.PLAYER_O:
-                            _byteCells[i, j] = 1;
-                            break;
-                        case CellState.PLAYER_X:
-                            _byteCells[i, j] = 2;
-                            break;
-                        case CellState.EMPTY:
-                            _byteCells[i, j] = 0;
-                            break;
-                        default:
-                            throw new ArgumentException($"Unknown cell state {_gym.Cells[i, j].State}");
-                    }
+                    _byteGymCells[i, j] = GetCellStateByte(_gym.Cells[i, j].State);
                 }
             }
         }
 
         private static string GetWinner(int[,] positionStats)
         {
-            if (positionStats[1, 5] > 0 && positionStats[2, 5] > 0)
+            if (positionStats[GetCellStateByte(Tags.PLAYER_O), 5] > 0 && positionStats[GetCellStateByte(Tags.PLAYER_X), 5] > 0)
             {
                 throw new Exception("Both players reported as winners which should not occure.");
             }
 
-            if (positionStats[1, 5] > 0)
+            if (positionStats[GetCellStateByte(Tags.PLAYER_O), 5] > 0)
             {
                 return Tags.PLAYER_O;
             }
 
-            if (positionStats[2, 5] > 0)
+            if (positionStats[GetCellStateByte(Tags.PLAYER_X), 5] > 0)
             {
                 return Tags.PLAYER_X;
             }
 
             return String.Empty;
+        }
+
+        private TicTacPlayerAgent GetPlayer(string playerTag)
+        {
+            switch (playerTag)
+            {
+                case Tags.PLAYER_O:
+                    return _playerO;
+                case Tags.PLAYER_X:
+                    return _playerX;
+                default:
+                    throw new ArgumentException($"Invalid player tag: {_gym.CurrentPlayer}");
+            }
+        }
+
+        private static byte GetCellStateByte(string cellState)
+        {
+            switch (cellState)
+            {
+                case CellState.EMPTY:
+                    return 0;
+                case CellState.PLAYER_O:
+                    return 1;
+                case CellState.PLAYER_X:
+                    return 2;
+                default:
+                    throw new ArgumentException($"Invalid CellState: {cellState}");
+            }
         }
 
         private void Done(float rewardO, float rewardX)
