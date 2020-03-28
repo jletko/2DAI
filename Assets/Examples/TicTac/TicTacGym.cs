@@ -6,12 +6,12 @@ namespace Examples.TicTac
     public class TicTacGym : MonoBehaviour
     {
         public GameObject CellPrefab;
-        public int GymSize;
 
         public Cell[,] Cells { get; private set; }
 
         public string CurrentPlayer { get; set; }
         public bool IsTurnCompleted { get; set; }
+        public int GymSize { get; private set; }
 
         public void SetMarkForCurrentPlayer(int row, int column)
         {
@@ -38,16 +38,15 @@ namespace Examples.TicTac
         {
             IsTurnCompleted = true;
 
-            int width = (int)transform.localScale.x;
-            int height = (int)transform.localScale.y;
-            Cells = new Cell[width, height];
+            GymSize = (int)transform.localScale.x;
+            Cells = new Cell[GymSize, GymSize];
 
             var cellsArray = GetComponentsInChildren<Cell>();
 
             int counter = 0;
-            for (int i = 0; i < height; i++)
+            for (int i = 0; i < GymSize; i++)
             {
-                for (int j = 0; j < width; j++)
+                for (int j = 0; j < GymSize; j++)
                 {
                     Cell cell = cellsArray[counter];
                     cell.Clicked += OnCellClicked;

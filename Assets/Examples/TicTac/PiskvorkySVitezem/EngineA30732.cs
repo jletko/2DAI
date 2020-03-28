@@ -135,7 +135,7 @@ namespace Examples.TicTac.PiskvorkySVitezem
 
             _generator = new Random();
             //alokuj hrací plochu
-            _width = _height = SouradnicePole.VELIKOST_PLOCHY;
+            _width = _height = SouradnicePole.VelikostPlochy;
             _height2 = _height + 2;
             _board = new Tsquare[(_width + 12) * (_height2)]; //jednorozmìrné pole !
             _boardk = (_width + 6) * _height2;

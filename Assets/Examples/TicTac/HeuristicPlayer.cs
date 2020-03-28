@@ -17,10 +17,11 @@ namespace Examples.TicTac
 
         public bool IsEnabled => enabled;
 
-        private void Awake()
+        private void Start()
         {
             _barvaKamene = ConvertToBarvaKamene(gameObject.tag);
             _hraciPole = new BarvaKamene[_gym.GymSize, _gym.GymSize];
+            SouradnicePole.VelikostPlochy = _gym.GymSize;
             Result = new float[1];
             ResetEngine();
             InvalidateResult();

@@ -54,13 +54,16 @@ namespace Examples.TicTac
 
         private void AddPositionRewards()
         {
-            if (_positionEvaluator.PositionStatsDelta[GetCellStateByte(_gym.CurrentPlayer), 3] > 0)
+            float currentPlayerPositionDelta = _positionEvaluator.PositionStatsDelta[GetCellStateByte(_gym.CurrentPlayer), 3];
+            if (currentPlayerPositionDelta > 0)
             {
-                GetPlayer(_gym.CurrentPlayer).AddReward(0.01f);
+                GetPlayer(_gym.CurrentPlayer).AddReward(currentPlayerPositionDelta * 0.01f);
             }
-            if (_positionEvaluator.PositionStatsDelta[GetCellStateByte(Tags.GetOtherPlayer(_gym.CurrentPlayer)), 3] < 0)
+
+            float otherPlayerPositionDelta = _positionEvaluator.PositionStatsDelta[GetCellStateByte(Tags.GetOtherPlayer(_gym.CurrentPlayer)), 3];
+            if (otherPlayerPositionDelta < 0)
             {
-                GetPlayer(_gym.CurrentPlayer).AddReward(0.01f);
+                GetPlayer(_gym.CurrentPlayer).AddReward(-otherPlayerPositionDelta * 0.01f);
             }
         }
 

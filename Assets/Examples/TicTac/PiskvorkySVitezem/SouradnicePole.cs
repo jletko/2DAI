@@ -10,19 +10,18 @@ namespace Examples.TicTac.PiskvorkySVitezem
     public class SouradnicePole
     {
         /// <summary>
-        /// TODO: needs to be taken from Gym size
-        /// Velikost hrací plochy (ètverec o velikosti <see cref="VELIKOST_PLOCHY"/>)
+        /// Velikost hrací plochy (ètverec o velikosti <see cref="VelikostPlochy"/>)
         /// </summary>
-        public const int VELIKOST_PLOCHY = 10;
+        public static int VelikostPlochy { get; set; }
 
         /// <summary>
         /// Konstruktor pro vytvoøení a inicializaci souøadnic pole
         /// </summary>
-        /// <param name="radek">Èíselný index øádku - 0 až <see cref="VELIKOST_PLOCHY"/> - 1</param>
-        /// <param name="sloupec">Èíselný index sloupce - 0 až <see cref="VELIKOST_PLOCHY"/> - 1</param>
+        /// <param name="radek">Èíselný index øádku - 0 až <see cref="VelikostPlochy"/> - 1</param>
+        /// <param name="sloupec">Èíselný index sloupce - 0 až <see cref="VelikostPlochy"/> - 1</param>
         public SouradnicePole(int radek, int sloupec)
         {
-            if ((radek >= 0) && (radek < VELIKOST_PLOCHY))
+            if ((radek >= 0) && (radek < VelikostPlochy))
             {
                 Radek = radek;
             }
@@ -31,7 +30,7 @@ namespace Examples.TicTac.PiskvorkySVitezem
                 throw (new Exception("Hodnota 'radek' mimo pøípustné hranice"));
             }
 
-            if ((sloupec >= 0) && (sloupec < VELIKOST_PLOCHY))
+            if ((sloupec >= 0) && (sloupec < VelikostPlochy))
             {
                 Sloupec = sloupec;
             }
@@ -42,12 +41,12 @@ namespace Examples.TicTac.PiskvorkySVitezem
         }
 
         /// <summary>
-        /// Èíselný index øádku - 0 až <see cref="VELIKOST_PLOCHY"/> - 1. Pouze ke ètení.
+        /// Èíselný index øádku - 0 až <see cref="VelikostPlochy"/> - 1. Pouze ke ètení.
         /// </summary>
         public readonly int Radek;
 
         /// <summary>
-        /// Èíselný index sloupce - 0 až <see cref="VELIKOST_PLOCHY"/> - 1. Pouze ke ètení.
+        /// Èíselný index sloupce - 0 až <see cref="VelikostPlochy"/> - 1. Pouze ke ètení.
         /// </summary>
         public readonly int Sloupec;
     }
