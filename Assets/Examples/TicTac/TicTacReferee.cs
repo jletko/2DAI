@@ -17,12 +17,14 @@ namespace Examples.TicTac
         private float _oScore;
         private float _xScore;
         private byte[,] _byteCells;
+        private PositionEvaluator _positionEvaluator;
 
         private void Start()
         {
             _oScoreText.text = _oScore.ToString();
             _xScoreText.text = _xScore.ToString();
             _byteCells = new byte[_gym.GymSize, _gym.GymSize];
+            _positionEvaluator = new PositionEvaluator();
 
             _isRestartRequested = true;
         }
@@ -38,6 +40,8 @@ namespace Examples.TicTac
 
             if (_gym.IsTurnCompleted)
             {
+                UpdatePositionStats();
+
                 if (CheckWinner() || CheckDraw())
                 {
                     return;
@@ -80,7 +84,7 @@ namespace Examples.TicTac
 
         private bool CheckWinner()
         {
-            string winningPlayer = GetWinner();
+            string winningPlayer = GetWinner(_positionEvaluator.PositionStats);
 
             switch (winningPlayer)
             {
@@ -122,27 +126,10 @@ namespace Examples.TicTac
             return true;
         }
 
-        private string GetWinner()
+        private void UpdatePositionStats()
         {
             UpdateByteGymCells();
-            int[,] positionStats = PositionEvaluator.GetPositionStats(_byteCells);
-
-            if (positionStats[1, 5] > 0 && positionStats[2, 5] > 0)
-            {
-                throw new Exception("Both players reported as winners which should not occure.");
-            }
-
-            if (positionStats[1, 5] > 0)
-            {
-                return Tags.PLAYER_O;
-            }
-
-            if (positionStats[2, 5] > 0)
-            {
-                return Tags.PLAYER_X;
-            }
-
-            return String.Empty;
+            _positionEvaluator.UpdatePositionStats(_byteCells);
         }
 
         private void UpdateByteGymCells()
@@ -167,6 +154,26 @@ namespace Examples.TicTac
                     }
                 }
             }
+        }
+
+        private static string GetWinner(int[,] positionStats)
+        {
+            if (positionStats[1, 5] > 0 && positionStats[2, 5] > 0)
+            {
+                throw new Exception("Both players reported as winners which should not occure.");
+            }
+
+            if (positionStats[1, 5] > 0)
+            {
+                return Tags.PLAYER_O;
+            }
+
+            if (positionStats[2, 5] > 0)
+            {
+                return Tags.PLAYER_X;
+            }
+
+            return String.Empty;
         }
 
         private void Done(float rewardO, float rewardX)

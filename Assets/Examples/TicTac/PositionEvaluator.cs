@@ -3,9 +3,12 @@ using System.Collections.Generic;
 
 namespace Examples.TicTac
 {
-    public static class PositionEvaluator
+    public class PositionEvaluator
     {
-        private static readonly List<byte[,]> WinKernels = new List<byte[,]>
+        private readonly int[,] _allKernelStats = new int[3, 6];
+        private readonly int[,] _lastAllKernelStats = new int[3, 6];
+        private readonly int[,] _allKernelStatsDelta = new int[3, 6];
+        private readonly List<byte[,]> WinKernels = new List<byte[,]>
                                                      {
                                                              new byte[,]
                                                              {
@@ -41,22 +44,47 @@ namespace Examples.TicTac
                                                              }
                                                      };
 
-        public static int[,] GetPositionStats(byte[,] cells)
+        public int[,] PositionStats => _allKernelStats;
+
+        public int[,] PositionStatsDelta => _allKernelStatsDelta;
+
+        public void UpdatePositionStats(byte[,] cells)
         {
-            int[,] allKernelStats = new int[3, 6];
+            for (int i = 0; i < _allKernelStats.GetLength(0); i++)
+            {
+                for (int j = 0; j < _allKernelStats.GetLength(1); j++)
+                {
+                    _lastAllKernelStats[i, j] = _allKernelStats[i, j];
+                }
+            }
+
+            for (int i = 0; i < _allKernelStats.GetLength(0); i++)
+            {
+                for (int j = 0; j < _allKernelStats.GetLength(1); j++)
+                {
+                    _allKernelStats[i, j] = 0;
+                }
+            }
+
             foreach (byte[,] winKernel in WinKernels)
             {
                 int[,] kernelStats = GetKernelStats(winKernel, cells);
-                for (int i = 0; i < allKernelStats.GetLength(0); i++)
+                for (int i = 0; i < _allKernelStats.GetLength(0); i++)
                 {
-                    for (int j = 0; j < allKernelStats.GetLength(1); j++)
+                    for (int j = 0; j < _allKernelStats.GetLength(1); j++)
                     {
-                        allKernelStats[i, j] = allKernelStats[i, j] + kernelStats[i, j];
+                        _allKernelStats[i, j] = _allKernelStats[i, j] + kernelStats[i, j];
                     }
                 }
             }
 
-            return allKernelStats;
+            for (int i = 0; i < _allKernelStats.GetLength(0); i++)
+            {
+                for (int j = 0; j < _allKernelStats.GetLength(1); j++)
+                {
+                    _allKernelStatsDelta[i, j] = _allKernelStats[i, j] - _lastAllKernelStats[i, j];
+                }
+            }
         }
 
         private static int[,] GetKernelStats(byte[,] kernel, byte[,] cells)
