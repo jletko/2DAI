@@ -14,8 +14,8 @@ namespace Examples.TicTac
         [SerializeField] private Text _xScoreText;
 
         private bool _isRestartRequested;
-        private int _oScore;
-        private int _xScore;
+        private float _oScore;
+        private float _xScore;
         private byte[,] _byteCells;
 
         private void Start()
@@ -38,7 +38,11 @@ namespace Examples.TicTac
 
             if (_gym.IsTurnCompleted)
             {
-                CheckIfGameIsFinished();
+                if (CheckWinner() || CheckDraw())
+                {
+                    return;
+                }
+
                 SwitchCurrentPlayer();
                 RequestTurn();
             }
@@ -74,37 +78,71 @@ namespace Examples.TicTac
             }
         }
 
-        private void CheckIfGameIsFinished()
+        private bool CheckWinner()
         {
-            UpdateByteGymCells();
-            byte winningPlayer = PositionEvaluator.GetWinningPlayer(_byteCells);
+            string winningPlayer = GetWinner();
 
             switch (winningPlayer)
             {
-                case 1:
+                case Tags.PLAYER_O:
                     Done(1, -1);
                     _oScore++;
                     _oScoreText.text = _oScore.ToString();
-                    return;
-                case 2:
+                    return true;
+                case Tags.PLAYER_X:
                     Done(-1, 1);
                     _xScore++;
                     _xScoreText.text = _xScore.ToString();
-                    return;
+                    return true;
+                default:
+                    return false;
             }
+        }
 
+        private bool CheckDraw()
+        {
             for (int i = 0; i < _gym.GymSize; i++)
             {
                 for (int j = 0; j < _gym.GymSize; j++)
                 {
                     if (_gym.Cells[i, j].State == CellState.EMPTY)
                     {
-                        return;
+                        return false;
                     }
                 }
             }
 
-            Done(1, 1);
+            Done(0.5f, 0.5f);
+
+            _oScore += 0.5f;
+            _oScoreText.text = _oScore.ToString();
+            _xScore += 0.5f;
+            _xScoreText.text = _xScore.ToString();
+
+            return true;
+        }
+
+        private string GetWinner()
+        {
+            UpdateByteGymCells();
+            int[,] positionStats = PositionEvaluator.GetPositionStats(_byteCells);
+
+            if (positionStats[1, 5] > 0 && positionStats[2, 5] > 0)
+            {
+                throw new Exception("Both players reported as winners which should not occure.");
+            }
+
+            if (positionStats[1, 5] > 0)
+            {
+                return Tags.PLAYER_O;
+            }
+
+            if (positionStats[2, 5] > 0)
+            {
+                return Tags.PLAYER_X;
+            }
+
+            return String.Empty;
         }
 
         private void UpdateByteGymCells()

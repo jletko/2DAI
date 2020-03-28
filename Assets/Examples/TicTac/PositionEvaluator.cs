@@ -41,7 +41,7 @@ namespace Examples.TicTac
                                                              }
                                                      };
 
-        public static byte GetWinningPlayer(byte[,] cells)
+        public static int[,] GetPositionStats(byte[,] cells)
         {
             int[,] allKernelStats = new int[3, 6];
             foreach (byte[,] winKernel in WinKernels)
@@ -54,19 +54,9 @@ namespace Examples.TicTac
                         allKernelStats[i, j] = allKernelStats[i, j] + kernelStats[i, j];
                     }
                 }
-
-                if (allKernelStats[1, 5] > 0)
-                {
-                    return 1;
-                }
-
-                if (allKernelStats[2, 5] > 0)
-                {
-                    return 2;
-                }
             }
 
-            return 0;
+            return allKernelStats;
         }
 
         private static int[,] GetKernelStats(byte[,] kernel, byte[,] cells)
