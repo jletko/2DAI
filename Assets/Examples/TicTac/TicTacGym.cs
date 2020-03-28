@@ -66,6 +66,11 @@ namespace Examples.TicTac
                 return;
             }
 
+            if (cell.State != CellState.EMPTY)
+            {
+                return;
+            }
+
             cell.State = CurrentPlayer;
             IsTurnCompleted = true;
         }

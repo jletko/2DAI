@@ -13,6 +13,7 @@ namespace Common
         private const float MaxTimeScale = 20;
 
         [SerializeField] private Canvas _mainCanvas;
+        [SerializeField] private bool _isMenuEnabledAfterStart = false;
         [SerializeField] private Text _timeScaleTextBox;
         [SerializeField] private Text _stepTextBox;
         [SerializeField] private Text _timeTextBox;
@@ -39,6 +40,7 @@ namespace Common
             EditorApplication.playModeStateChanged += ModeChanged;
 #endif
             OnTimeScaleChanged();
+            _mainCanvas.enabled = _isMenuEnabledAfterStart;
         }
 
         private void FixedUpdate()

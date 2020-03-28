@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gym: {fileID: 0}
-  _casNaPartii: 60
+  _casNaPartii: 1
 --- !u!114 &2502781395507727239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,14 +77,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 300
+    vectorObservationSize: 675
     numStackedVectorObservations: 1
-    vectorActionSize: 64000000
+    vectorActionSize: e1000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: c78a48caeb33dbd4798dd88fd6983424, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: e9ef1146caa8e9a4f8b24a4bd8982aa2, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: TicTacPlayer
-  m_TeamID: 0
+  TeamId: 0
   m_UseChildSensors: 0
