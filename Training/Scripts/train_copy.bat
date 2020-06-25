@@ -9,13 +9,10 @@ set TRAINING_DIR_PATH=%PROJECTS_DIRECTORY_PATH%\2DAI\Training
 set BRAINS_DIR_PATH=%PROJECTS_DIRECTORY_PATH%\2DAI\Assets\BrainsTmp
 set RUN_DIR_NAME=Run%fullstamp%
 
-if [%1]==[p] set TRAINER_CONFIG_FILE=trainer_config.yaml
-if [%1]==[s] set TRAINER_CONFIG_FILE=sac_trainer_config.yaml
-
-if [%2]==[] (
-	mlagents-learn %TRAINING_DIR_PATH%\%TRAINER_CONFIG_FILE% --run-id=%RUN_DIR_NAME% --train
+if [%1]==[] (
+	mlagents-learn %TRAINING_DIR_PATH%\trainer_config.yaml --run-id=%RUN_DIR_NAME% --train
 ) else (
-	mlagents-learn %TRAINING_DIR_PATH%\%TRAINER_CONFIG_FILE% --run-id=%RUN_DIR_NAME% --env=%UNITY_PROJECT_DIR_PATH%\bin\2DAI.exe --num-envs=%2 --no-graphics --train
+	mlagents-learn %TRAINING_DIR_PATH%\trainer_config.yaml --run-id=%RUN_DIR_NAME% --env=%UNITY_PROJECT_DIR_PATH%\bin\2DAI.exe --num-envs=%1 --no-graphics --train
 )
 
 if not exist %BRAINS_DIR_PATH% MkDir %BRAINS_DIR_PATH%
