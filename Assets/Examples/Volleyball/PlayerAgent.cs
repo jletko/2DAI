@@ -1,19 +1,20 @@
-﻿using MLAgents;
-using MLAgents.Sensors;
-using System.Linq;
+﻿using System.Linq;
+using Unity.MLAgents;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Examples.Volleyball
 {
     public class PlayerAgent : Agent
     {
-        [SerializeField] private Rigidbody2D _leftHandRigidbody;
-        [SerializeField] private Rigidbody2D _rightHandRigidbody;
-        [SerializeField] private Transform _otherPlayer;
-        [SerializeField] private Transform _gym;
-        [SerializeField] private float _moveSpeed;
-        [SerializeField] private float _handTorque;
-        [SerializeField] private Rigidbody2D _ballRigidBody;
+        [FormerlySerializedAs("_leftHandRigidbody")] [SerializeField] private Rigidbody2D leftHandRigidbody;
+        [FormerlySerializedAs("_rightHandRigidbody")] [SerializeField] private Rigidbody2D rightHandRigidbody;
+        [FormerlySerializedAs("_otherPlayer")] [SerializeField] private Transform otherPlayer;
+        [FormerlySerializedAs("_gym")] [SerializeField] private Transform gym;
+        [FormerlySerializedAs("_moveSpeed")] [SerializeField] private float moveSpeed;
+        [FormerlySerializedAs("_handTorque")] [SerializeField] private float handTorque;
+        [FormerlySerializedAs("_ballRigidBody")] [SerializeField] private Rigidbody2D ballRigidBody;
 
         private Rigidbody2D _rigidbody;
         private HingeJoint2D _leftHingeJoint2D;
@@ -33,10 +34,10 @@ namespace Examples.Volleyball
             _isLeftPlayer = Tags.IsLeftPlayer(tag);
             LeftHand = transform.Find("LeftHand").GetComponent<Hand>();
             RightHand = transform.Find("RightHand").GetComponent<Hand>();
-            _leftHingeJoint2D = GetComponents<HingeJoint2D>().Single(o => o.connectedBody.Equals(_leftHandRigidbody));
-            _rightHingeJoint2D = GetComponents<HingeJoint2D>().Single(o => o.connectedBody.Equals(_rightHandRigidbody));
-            _leftHandRigidbody.centerOfMass = _leftHingeJoint2D.connectedAnchor;
-            _rightHandRigidbody.centerOfMass = _rightHingeJoint2D.connectedAnchor;
+            _leftHingeJoint2D = GetComponents<HingeJoint2D>().Single(o => o.connectedBody.Equals(leftHandRigidbody));
+            _rightHingeJoint2D = GetComponents<HingeJoint2D>().Single(o => o.connectedBody.Equals(rightHandRigidbody));
+            leftHandRigidbody.centerOfMass = _leftHingeJoint2D.connectedAnchor;
+            rightHandRigidbody.centerOfMass = _rightHingeJoint2D.connectedAnchor;
 
             base.Initialize();
         }
@@ -47,10 +48,10 @@ namespace Examples.Volleyball
             RightHand.Restart();
             CollisionTag = string.Empty;
 
-            Vector2 gymQuarterScale = _gym.localScale / 4;
+            Vector2 gymQuarterScale = gym.localScale / 4;
             float randomXOffset = gymQuarterScale.x * Random.Range(-0.8f, 0.8f);
-            float xPosition = _gym.position.x + _playerSign * gymQuarterScale.x + randomXOffset;
-            float yPosition = _gym.position.y - 2 * gymQuarterScale.y + 2.6f;
+            float xPosition = gym.position.x + _playerSign * gymQuarterScale.x + randomXOffset;
+            float yPosition = gym.position.y - 2 * gymQuarterScale.y + 2.6f;
 
             transform.position = new Vector2(xPosition, yPosition);
             _rigidbody.velocity = Vector2.zero;
@@ -59,19 +60,19 @@ namespace Examples.Volleyball
         public void RestartWithServing()
         {
             Restart();
-            Ball ball = _ballRigidBody.GetComponent<Ball>();
-            ball.Restart((Vector2)transform.position + new Vector2(2f * _playerSign, Random.Range(5f, _gym.localScale.y / 2)));
+            Ball ball = ballRigidBody.GetComponent<Ball>();
+            ball.Restart((Vector2)transform.position + new Vector2(2f * _playerSign, Random.Range(5f, gym.localScale.y / 2)));
         }
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            sensor.AddObservation((transform.position.x - _gym.position.x) * _playerSign);
-            sensor.AddObservation((_ballRigidBody.transform.position.x - transform.position.x) * _playerSign);
-            sensor.AddObservation(_ballRigidBody.transform.position.y - transform.position.y);
-            sensor.AddObservation(_ballRigidBody.velocity.x * _playerSign);
-            sensor.AddObservation(_ballRigidBody.velocity.y);
-            sensor.AddObservation(_leftHandRigidbody.transform.position.y - transform.position.y > 0 ? 1 : 0);
-            sensor.AddObservation(_rightHandRigidbody.transform.position.y - transform.position.y > 0 ? 1 : 0);
+            sensor.AddObservation((transform.position.x - gym.position.x) * _playerSign);
+            sensor.AddObservation((ballRigidBody.transform.position.x - transform.position.x) * _playerSign);
+            sensor.AddObservation(ballRigidBody.transform.position.y - transform.position.y);
+            sensor.AddObservation(ballRigidBody.velocity.x * _playerSign);
+            sensor.AddObservation(ballRigidBody.velocity.y);
+            sensor.AddObservation(leftHandRigidbody.transform.position.y - transform.position.y > 0 ? 1 : 0);
+            sensor.AddObservation(rightHandRigidbody.transform.position.y - transform.position.y > 0 ? 1 : 0);
         }
 
         public override void OnActionReceived(float[] vectorAction)
@@ -81,7 +82,7 @@ namespace Examples.Volleyball
             MoveHands(vectorAction);
         }
 
-        public override float[] Heuristic()
+        public override void Heuristic(float[] actionsOut)
         {
             float[] actions = new float[3];
 
@@ -107,7 +108,10 @@ namespace Examples.Volleyball
                 actions[2] = 1;
             }
 
-            return actions;
+            for (int i = 0; i < actionsOut.Length; i++)
+            {
+                actionsOut[i] = actions[i];
+            }
         }
 
         private void Move(float[] vectorAction)
@@ -116,11 +120,11 @@ namespace Examples.Volleyball
             switch (movement)
             {
                 case 1:
-                    _rigidbody.MovePosition(_rigidbody.position + _moveSpeed * Vector2.left * _playerSign);
+                    _rigidbody.MovePosition(_rigidbody.position + moveSpeed * Vector2.left * _playerSign);
                     Power += 1;
                     break;
                 case 2:
-                    _rigidbody.MovePosition(_rigidbody.position - _moveSpeed * Vector2.left * _playerSign);
+                    _rigidbody.MovePosition(_rigidbody.position - moveSpeed * Vector2.left * _playerSign);
                     Power += 1;
                     break;
             }
@@ -134,13 +138,13 @@ namespace Examples.Volleyball
             {
                 if (leftHand == 1)
                 {
-                    _leftHandRigidbody.AddTorque(-_handTorque);
+                    leftHandRigidbody.AddTorque(-handTorque);
                     Power += 1;
                 }
 
                 if (rightHand == 1)
                 {
-                    _rightHandRigidbody.AddTorque(_handTorque);
+                    rightHandRigidbody.AddTorque(handTorque);
                     Power += 1;
                 }
             }
@@ -148,13 +152,13 @@ namespace Examples.Volleyball
             {
                 if (leftHand == 1)
                 {
-                    _rightHandRigidbody.AddTorque(_handTorque);
+                    rightHandRigidbody.AddTorque(handTorque);
                     Power += 1;
                 }
 
                 if (rightHand == 1)
                 {
-                    _leftHandRigidbody.AddTorque(-_handTorque);
+                    leftHandRigidbody.AddTorque(-handTorque);
                     Power += 1;
                 }
             }

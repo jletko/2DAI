@@ -8,7 +8,7 @@ namespace Examples.TicTac
         private readonly int[,] _allKernelStats = new int[3, 6];
         private readonly int[,] _lastAllKernelStats = new int[3, 6];
         private readonly int[,] _allKernelStatsDelta = new int[3, 6];
-        private readonly List<byte[,]> WinKernels = new List<byte[,]>
+        private readonly List<byte[,]> _winKernels = new List<byte[,]>
                                                      {
                                                              new byte[,]
                                                              {
@@ -66,7 +66,7 @@ namespace Examples.TicTac
                 }
             }
 
-            foreach (byte[,] winKernel in WinKernels)
+            foreach (byte[,] winKernel in _winKernels)
             {
                 int[,] kernelStats = GetKernelStats(winKernel, cells);
                 for (int i = 0; i < _allKernelStats.GetLength(0); i++)
@@ -114,8 +114,8 @@ namespace Examples.TicTac
             int halfKernelRowsCount = kernel.GetLength(0) / 2;
             int halfKernelColumnsCount = kernel.GetLength(1) / 2;
 
-            int max_1 = 0;
-            int max_2 = 0;
+            int max1 = 0;
+            int max2 = 0;
             for (int k = -halfKernelRowsCount; k <= halfKernelRowsCount; k++)
             {
                 for (int l = -halfKernelColumnsCount; l <= halfKernelColumnsCount; l++)
@@ -135,18 +135,18 @@ namespace Examples.TicTac
                         case 0:
                             break;
                         case 1:
-                            if (max_2 > 0)
+                            if (max2 > 0)
                             {
                                 return new int[3];
                             }
-                            max_1++;
+                            max1++;
                             break;
                         case 2:
-                            if (max_1 > 0)
+                            if (max1 > 0)
                             {
                                 return new int[3];
                             }
-                            max_2++;
+                            max2++;
                             break;
                         default:
                             throw new ArgumentException($"Unknown cell value: {cells[i + k, j + l]}");
@@ -154,7 +154,7 @@ namespace Examples.TicTac
                 }
             }
 
-            return new[] { 0, max_1, max_2 };
+            return new[] { 0, max1, max2 };
         }
     }
 }

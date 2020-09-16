@@ -4,12 +4,12 @@ namespace Examples.Volleyball
 {
     public class Tags
     {
-        public const string NET = "Net";
-        public const string LEFT_PLAYER = "LeftPlayer";
-        public const string RIGHT_PLAYER = "RightPlayer";
-        public const string WALL = "Wall";
-        public const string LEFT_FLOOR = "LeftFloor";
-        public const string RIGHT_FLOOR = "RightFloor";
+        public const string Net = "Net";
+        public const string LeftPlayer = "LeftPlayer";
+        public const string RightPlayer = "RightPlayer";
+        public const string Wall = "Wall";
+        public const string LeftFloor = "LeftFloor";
+        public const string RightFloor = "RightFloor";
 
         public static float GetPlayerSign(string tag)
         {
@@ -18,16 +18,16 @@ namespace Examples.Volleyball
 
         public static string GetOtherPlayer(string tag)
         {
-            return IsLeftPlayer(tag) ? RIGHT_PLAYER : LEFT_PLAYER;
+            return IsLeftPlayer(tag) ? RightPlayer : LeftPlayer;
         }
 
         public static bool IsLeftPlayer(string tag)
         {
             switch (tag)
             {
-                case LEFT_PLAYER:
+                case LeftPlayer:
                     return true;
-                case RIGHT_PLAYER:
+                case RightPlayer:
                     return false;
                 default:
                     throw new ArgumentException($"Invalid player tag: {tag}");

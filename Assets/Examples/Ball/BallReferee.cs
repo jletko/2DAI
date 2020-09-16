@@ -1,46 +1,47 @@
 ﻿using Common;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Examples.Ball
 {
     public class BallReferee : RefereeBase
     {
-        [SerializeField] private BallAgent _ballAgent;
-        [SerializeField] private Transform _target;
+        [FormerlySerializedAs("_ballAgent")] [SerializeField] private BallAgent ballAgent;
+        [FormerlySerializedAs("_target")] [SerializeField] private Transform target;
 
         public override void Restart()
         {
             base.Restart();
-            _ballAgent.EndEpisode();
-            _ballAgent.Restart(transform.position);
-            _target.position = GetRandomPositionInGym();
+            ballAgent.EndEpisode();
+            ballAgent.Restart(transform.position);
+            target.position = GetRandomPositionInGym();
         }
 
         private void Start()
         {
-            _target.position = GetRandomPositionInGym();
+            target.position = GetRandomPositionInGym();
         }
 
         private void FixedUpdate()
         {
-            _ballAgent.AddReward(-0.001f);
-            _ballAgent.AddReward(-_ballAgent.Power * 0.001f);
+            ballAgent.AddReward(-0.001f);
+            ballAgent.AddReward(-ballAgent.Power * 0.001f);
 
             if (TimeSinceLastRestart > 15)
             {
-                _ballAgent.SetReward(-1);
+                ballAgent.SetReward(-1);
                 Restart();
             }
 
-            if (_ballAgent.IsTouchingTarget)
+            if (ballAgent.IsTouchingTarget)
             {
-                _ballAgent.SetReward(1);
+                ballAgent.SetReward(1);
                 Restart();
             }
 
-            if (_ballAgent.IsCrashed)
+            if (ballAgent.IsCrashed)
             {
-                _ballAgent.AddReward(-0.1f);
+                ballAgent.AddReward(-0.1f);
             }
         }
     }

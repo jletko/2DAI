@@ -1,23 +1,24 @@
 ﻿using Common;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Examples.Chase
 {
     public class ChaseReferee : RefereeBase
     {
-        [SerializeField] private List<HunterAgent> _hunters;
-        [SerializeField] private HuntedAgent _hunted;
+        [FormerlySerializedAs("_hunters")] [SerializeField] private List<HunterAgent> hunters;
+        [FormerlySerializedAs("_hunted")] [SerializeField] private HuntedAgent hunted;
 
         public override void Restart()
         {
             base.Restart();
 
-            _hunted.EndEpisode();
-            _hunted.Restart(GetRandomPositionInGym());
+            hunted.EndEpisode();
+            hunted.Restart(GetRandomPositionInGym());
 
-            _hunters.ForEach(o => o.EndEpisode());
-            _hunters.ForEach(o => o.Restart(GetRandomPositionInGym()));
+            hunters.ForEach(o => o.EndEpisode());
+            hunters.ForEach(o => o.Restart(GetRandomPositionInGym()));
         }
 
         private void FixedUpdate()
@@ -29,7 +30,7 @@ namespace Examples.Chase
                 SetRewardAndRestart(-1f, 1f);
             }
 
-            if (_hunted.IsCatched)
+            if (hunted.IsCatched)
             {
                 SetRewardAndRestart(1f, -1f);
             }
@@ -43,20 +44,20 @@ namespace Examples.Chase
 
         private void AddReward(float huntersReward, float huntedReward)
         {
-            _hunters.ForEach(o => o.AddReward(huntersReward));
-            _hunted.AddReward(huntedReward);
+            hunters.ForEach(o => o.AddReward(huntersReward));
+            hunted.AddReward(huntedReward);
         }
 
         private void SetReward(float huntersReward, float huntedReward)
         {
-            _hunters.ForEach(o => o.SetReward(huntersReward));
-            _hunted.SetReward(huntedReward);
+            hunters.ForEach(o => o.SetReward(huntersReward));
+            hunted.SetReward(huntedReward);
         }
 
         private void ApplySpentEnergyPenaltyOnAgents(float coefficient)
         {
-            _hunters.ForEach(o => o.AddReward(-coefficient * o.Power));
-            _hunted.AddReward(-coefficient * _hunted.Power);
+            hunters.ForEach(o => o.AddReward(-coefficient * o.Power));
+            hunted.AddReward(-coefficient * hunted.Power);
         }
     }
 }

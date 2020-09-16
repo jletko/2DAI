@@ -2,32 +2,30 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace Examples.TicTac
 {
     public class Cell : MonoBehaviour
     {
-        [SerializeField] private Sprite _foregroundOSprite;
-        [SerializeField] private Sprite _foregroundXSprite;
+        [FormerlySerializedAs("_foregroundOSprite")] [SerializeField] private Sprite foregroundOSprite;
+        [FormerlySerializedAs("_foregroundXSprite")] [SerializeField] private Sprite foregroundXSprite;
 
         private SpriteRenderer _renderer;
 
-        private string _state = CellState.EMPTY;
+        private string _state = CellState.Empty;
 
         public event EventHandler<Cell, EventArgs> Clicked;
 
         public string State
         {
-            get
-            {
-                return _state;
-            }
+            get => _state;
 
             set
             {
-                if (!_state.Equals(CellState.EMPTY) && !value.Equals(CellState.EMPTY))
+                if (!_state.Equals(CellState.Empty) && !value.Equals(CellState.Empty))
                 {
-                    throw new Exception("Trying to overwrite existing non empty cell state.");
+                    //throw new Exception("Trying to overwrite existing non empty cell state.");
                 }
 
                 _state = value;
@@ -46,14 +44,14 @@ namespace Examples.TicTac
         {
             switch (_state)
             {
-                case CellState.EMPTY:
+                case CellState.Empty:
                     _renderer.sprite = null;
                     break;
-                case CellState.PLAYER_O:
-                    _renderer.sprite = _foregroundOSprite;
+                case CellState.PlayerO:
+                    _renderer.sprite = foregroundOSprite;
                     break;
-                case CellState.PLAYER_X:
-                    _renderer.sprite = _foregroundXSprite;
+                case CellState.PlayerX:
+                    _renderer.sprite = foregroundXSprite;
                     break;
             }
         }

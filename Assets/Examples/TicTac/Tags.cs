@@ -4,17 +4,17 @@ namespace Examples.TicTac
 {
     public class Tags
     {
-        public const string PLAYER_O = "PlayerO";
-        public const string PLAYER_X = "PlayerX";
+        public const string PlayerO = "PlayerO";
+        public const string PlayerX = "PlayerX";
 
         public static string GetOtherPlayer(string tag)
         {
             switch (tag)
             {
-                case PLAYER_O:
-                    return PLAYER_X;
-                case PLAYER_X:
-                    return PLAYER_O;
+                case PlayerO:
+                    return PlayerX;
+                case PlayerX:
+                    return PlayerO;
                 default:
                     throw new ArgumentException($"Invalid player tag: {tag}");
             }

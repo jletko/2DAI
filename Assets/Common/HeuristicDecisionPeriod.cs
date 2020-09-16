@@ -1,6 +1,7 @@
-﻿using MLAgents;
-using MLAgents.Policies;
+﻿using Unity.MLAgents;
+using Unity.MLAgents.Policies;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Common
 {
@@ -8,13 +9,17 @@ namespace Common
     [RequireComponent(typeof(BehaviorParameters))]
     public class HeuristicDecisionPeriod : MonoBehaviour
     {
-        [SerializeField] private int _period = 1;
+        [FormerlySerializedAs("_period")] [SerializeField] private int period = 1;
 
         private void Start()
         {
-            if (GetComponent<BehaviorParameters>().IsHeuristic)
+            BehaviorParameters behaviorParameters = GetComponent<BehaviorParameters>();
+
+            if (behaviorParameters.BehaviorType == BehaviorType.HeuristicOnly ||
+                behaviorParameters.BehaviorType == BehaviorType.Default &&
+                !Academy.Instance.IsCommunicatorOn && behaviorParameters.Model == null)
             {
-                GetComponent<DecisionRequester>().DecisionPeriod = _period;
+                GetComponent<DecisionRequester>().DecisionPeriod = period;
             }
         }
     }

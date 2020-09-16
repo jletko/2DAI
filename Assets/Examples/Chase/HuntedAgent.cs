@@ -15,7 +15,7 @@ namespace Examples.Chase
         protected override void OnCollisionStay2D(Collision2D other)
         {
             base.OnCollisionStay2D(other);
-            IsCatched = other.collider.CompareTag(Tags.HUNTER_HEAD);
+            IsCatched = other.collider.CompareTag(Tags.HunterHead);
         }
 
         protected override void OnCollisionExit2D()

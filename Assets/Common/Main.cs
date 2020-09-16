@@ -1,9 +1,10 @@
-﻿using MLAgents;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.MLAgents;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Common
@@ -12,16 +13,16 @@ namespace Common
     {
         private const float MaxTimeScale = 20;
 
-        [SerializeField] private Canvas _mainCanvas;
-        [SerializeField] private bool _isMenuEnabledAfterStart = false;
-        [SerializeField] private Text _timeScaleTextBox;
-        [SerializeField] private Text _stepTextBox;
-        [SerializeField] private Text _timeTextBox;
-        [SerializeField] private Slider _timeScaleSlider;
-        [SerializeField] private Button _restartButton;
-        [SerializeField] [Range(0, MaxTimeScale)] private float _trainingTimeScale = MaxTimeScale;
-        [SerializeField] private Vector2 _gravity = new Vector2(0, 0);
-        [SerializeField] private float _fixedTimestamp = 0.02f;
+        [FormerlySerializedAs("_mainCanvas")] [SerializeField] private Canvas mainCanvas;
+        [FormerlySerializedAs("_isMenuEnabledAfterStart")] [SerializeField] private bool isMenuEnabledAfterStart = false;
+        [FormerlySerializedAs("_timeScaleTextBox")] [SerializeField] private Text timeScaleTextBox;
+        [FormerlySerializedAs("_stepTextBox")] [SerializeField] private Text stepTextBox;
+        [FormerlySerializedAs("_timeTextBox")] [SerializeField] private Text timeTextBox;
+        [FormerlySerializedAs("_timeScaleSlider")] [SerializeField] private Slider timeScaleSlider;
+        [FormerlySerializedAs("_restartButton")] [SerializeField] private Button restartButton;
+        [FormerlySerializedAs("_trainingTimeScale")] [SerializeField] [Range(0, MaxTimeScale)] private float trainingTimeScale = MaxTimeScale;
+        [FormerlySerializedAs("_gravity")] [SerializeField] private Vector2 gravity = new Vector2(0, 0);
+        [FormerlySerializedAs("_fixedTimestamp")] [SerializeField] private float fixedTimestamp = 0.02f;
 
         private List<RefereeBase> _allReferees;
         private bool _isOneClick;
@@ -30,31 +31,31 @@ namespace Common
 
         protected virtual void Start()
         {
-            Physics2D.gravity = _gravity;
-            Time.fixedDeltaTime = _fixedTimestamp;
+            Physics2D.gravity = gravity;
+            Time.fixedDeltaTime = fixedTimestamp;
             _allReferees = FindObjectsOfType<RefereeBase>().ToList();
-            _restartButton.gameObject.SetActive(_allReferees.Any());
-            _timeScaleSlider.value = Mathf.Log(1 + (IsCommunicatorOn ? _trainingTimeScale : 1)) / Mathf.Log(MaxTimeScale + 1);
+            restartButton.gameObject.SetActive(_allReferees.Any());
+            timeScaleSlider.value = Mathf.Log(1 + (IsCommunicatorOn ? trainingTimeScale : 1)) / Mathf.Log(MaxTimeScale + 1);
             _fixedUpdatesCount = 0;
 #if UNITY_EDITOR
             EditorApplication.playModeStateChanged += ModeChanged;
 #endif
             OnTimeScaleChanged();
-            _mainCanvas.enabled = _isMenuEnabledAfterStart;
+            mainCanvas.enabled = isMenuEnabledAfterStart;
         }
 
         private void FixedUpdate()
         {
             _fixedUpdatesCount++;
-            _timeTextBox.text = $"Time: {SecondsToTime(Time.fixedTime)}";
-            _stepTextBox.text = $"Time step: {_fixedUpdatesCount}";
+            timeTextBox.text = $"Time: {SecondsToTime(Time.fixedTime)}";
+            stepTextBox.text = $"Time step: {_fixedUpdatesCount}";
         }
 
         private void Update()
         {
             if (Input.GetMouseButtonDown(2))
             {
-                _mainCanvas.enabled = !_mainCanvas.enabled;
+                mainCanvas.enabled = !mainCanvas.enabled;
             }
 
             if (IsCommunicatorOn)
@@ -79,9 +80,9 @@ namespace Common
 
         public void OnTimeScaleChanged()
         {
-            float logValue = Mathf.Exp(Mathf.Log(MaxTimeScale + 1) * _timeScaleSlider.value) - 1;
+            float logValue = Mathf.Exp(Mathf.Log(MaxTimeScale + 1) * timeScaleSlider.value) - 1;
             Time.timeScale = logValue;
-            _timeScaleTextBox.text = $"Time scale: {logValue:F2}";
+            timeScaleTextBox.text = $"Time scale: {logValue:F2}";
         }
 
         private bool IsCommunicatorOn => Academy.Instance.IsCommunicatorOn;

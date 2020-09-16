@@ -2,8 +2,8 @@
 {
     public class CellState
     {
-        public const string EMPTY = "Empty";
-        public const string PLAYER_O = Tags.PLAYER_O;
-        public const string PLAYER_X = Tags.PLAYER_X;
+        public const string Empty = "Empty";
+        public const string PlayerO = Tags.PlayerO;
+        public const string PlayerX = Tags.PlayerX;
     }
 }

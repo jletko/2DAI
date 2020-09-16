@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Common
 {
     public abstract class RefereeBase : MonoBehaviour
     {
-        [SerializeField] protected Transform Gym;
+        [FormerlySerializedAs("Gym")] [SerializeField] protected Transform gym;
 
         protected float TimeSinceLastRestart => Time.fixedTime - _lastRestartTime;
 
@@ -17,7 +18,7 @@ namespace Common
 
         protected Vector2 GetRandomPositionInGym()
         {
-            return (Vector2)transform.position + Gym.localScale * new Vector2(
+            return (Vector2)transform.position + gym.localScale * new Vector2(
                   Mathf.Sign(Random.Range(-1f, 1f)) * Random.Range(0.1f, 0.9f),
                   Mathf.Sign(Random.Range(-1f, 1f)) * Random.Range(0.1f, 0.9f)
                  ) / 2;
