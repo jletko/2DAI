@@ -1,17 +1,18 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Examples.TicTac
 {
     public class TicTacReferee : MonoBehaviour
     {
-        [SerializeField] private TicTacGym _gym;
-        [SerializeField] private TicTacPlayerAgent _playerO;
-        [SerializeField] private TicTacPlayerAgent _playerX;
-        [SerializeField] private TicTacPlayerAgent _startingPlayer;
-        [SerializeField] private Text _oScoreText;
-        [SerializeField] private Text _xScoreText;
+        [FormerlySerializedAs("_gym")] [SerializeField] private TicTacGym gym;
+        [FormerlySerializedAs("_playerO")] [SerializeField] private TicTacPlayerAgent playerO;
+        [FormerlySerializedAs("_playerX")] [SerializeField] private TicTacPlayerAgent playerX;
+        [FormerlySerializedAs("_startingPlayer")] [SerializeField] private TicTacPlayerAgent startingPlayer;
+        [FormerlySerializedAs("_oScoreText")] [SerializeField] private Text oScoreText;
+        [FormerlySerializedAs("_xScoreText")] [SerializeField] private Text xScoreText;
 
         private bool _isRestartRequested;
         private float _oScore;
@@ -21,9 +22,9 @@ namespace Examples.TicTac
 
         private void Start()
         {
-            _oScoreText.text = _oScore.ToString();
-            _xScoreText.text = _xScore.ToString();
-            _byteGymCells = new byte[_gym.GymSize, _gym.GymSize];
+            oScoreText.text = _oScore.ToString();
+            xScoreText.text = _xScore.ToString();
+            _byteGymCells = new byte[gym.GymSize, gym.GymSize];
             _positionEvaluator = new PositionEvaluator();
 
             _isRestartRequested = true;
@@ -33,12 +34,12 @@ namespace Examples.TicTac
         {
             if (_isRestartRequested)
             {
-                _gym.Restart(_startingPlayer.tag);
+                gym.Restart(startingPlayer.tag);
                 SwitchCurrentPlayer();
                 _isRestartRequested = false;
             }
 
-            if (_gym.IsTurnCompleted)
+            if (gym.IsTurnCompleted)
             {
                 UpdatePositionStats();
                 if (CheckWinner() || CheckDraw())
@@ -54,46 +55,46 @@ namespace Examples.TicTac
 
         private void AddPositionRewards()
         {
-            float currentPlayerPositionDelta = _positionEvaluator.PositionStatsDelta[GetCellStateByte(_gym.CurrentPlayer), 3];
+            float currentPlayerPositionDelta = _positionEvaluator.PositionStatsDelta[GetCellStateByte(gym.CurrentPlayer), 3];
             if (currentPlayerPositionDelta > 0)
             {
-                GetPlayer(_gym.CurrentPlayer).AddReward(currentPlayerPositionDelta * 0.01f);
+                GetPlayer(gym.CurrentPlayer).AddReward(currentPlayerPositionDelta * 0.01f);
             }
 
-            float otherPlayerPositionDelta = _positionEvaluator.PositionStatsDelta[GetCellStateByte(Tags.GetOtherPlayer(_gym.CurrentPlayer)), 3];
+            float otherPlayerPositionDelta = _positionEvaluator.PositionStatsDelta[GetCellStateByte(Tags.GetOtherPlayer(gym.CurrentPlayer)), 3];
             if (otherPlayerPositionDelta < 0)
             {
-                GetPlayer(_gym.CurrentPlayer).AddReward(-otherPlayerPositionDelta * 0.01f);
+                GetPlayer(gym.CurrentPlayer).AddReward(-otherPlayerPositionDelta * 0.01f);
             }
         }
 
         private void SwitchCurrentPlayer()
         {
-            switch (_gym.CurrentPlayer)
+            switch (gym.CurrentPlayer)
             {
-                case Tags.PLAYER_O:
-                    _gym.CurrentPlayer = Tags.PLAYER_X;
+                case Tags.PlayerO:
+                    gym.CurrentPlayer = Tags.PlayerX;
                     break;
-                case Tags.PLAYER_X:
-                    _gym.CurrentPlayer = Tags.PLAYER_O;
+                case Tags.PlayerX:
+                    gym.CurrentPlayer = Tags.PlayerO;
                     break;
             }
         }
 
         private void RequestTurn()
         {
-            _gym.IsTurnCompleted = false;
+            gym.IsTurnCompleted = false;
 
-            switch (_gym.CurrentPlayer)
+            switch (gym.CurrentPlayer)
             {
-                case Tags.PLAYER_O:
-                    _playerO.RequestDecisionEx();
+                case Tags.PlayerO:
+                    playerO.RequestDecisionEx();
                     return;
-                case Tags.PLAYER_X:
-                    _playerX.RequestDecisionEx();
+                case Tags.PlayerX:
+                    playerX.RequestDecisionEx();
                     return;
                 default:
-                    throw new Exception($"Unknown current player tag: {_gym.CurrentPlayer}");
+                    throw new Exception($"Unknown current player tag: {gym.CurrentPlayer}");
             }
         }
 
@@ -103,15 +104,15 @@ namespace Examples.TicTac
 
             switch (winningPlayer)
             {
-                case Tags.PLAYER_O:
+                case Tags.PlayerO:
                     Done(1, -1);
                     _oScore++;
-                    _oScoreText.text = _oScore.ToString();
+                    oScoreText.text = _oScore.ToString();
                     return true;
-                case Tags.PLAYER_X:
+                case Tags.PlayerX:
                     Done(-1, 1);
                     _xScore++;
-                    _xScoreText.text = _xScore.ToString();
+                    xScoreText.text = _xScore.ToString();
                     return true;
                 default:
                     return false;
@@ -120,11 +121,11 @@ namespace Examples.TicTac
 
         private bool CheckDraw()
         {
-            for (int i = 0; i < _gym.GymSize; i++)
+            for (int i = 0; i < gym.GymSize; i++)
             {
-                for (int j = 0; j < _gym.GymSize; j++)
+                for (int j = 0; j < gym.GymSize; j++)
                 {
-                    if (_gym.Cells[i, j].State == CellState.EMPTY)
+                    if (gym.Cells[i, j].State == CellState.Empty)
                     {
                         return false;
                     }
@@ -134,9 +135,9 @@ namespace Examples.TicTac
             Done(0.5f, 0.5f);
 
             _oScore += 0.5f;
-            _oScoreText.text = _oScore.ToString();
+            oScoreText.text = _oScore.ToString();
             _xScore += 0.5f;
-            _xScoreText.text = _xScore.ToString();
+            xScoreText.text = _xScore.ToString();
 
             return true;
         }
@@ -149,30 +150,30 @@ namespace Examples.TicTac
 
         private void UpdateByteGymCells()
         {
-            for (int i = 0; i < _gym.GymSize; i++)
+            for (int i = 0; i < gym.GymSize; i++)
             {
-                for (int j = 0; j < _gym.GymSize; j++)
+                for (int j = 0; j < gym.GymSize; j++)
                 {
-                    _byteGymCells[i, j] = GetCellStateByte(_gym.Cells[i, j].State);
+                    _byteGymCells[i, j] = GetCellStateByte(gym.Cells[i, j].State);
                 }
             }
         }
 
         private static string GetWinner(int[,] positionStats)
         {
-            if (positionStats[GetCellStateByte(Tags.PLAYER_O), 5] > 0 && positionStats[GetCellStateByte(Tags.PLAYER_X), 5] > 0)
+            if (positionStats[GetCellStateByte(Tags.PlayerO), 5] > 0 && positionStats[GetCellStateByte(Tags.PlayerX), 5] > 0)
             {
                 throw new Exception("Both players reported as winners which should not occure.");
             }
 
-            if (positionStats[GetCellStateByte(Tags.PLAYER_O), 5] > 0)
+            if (positionStats[GetCellStateByte(Tags.PlayerO), 5] > 0)
             {
-                return Tags.PLAYER_O;
+                return Tags.PlayerO;
             }
 
-            if (positionStats[GetCellStateByte(Tags.PLAYER_X), 5] > 0)
+            if (positionStats[GetCellStateByte(Tags.PlayerX), 5] > 0)
             {
-                return Tags.PLAYER_X;
+                return Tags.PlayerX;
             }
 
             return String.Empty;
@@ -182,12 +183,12 @@ namespace Examples.TicTac
         {
             switch (playerTag)
             {
-                case Tags.PLAYER_O:
-                    return _playerO;
-                case Tags.PLAYER_X:
-                    return _playerX;
+                case Tags.PlayerO:
+                    return playerO;
+                case Tags.PlayerX:
+                    return playerX;
                 default:
-                    throw new ArgumentException($"Invalid player tag: {_gym.CurrentPlayer}");
+                    throw new ArgumentException($"Invalid player tag: {gym.CurrentPlayer}");
             }
         }
 
@@ -195,11 +196,11 @@ namespace Examples.TicTac
         {
             switch (cellState)
             {
-                case CellState.EMPTY:
+                case CellState.Empty:
                     return 0;
-                case CellState.PLAYER_O:
+                case CellState.PlayerO:
                     return 1;
-                case CellState.PLAYER_X:
+                case CellState.PlayerX:
                     return 2;
                 default:
                     throw new ArgumentException($"Invalid CellState: {cellState}");
@@ -208,10 +209,10 @@ namespace Examples.TicTac
 
         private void Done(float rewardO, float rewardX)
         {
-            _playerO.SetReward(rewardO);
-            _playerO.EndEpisode();
-            _playerX.SetReward(rewardX);
-            _playerX.EndEpisode();
+            playerO.SetReward(rewardO);
+            playerO.EndEpisode();
+            playerX.SetReward(rewardX);
+            playerX.EndEpisode();
             _isRestartRequested = true;
         }
     }

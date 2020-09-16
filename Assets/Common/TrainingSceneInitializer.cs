@@ -1,15 +1,16 @@
-﻿using MLAgents;
+﻿using Unity.MLAgents;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
 namespace Common
 {
     internal class TrainingSceneInitializer : MonoBehaviour
     {
-        [SerializeField] private GameObject _rootPrefab;
-        [SerializeField] private Transform _gym;
-        [SerializeField] private float _padding;
-        [SerializeField] private TraningGymsCount _gymsCount = TraningGymsCount.TwentyFive;
+        [FormerlySerializedAs("_rootPrefab")] [SerializeField] private GameObject rootPrefab;
+        [FormerlySerializedAs("_gym")] [SerializeField] private Transform gym;
+        [FormerlySerializedAs("_padding")] [SerializeField] private float padding;
+        [FormerlySerializedAs("_gymsCount")] [SerializeField] private TraningGymsCount gymsCount = TraningGymsCount.TwentyFive;
 
         private int _rootsPerRowCount;
 
@@ -17,10 +18,10 @@ namespace Common
         private void Start()
         {
             _lastViewSize = GetMainGameViewSize();
-            _rootsPerRowCount = IsCommunicatorOn ? (int)Mathf.Sqrt((int)_gymsCount) : 1;
+            _rootsPerRowCount = IsCommunicatorOn ? (int)Mathf.Sqrt((int)gymsCount) : 1;
 
-            InstantiateRoots(_rootPrefab, _gym.transform.localScale, _padding, _rootsPerRowCount);
-            AlignCameraSize(GetMainGameViewSize(), _gym.transform.localScale, _padding, _rootsPerRowCount);
+            InstantiateRoots(rootPrefab, gym.transform.localScale, padding, _rootsPerRowCount);
+            AlignCameraSize(GetMainGameViewSize(), gym.transform.localScale, padding, _rootsPerRowCount);
         }
 
         private void Update()
@@ -28,7 +29,7 @@ namespace Common
             var viewSize = GetMainGameViewSize();
             if (_lastViewSize.x != viewSize.x || _lastViewSize.y != viewSize.y)
             {
-                AlignCameraSize(GetMainGameViewSize(), _gym.transform.localScale, _padding, _rootsPerRowCount);
+                AlignCameraSize(GetMainGameViewSize(), gym.transform.localScale, padding, _rootsPerRowCount);
                 _lastViewSize = viewSize;
             }
         }

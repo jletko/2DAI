@@ -1,9 +1,10 @@
-﻿using MLAgents;
-using MLAgents.Policies;
-using MLAgents.Sensors;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Unity.MLAgents;
+using Unity.MLAgents.Policies;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Examples.TicTac
 {
@@ -11,7 +12,8 @@ namespace Examples.TicTac
     [RequireComponent(typeof(BehaviorParameters))]
     public class TicTacPlayerAgent : Agent
     {
-        [SerializeField] private TicTacGym _gym;
+        [FormerlySerializedAs("_gym")] [SerializeField]
+        private TicTacGym gym;
 
         private HeuristicPlayer _heuristicPlayer;
         private BehaviorParameters _behaviorParameters;
@@ -29,25 +31,24 @@ namespace Examples.TicTac
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            for (int i = 0; i < _gym.GymSize; i++)
+            for (var i = 0; i < gym.GymSize; i++)
+            for (var j = 0; j < gym.GymSize; j++)
             {
-                for (int j = 0; j < _gym.GymSize; j++)
+                if (gym.Cells[i, j].State == CellState.Empty)
                 {
-                    if (_gym.Cells[i, j].State == CellState.EMPTY)
-                    {
-                        sensor.AddOneHotObservation(0, 3);
-                        return;
-                    }
-                    if (_gym.Cells[i, j].State == PlayerTag)
-                    {
-                        sensor.AddOneHotObservation(1, 3);
-                        return;
-                    }
-                    if (_gym.Cells[i, j].State == Tags.GetOtherPlayer(PlayerTag))
-                    {
-                        sensor.AddOneHotObservation(2, 3);
-                        return;
-                    }
+                    sensor.AddOneHotObservation(0, 3);
+                    continue;
+                }
+
+                if (gym.Cells[i, j].State == PlayerTag)
+                {
+                    sensor.AddOneHotObservation(1, 3);
+                    continue;
+                }
+
+                if (gym.Cells[i, j].State == Tags.GetOtherPlayer(PlayerTag))
+                {
+                    sensor.AddOneHotObservation(2, 3);
                 }
             }
         }
@@ -56,18 +57,16 @@ namespace Examples.TicTac
         {
             _myLastMaskedActions.Clear();
 
-            int index = 0;
-            for (int i = 0; i < _gym.GymSize; i++)
+            var index = 0;
+            for (var i = 0; i < gym.GymSize; i++)
+            for (var j = 0; j < gym.GymSize; j++)
             {
-                for (int j = 0; j < _gym.GymSize; j++)
+                if (!gym.Cells[i, j].State.Equals(CellState.Empty))
                 {
-                    if (!_gym.Cells[i, j].State.Equals(CellState.EMPTY))
-                    {
-                        _myLastMaskedActions.Add(index);
-                    }
-
-                    index++;
+                    _myLastMaskedActions.Add(index);
                 }
+
+                index++;
             }
 
             actionMasker.SetMask(0, _myLastMaskedActions);
@@ -86,12 +85,12 @@ namespace Examples.TicTac
                 return;
             }
 
-            _gym.SetMarkForCurrentPlayer(cellIndex / _gym.GymSize, cellIndex % _gym.GymSize);
+            gym.SetMarkForCurrentPlayer(cellIndex / gym.GymSize, cellIndex % gym.GymSize);
         }
 
-        public override float[] Heuristic()
+        public override void Heuristic(float[] actionsOut)
         {
-            return _heuristicPlayer.Result;
+            for (var i = 0; i < actionsOut.Length; i++) actionsOut[i] = _heuristicPlayer.Result[i];
         }
 
         public override void OnEpisodeBegin()
@@ -100,7 +99,9 @@ namespace Examples.TicTac
             base.OnEpisodeBegin();
         }
 
-        public bool IsHeuristic => _behaviorParameters.IsHeuristic;
+        public bool IsHeuristic => _behaviorParameters.BehaviorType == BehaviorType.HeuristicOnly ||
+                                   _behaviorParameters.BehaviorType == BehaviorType.Default &&
+                                   !Academy.Instance.IsCommunicatorOn && _behaviorParameters.Model == null;
 
         public bool IsHeuristicEnabled => IsHeuristic && _heuristicPlayer.IsEnabled;
 

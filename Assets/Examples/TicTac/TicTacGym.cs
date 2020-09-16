@@ -1,11 +1,12 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Examples.TicTac
 {
     public class TicTacGym : MonoBehaviour
     {
-        public GameObject CellPrefab;
+        [FormerlySerializedAs("CellPrefab")] public GameObject cellPrefab;
 
         public Cell[,] Cells { get; private set; }
 
@@ -26,7 +27,7 @@ namespace Examples.TicTac
             {
                 for (int j = 0; j < Cells.GetLength(1); j++)
                 {
-                    Cells[i, j].State = CellState.EMPTY;
+                    Cells[i, j].State = CellState.Empty;
                 }
             }
 
@@ -66,7 +67,7 @@ namespace Examples.TicTac
                 return;
             }
 
-            if (cell.State != CellState.EMPTY)
+            if (cell.State != CellState.Empty)
             {
                 return;
             }

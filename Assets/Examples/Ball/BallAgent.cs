@@ -1,12 +1,13 @@
-﻿using MLAgents;
+﻿using Unity.MLAgents;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Examples.Ball
 {
     public class BallAgent : Agent
     {
-        [SerializeField] private float _maxForce;
-        [SerializeField] private float _maxTorque;
+        [FormerlySerializedAs("_maxForce")] [SerializeField] private float maxForce;
+        [FormerlySerializedAs("_maxTorque")] [SerializeField] private float maxTorque;
 
         private Rigidbody2D _rigidBody;
 
@@ -31,24 +32,29 @@ namespace Examples.Ball
             Power = 0;
 
             float forceCoeff = Mathf.Clamp(vectorAction[0], -1f, 1f);
-            _rigidBody.AddForce(_maxForce * forceCoeff * transform.up);
+            _rigidBody.AddForce(maxForce * forceCoeff * transform.up);
             Power += Mathf.Abs(forceCoeff);
 
             float torqueCoeff = Mathf.Clamp(vectorAction[1], -1f, 1f);
-            _rigidBody.AddTorque(_maxTorque * torqueCoeff);
+            _rigidBody.AddTorque(maxTorque * torqueCoeff);
             Power += Mathf.Abs(torqueCoeff);
         }
 
-        public override float[] Heuristic()
+        public override void Heuristic(float[] actionsOut)
         {
-            return new[] { Input.GetAxis("Vertical"), -Input.GetAxis("Horizontal") };
+            float[] actions = { Input.GetAxis("Vertical"), -Input.GetAxis("Horizontal") };
+
+            for (int i = 0; i < actionsOut.Length; i++)
+            {
+                actionsOut[i] = actions[i];
+            }
         }
 
         private void OnCollisionStay2D(Collision2D collision)
         {
-            IsCrashed = collision.collider.CompareTag(Tags.OBSTACLE);
-            IsTouchingTarget = collision.collider.CompareTag(Tags.TARGET)
-                               && collision.otherCollider.CompareTag(Tags.AGENT_HEAD);
+            IsCrashed = collision.collider.CompareTag(Tags.Obstacle);
+            IsTouchingTarget = collision.collider.CompareTag(Tags.Target)
+                               && collision.otherCollider.CompareTag(Tags.AgentHead);
         }
 
         private void OnCollisionExit2D()

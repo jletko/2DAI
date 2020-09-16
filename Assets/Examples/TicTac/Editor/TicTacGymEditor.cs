@@ -14,7 +14,7 @@ namespace Examples.TicTac.Editor
         private void OnEnable()
         {
             _ticTacGym = (TicTacGym)target;
-            _cellPrefab = _ticTacGym.CellPrefab;
+            _cellPrefab = _ticTacGym.cellPrefab;
             _gymSize = _ticTacGym.GymSize;
         }
 
@@ -22,12 +22,12 @@ namespace Examples.TicTac.Editor
         {
             DrawDefaultInspector();
 
-            if (_ticTacGym.CellPrefab == _cellPrefab && _ticTacGym.GymSize == _gymSize)
+            if (_ticTacGym.cellPrefab == _cellPrefab && _ticTacGym.GymSize == _gymSize)
             {
                 return;
             }
 
-            _cellPrefab = _ticTacGym.CellPrefab;
+            _cellPrefab = _ticTacGym.cellPrefab;
             _gymSize = _ticTacGym.GymSize;
             ClearCells();
             CreateCells(_ticTacGym.transform, _cellPrefab, _gymSize);

@@ -2,13 +2,14 @@
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Examples.TicTac
 {
     public class HeuristicPlayer : MonoBehaviour
     {
-        [SerializeField] private TicTacGym _gym;
-        [SerializeField] private int _casNaPartii;
+        [FormerlySerializedAs("_gym")] [SerializeField] private TicTacGym gym;
+        [FormerlySerializedAs("_casNaPartii")] [SerializeField] private int casNaPartii;
 
         private IEngine _piskvorkyEngine;
         private BarvaKamene[,] _hraciPole;
@@ -20,8 +21,8 @@ namespace Examples.TicTac
         private void Start()
         {
             _barvaKamene = ConvertToBarvaKamene(gameObject.tag);
-            _hraciPole = new BarvaKamene[_gym.GymSize, _gym.GymSize];
-            SouradnicePole.VelikostPlochy = _gym.GymSize;
+            _hraciPole = new BarvaKamene[gym.GymSize, gym.GymSize];
+            SouradnicePole.VelikostPlochy = gym.GymSize;
             Result = new float[1];
             ResetEngine();
             InvalidateResult();
@@ -57,8 +58,8 @@ namespace Examples.TicTac
                 return;
             }
 
-            DecodeGym(_gym);
-            _najdiNejlepsiTahTask = Task.Run(() => _piskvorkyEngine.NajdiNejlepsiTah(_hraciPole, _barvaKamene, TimeSpan.FromSeconds(_casNaPartii)));
+            DecodeGym(gym);
+            _najdiNejlepsiTahTask = Task.Run(() => _piskvorkyEngine.NajdiNejlepsiTah(_hraciPole, _barvaKamene, TimeSpan.FromSeconds(casNaPartii)));
         }
 
         public void Done()
@@ -80,16 +81,16 @@ namespace Examples.TicTac
 
         private void EncodeResult(SouradnicePole souradnicePole)
         {
-            Result[0] = souradnicePole.Radek * _gym.GymSize + souradnicePole.Sloupec;
+            Result[0] = souradnicePole.Radek * gym.GymSize + souradnicePole.Sloupec;
         }
 
-        private void DecodeGym(TicTacGym gym)
+        private void DecodeGym(TicTacGym ticTacGym)
         {
-            for (int i = 0; i < gym.GymSize; i++)
+            for (int i = 0; i < ticTacGym.GymSize; i++)
             {
-                for (int j = 0; j < gym.GymSize; j++)
+                for (int j = 0; j < ticTacGym.GymSize; j++)
                 {
-                    BarvaKamene barvaKamene = ConvertToBarvaKamene(gym.Cells[i, j].State);
+                    BarvaKamene barvaKamene = ConvertToBarvaKamene(ticTacGym.Cells[i, j].State);
                     _hraciPole[i, j] = barvaKamene;
                 }
             }
@@ -99,11 +100,11 @@ namespace Examples.TicTac
         {
             switch (cellState)
             {
-                case CellState.PLAYER_O:
+                case CellState.PlayerO:
                     return BarvaKamene.Bily;
-                case CellState.PLAYER_X:
+                case CellState.PlayerX:
                     return BarvaKamene.Cerny;
-                case CellState.EMPTY:
+                case CellState.Empty:
                     return BarvaKamene.Zadny;
                 default:
                     throw new Exception($"Unknown cell state: {cellState}");

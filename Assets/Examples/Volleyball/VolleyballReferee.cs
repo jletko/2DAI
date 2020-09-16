@@ -1,17 +1,18 @@
 ﻿using Common;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Examples.Volleyball
 {
     public class VolleyballReferee : RefereeBase
     {
-        [SerializeField] private PlayerAgent _leftPlayer;
-        [SerializeField] private PlayerAgent _rightPlayer;
-        [SerializeField] private Ball _ball;
-        [SerializeField] private Text _leftScoreText;
-        [SerializeField] private Text _rightScoreText;
-        [SerializeField] private float _holdTimeout;
+        [FormerlySerializedAs("_leftPlayer")] [SerializeField] private PlayerAgent leftPlayer;
+        [FormerlySerializedAs("_rightPlayer")] [SerializeField] private PlayerAgent rightPlayer;
+        [FormerlySerializedAs("_ball")] [SerializeField] private Ball ball;
+        [FormerlySerializedAs("_leftScoreText")] [SerializeField] private Text leftScoreText;
+        [FormerlySerializedAs("_rightScoreText")] [SerializeField] private Text rightScoreText;
+        [FormerlySerializedAs("_holdTimeout")] [SerializeField] private float holdTimeout;
 
         private float _holdTimeDelta;
         private float _lastTouchTime;
@@ -32,51 +33,51 @@ namespace Examples.Volleyball
 
         private void FixedUpdate()
         {
-            _leftPlayer.AddReward(0.001f);
-            _rightPlayer.AddReward(0.001f);
+            leftPlayer.AddReward(0.001f);
+            rightPlayer.AddReward(0.001f);
 
-            _leftPlayer.AddReward(-_leftPlayer.Power * 0.001f);
-            _rightPlayer.AddReward(-_rightPlayer.Power * 0.001f);
+            leftPlayer.AddReward(-leftPlayer.Power * 0.001f);
+            rightPlayer.AddReward(-rightPlayer.Power * 0.001f);
 
-            if (_leftPlayer.CollisionTag.Equals(Tags.NET) || _leftPlayer.CollisionTag.Equals(Tags.WALL))
+            if (leftPlayer.CollisionTag.Equals(Tags.Net) || leftPlayer.CollisionTag.Equals(Tags.Wall))
             {
-                _leftPlayer.AddReward(-0.1f);
+                leftPlayer.AddReward(-0.1f);
             }
 
-            if (_rightPlayer.CollisionTag.Equals(Tags.NET) || _rightPlayer.CollisionTag.Equals(Tags.WALL))
+            if (rightPlayer.CollisionTag.Equals(Tags.Net) || rightPlayer.CollisionTag.Equals(Tags.Wall))
             {
-                _rightPlayer.AddReward(-0.1f);
+                rightPlayer.AddReward(-0.1f);
             }
 
-            switch (_ball.CollisionTag)
+            switch (ball.CollisionTag)
             {
-                case Tags.LEFT_FLOOR:
-                    RestartRound(Tags.RIGHT_PLAYER);
+                case Tags.LeftFloor:
+                    RestartRound(Tags.RightPlayer);
                     return;
 
-                case Tags.RIGHT_FLOOR:
-                    RestartRound(Tags.LEFT_PLAYER);
+                case Tags.RightFloor:
+                    RestartRound(Tags.LeftPlayer);
                     return;
 
-                case Tags.LEFT_PLAYER:
-                case Tags.RIGHT_PLAYER:
+                case Tags.LeftPlayer:
+                case Tags.RightPlayer:
                     if (CheckBallHold() || CheckBallDoubleTouch())
                     {
-                        RestartRound(Tags.GetOtherPlayer(_ball.CollisionTag));
+                        RestartRound(Tags.GetOtherPlayer(ball.CollisionTag));
                         return;
                     }
                     break;
             }
 
-            _oldBallCollisionTag = _ball.CollisionTag;
+            _oldBallCollisionTag = ball.CollisionTag;
         }
 
         private bool CheckBallHold()
         {
-            if (_ball.CollisionTag == _oldBallCollisionTag)
+            if (ball.CollisionTag == _oldBallCollisionTag)
             {
                 _holdTimeDelta += Time.fixedDeltaTime;
-                if (_holdTimeDelta > _holdTimeout)
+                if (_holdTimeDelta > holdTimeout)
                 {
 
                     return true;
@@ -92,17 +93,17 @@ namespace Examples.Volleyball
 
         private bool CheckBallDoubleTouch()
         {
-            if (_ball.CollisionTag == _oldBallCollisionTag)
+            if (ball.CollisionTag == _oldBallCollisionTag)
             {
                 return false;
             }
 
-            if (_ball.CollisionTag != _lastTouchPlayer)
+            if (ball.CollisionTag != _lastTouchPlayer)
             {
                 _lastTouchTime = Time.fixedTime;
-                _lastTouchPlayer = _ball.CollisionTag;
+                _lastTouchPlayer = ball.CollisionTag;
             }
-            else if (Time.fixedTime - _lastTouchTime > _holdTimeout)
+            else if (Time.fixedTime - _lastTouchTime > holdTimeout)
             {
                 return true;
             }
@@ -116,25 +117,25 @@ namespace Examples.Volleyball
 
             float playerSign = Tags.GetPlayerSign(winningPlayer);
 
-            _rightPlayer.AddReward(playerSign);
-            _leftPlayer.AddReward(-playerSign);
+            rightPlayer.AddReward(playerSign);
+            leftPlayer.AddReward(-playerSign);
 
-            _leftPlayer.EndEpisode();
-            _rightPlayer.EndEpisode();
+            leftPlayer.EndEpisode();
+            rightPlayer.EndEpisode();
 
-            if (winningPlayer.Equals(Tags.LEFT_PLAYER))
+            if (winningPlayer.Equals(Tags.LeftPlayer))
             {
-                _leftPlayer.Restart();
-                _rightPlayer.RestartWithServing();
+                leftPlayer.Restart();
+                rightPlayer.RestartWithServing();
                 _leftScore++;
-                _leftScoreText.text = _leftScore.ToString();
+                leftScoreText.text = _leftScore.ToString();
             }
             else
             {
-                _rightPlayer.Restart();
-                _leftPlayer.RestartWithServing();
+                rightPlayer.Restart();
+                leftPlayer.RestartWithServing();
                 _rightScore++;
-                _rightScoreText.text = _rightScore.ToString();
+                rightScoreText.text = _rightScore.ToString();
             }
 
             _oldBallCollisionTag = string.Empty;
@@ -146,14 +147,14 @@ namespace Examples.Volleyball
         {
             base.Restart();
 
-            _leftPlayer.RestartWithServing();
-            _rightPlayer.Restart();
+            leftPlayer.RestartWithServing();
+            rightPlayer.Restart();
             _leftScore = 0;
             _rightScore = 0;
-            _leftScoreText.text = _leftScore.ToString();
-            _rightScoreText.text = _rightScore.ToString();
-            _rightPlayer.EndEpisode();
-            _leftPlayer.EndEpisode();
+            leftScoreText.text = _leftScore.ToString();
+            rightScoreText.text = _rightScore.ToString();
+            rightPlayer.EndEpisode();
+            leftPlayer.EndEpisode();
 
             _oldBallCollisionTag = string.Empty;
             _lastTouchPlayer = string.Empty;

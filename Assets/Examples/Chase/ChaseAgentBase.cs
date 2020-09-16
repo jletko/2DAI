@@ -1,12 +1,13 @@
-﻿using MLAgents;
+﻿using Unity.MLAgents;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Examples.Chase
 {
     public abstract class ChaseAgentBase : Agent
     {
-        [SerializeField] private float _maxMoveForce;
-        [SerializeField] private float _maxTorqueForce;
+        [FormerlySerializedAs("_maxMoveForce")] [SerializeField] private float maxMoveForce;
+        [FormerlySerializedAs("_maxTorqueForce")] [SerializeField] private float maxTorqueForce;
 
         protected Rigidbody2D RigidBody;
 
@@ -26,9 +27,14 @@ namespace Examples.Chase
             RigidBody = GetComponent<Rigidbody2D>();
         }
 
-        public override float[] Heuristic()
+        public override void Heuristic(float[] actionsOut)
         {
-            return new[] { Input.GetAxis("Vertical"), -Input.GetAxis("Horizontal") };
+            float[] actions = { Input.GetAxis("Vertical"), -Input.GetAxis("Horizontal") };
+
+            for (int i = 0; i < actionsOut.Length; i++)
+            {
+                actionsOut[i] = actions[i];
+            }
         }
 
         public override void OnActionReceived(float[] vectorAction)
@@ -36,17 +42,17 @@ namespace Examples.Chase
             Power = 0;
 
             float forceCoeff = Mathf.Clamp(vectorAction[0], -1f, 1f);
-            RigidBody.AddForce(_maxMoveForce * forceCoeff * transform.up);
+            RigidBody.AddForce(maxMoveForce * forceCoeff * transform.up);
             Power += Mathf.Abs(forceCoeff);
 
             float torqueCoeff = Mathf.Clamp(vectorAction[1], -1f, 1f);
-            RigidBody.AddTorque(_maxTorqueForce * torqueCoeff);
+            RigidBody.AddTorque(maxTorqueForce * torqueCoeff);
             Power += Mathf.Abs(torqueCoeff);
         }
 
         protected virtual void OnCollisionStay2D(Collision2D collision)
         {
-            IsCrashed = collision.collider.CompareTag(Tags.OBSTACLE);
+            IsCrashed = collision.collider.CompareTag(Tags.Obstacle);
         }
 
         protected virtual void OnCollisionExit2D()
