@@ -10,13 +10,13 @@ set BRAINS_DIR_PATH=%PROJECTS_DIRECTORY_PATH%\2DAI\Assets\BrainsTmp
 set RUN_DIR_NAME=Run%fullstamp%
 
 if [%1]==[] (
-	mlagents-learn %TRAINING_DIR_PATH%\trainer_config.yaml --run-id=%RUN_DIR_NAME% --train
+	mlagents-learn %TRAINING_DIR_PATH%\trainer_config.yaml --run-id=%RUN_DIR_NAME%
 ) else (
-	mlagents-learn %TRAINING_DIR_PATH%\trainer_config.yaml --run-id=%RUN_DIR_NAME% --env=%UNITY_PROJECT_DIR_PATH%\bin\2DAI.exe --num-envs=%1 --no-graphics --train
+	mlagents-learn %TRAINING_DIR_PATH%\trainer_config.yaml --run-id=%RUN_DIR_NAME% --env=%UNITY_PROJECT_DIR_PATH%\bin\2DAI.exe --num-envs=%1 --no-graphics
 )
 
 if not exist %BRAINS_DIR_PATH% MkDir %BRAINS_DIR_PATH%
-for /F %%b in ('dir /b models\%RUN_DIR_NAME%\*.nn') do copy models\Run%fullstamp%\%%b %BRAINS_DIR_PATH%\%%~nb%fullstamp%%%~xb
+for /F %%b in ('dir /b results\%RUN_DIR_NAME%\*.nn') do copy results\Run%fullstamp%\%%b %BRAINS_DIR_PATH%\%%~nb%fullstamp%%%~xb
 
 if %ERRORLEVEL% EQU 0 exit
 
