@@ -7,7 +7,7 @@
       "dependencies": {}
     },
     "com.unity.barracuda": {
-      "version": "1.0.2",
+      "version": "1.0.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -25,7 +25,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.2",
+      "version": "2.0.3",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -39,11 +39,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ml-agents": {
-      "version": "1.0.4",
+      "version": "1.0.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.barracuda": "1.0.2",
+        "com.unity.barracuda": "1.0.3",
         "com.unity.modules.imageconversion": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0",
         "com.unity.modules.physics": "1.0.0",
