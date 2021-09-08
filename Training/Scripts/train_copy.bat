@@ -4,15 +4,15 @@ set "HH=%dt:~8,2%" & set "Min=%dt:~10,2%" & set "Sec=%dt:~12,2%"
 set "datestamp=%YY%%MM%%DD%" & set "timestamp=%HH%%Min%%Sec%"
 set "fullstamp=%Y%%MM%%DD%_%HH%%Min%%Sec%"
 
-set UNITY_PROJECT_DIR_PATH=%PROJECTS_DIRECTORY_PATH%\2DAI
-set TRAINING_DIR_PATH=%PROJECTS_DIRECTORY_PATH%\2DAI\Training
-set BRAINS_DIR_PATH=%PROJECTS_DIRECTORY_PATH%\2DAI\Assets\BrainsTmp
+set UNITY_PROJECT_DIR_PATH=%PROJECTS_DIRECTORY_PATH%\%PROJECT_DIRECTORY%
+set TRAINING_DIR_PATH=%PROJECTS_DIRECTORY_PATH%\%PROJECT_DIRECTORY%\Training
+set BRAINS_DIR_PATH=%PROJECTS_DIRECTORY_PATH%\%PROJECT_DIRECTORY%\Assets\BrainsTmp
 set RUN_DIR_NAME=Run%fullstamp%
 
 if [%1]==[] (
-	mlagents-learn %TRAINING_DIR_PATH%\trainer_config.yaml --run-id=%RUN_DIR_NAME%
+	mlagents-learn %TRAINING_DIR_PATH%\trainer_config.yaml --time-scale 10 --run-id=%RUN_DIR_NAME%
 ) else (
-	mlagents-learn %TRAINING_DIR_PATH%\trainer_config.yaml --run-id=%RUN_DIR_NAME% --env=%UNITY_PROJECT_DIR_PATH%\bin\2DAI.exe --num-envs=%1 --no-graphics
+	mlagents-learn %TRAINING_DIR_PATH%\trainer_config.yaml --time-scale 10 --run-id=%RUN_DIR_NAME% --env=%UNITY_PROJECT_DIR_PATH%\bin\%PROJECT_DIRECTORY%.exe --num-envs=%1 --no-graphics
 )
 
 if not exist %BRAINS_DIR_PATH% MkDir %BRAINS_DIR_PATH%
