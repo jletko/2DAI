@@ -1,6 +1,8 @@
 ﻿using Examples.TicTac.PiskvorkySVitezem;
+
 using System;
 using System.Threading.Tasks;
+
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -23,7 +25,7 @@ namespace Examples.TicTac
             _barvaKamene = ConvertToBarvaKamene(gameObject.tag);
             _hraciPole = new BarvaKamene[gym.GymSize, gym.GymSize];
             SouradnicePole.VelikostPlochy = gym.GymSize;
-            Result = new float[1];
+            Result = new int[1];
             ResetEngine();
             InvalidateResult();
         }
@@ -42,7 +44,7 @@ namespace Examples.TicTac
 
         public bool HasValidResult { get; private set; }
 
-        public float[] Result { get; private set; }
+        public int[] Result { get; private set; }
 
         public void InvalidateResult()
         {

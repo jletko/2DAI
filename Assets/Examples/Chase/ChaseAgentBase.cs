@@ -1,4 +1,6 @@
 ﻿using Unity.MLAgents;
+using Unity.MLAgents.Actuators;
+
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -27,25 +29,26 @@ namespace Examples.Chase
             RigidBody = GetComponent<Rigidbody2D>();
         }
 
-        public override void Heuristic(float[] actionsOut)
+        public override void Heuristic(in ActionBuffers actionsOut)
         {
             float[] actions = { Input.GetAxis("Vertical"), -Input.GetAxis("Horizontal") };
 
-            for (int i = 0; i < actionsOut.Length; i++)
+            for (int i = 0; i < actionsOut.ContinuousActions.Length; i++)
             {
-                actionsOut[i] = actions[i];
+                var continuousActions = actionsOut.ContinuousActions;
+                continuousActions[i] = actions[i];
             }
         }
 
-        public override void OnActionReceived(float[] vectorAction)
+        public override void OnActionReceived(ActionBuffers actions)
         {
             Power = 0;
 
-            float forceCoeff = Mathf.Clamp(vectorAction[0], -1f, 1f);
+            float forceCoeff = Mathf.Clamp(actions.ContinuousActions[0], -1f, 1f);
             RigidBody.AddForce(maxMoveForce * forceCoeff * transform.up);
             Power += Mathf.Abs(forceCoeff);
 
-            float torqueCoeff = Mathf.Clamp(vectorAction[1], -1f, 1f);
+            float torqueCoeff = Mathf.Clamp(actions.ContinuousActions[1], -1f, 1f);
             RigidBody.AddTorque(maxTorqueForce * torqueCoeff);
             Power += Mathf.Abs(torqueCoeff);
         }

@@ -1,6 +1,9 @@
 ﻿using System.Linq;
+
 using Unity.MLAgents;
+using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -75,16 +78,16 @@ namespace Examples.Volleyball
             sensor.AddObservation(rightHandRigidbody.transform.position.y - transform.position.y > 0 ? 1 : 0);
         }
 
-        public override void OnActionReceived(float[] vectorAction)
+        public override void OnActionReceived(ActionBuffers actions)
         {
             Power = 0;
-            Move(vectorAction);
-            MoveHands(vectorAction);
+            Move(actions.DiscreteActions.Array);
+            MoveHands(actions.DiscreteActions.Array);
         }
 
-        public override void Heuristic(float[] actionsOut)
+        public override void Heuristic(in ActionBuffers actionsOut)
         {
-            float[] actions = new float[3];
+            int[] actions = new int[3];
 
             //TODO: use axis but with "infinite" sensitivity so the action is instant 
             // but consider other example scenes/agents are using the same axis and are analog based
@@ -103,21 +106,21 @@ namespace Examples.Volleyball
                 actions[1] = 1;
             }
 
+            ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
             if (Input.GetKey(KeyCode.LeftAlt))
             {
-                actions[2] = 1;
+                discreteActions[2] = 1;
             }
 
-            for (int i = 0; i < actionsOut.Length; i++)
+            for (int i = 0; i < discreteActions.Length; i++)
             {
-                actionsOut[i] = actions[i];
+                discreteActions[i] = actions[i];
             }
         }
 
-        private void Move(float[] vectorAction)
+        private void Move(int[] actions)
         {
-            int movement = Mathf.FloorToInt(vectorAction[0]);
-            switch (movement)
+            switch (actions[0])
             {
                 case 1:
                     _rigidbody.MovePosition(_rigidbody.position + moveSpeed * Vector2.left * _playerSign);
@@ -130,10 +133,10 @@ namespace Examples.Volleyball
             }
         }
 
-        private void MoveHands(float[] vectorAction)
+        private void MoveHands(int[] actions)
         {
-            int leftHand = Mathf.FloorToInt(vectorAction[1]);
-            int rightHand = Mathf.FloorToInt(vectorAction[2]);
+            int leftHand = Mathf.FloorToInt(actions[1]);
+            int rightHand = Mathf.FloorToInt(actions[2]);
             if (_isLeftPlayer)
             {
                 if (leftHand == 1)
