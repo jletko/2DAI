@@ -16,7 +16,7 @@ if [%1]==[] (
 )
 
 if not exist %BRAINS_DIR_PATH% MkDir %BRAINS_DIR_PATH%
-for /F %%b in ('dir /b results\%RUN_DIR_NAME%\*.nn') do copy results\Run%fullstamp%\%%b %BRAINS_DIR_PATH%\%%~nb%fullstamp%%%~xb
+for /F %%b in ('dir /b results\%RUN_DIR_NAME%\*.onnx') do copy results\Run%fullstamp%\%%b %BRAINS_DIR_PATH%\%%~nb%fullstamp%%%~xb
 
 if %ERRORLEVEL% EQU 0 exit
 
