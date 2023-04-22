@@ -78,5 +78,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Bb]rainsTmp/*
 /[Aa]ssets/[Bb]rainsTmp.meta
 /[Tt]raining/[Rr]esults/*
+/[Tt]raining/[Rr]esults/*
 /[Tt]raining/[Rr]esults.meta
+/[Tt]raining/[Ss]cripts/[Rr]esults/*
 /Training/debug.log
