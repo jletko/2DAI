@@ -19,7 +19,7 @@ namespace Examples.Chase
         public virtual void Restart(Vector2 startPosition)
         {
             RigidBody.angularVelocity = 0;
-            RigidBody.velocity = Vector2.zero;
+            RigidBody.linearVelocity = Vector2.zero;
             transform.position = startPosition;
             IsCrashed = false;
         }

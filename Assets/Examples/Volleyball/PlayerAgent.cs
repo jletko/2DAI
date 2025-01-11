@@ -57,7 +57,7 @@ namespace Examples.Volleyball
             float yPosition = gym.position.y - 2 * gymQuarterScale.y + 2.6f;
 
             transform.position = new Vector2(xPosition, yPosition);
-            _rigidbody.velocity = Vector2.zero;
+            _rigidbody.linearVelocity = Vector2.zero;
         }
 
         public void RestartWithServing()
@@ -72,8 +72,8 @@ namespace Examples.Volleyball
             sensor.AddObservation((transform.position.x - gym.position.x) * _playerSign);
             sensor.AddObservation((ballRigidBody.transform.position.x - transform.position.x) * _playerSign);
             sensor.AddObservation(ballRigidBody.transform.position.y - transform.position.y);
-            sensor.AddObservation(ballRigidBody.velocity.x * _playerSign);
-            sensor.AddObservation(ballRigidBody.velocity.y);
+            sensor.AddObservation(ballRigidBody.linearVelocity.x * _playerSign);
+            sensor.AddObservation(ballRigidBody.linearVelocity.y);
             sensor.AddObservation(leftHandRigidbody.transform.position.y - transform.position.y > 0 ? 1 : 0);
             sensor.AddObservation(rightHandRigidbody.transform.position.y - transform.position.y > 0 ? 1 : 0);
         }

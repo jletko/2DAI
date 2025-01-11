@@ -17,7 +17,7 @@ namespace Examples.Volleyball
         {
             transform.position = startPosition;
 
-            _rigidBody.velocity = Vector2.zero;
+            _rigidBody.linearVelocity = Vector2.zero;
             _rigidBody.angularVelocity = 0;
 
             CollisionTag = string.Empty;

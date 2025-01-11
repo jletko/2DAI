@@ -19,7 +19,7 @@ namespace Examples.Ball
         public void Restart(Vector2 startPosition)
         {
             _rigidBody.angularVelocity = 0;
-            _rigidBody.velocity = Vector2.zero;
+            _rigidBody.linearVelocity = Vector2.zero;
             transform.position = startPosition;
         }
 
