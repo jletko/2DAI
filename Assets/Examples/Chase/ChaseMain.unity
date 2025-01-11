@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -252,6 +253,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950122827193789749, guid: 5ad7c0894259544459d608e1d4fcb31a,
+        type: 3}
+      propertyPath: m_Model
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6950122827193789759, guid: 5ad7c0894259544459d608e1d4fcb31a,
         type: 3}
@@ -629,6 +635,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5211304079690016247, guid: cc26c929796847a4c97f544825f6a827,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -696,6 +707,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950122827193789749, guid: 5ad7c0894259544459d608e1d4fcb31a,
+        type: 3}
+      propertyPath: m_Model
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6950122827193789759, guid: 5ad7c0894259544459d608e1d4fcb31a,
         type: 3}
