@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Unity.MLAgents;
+
 using UnityEditor;
+
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -13,16 +16,16 @@ namespace Common
     {
         private const float MaxTimeScale = 20;
 
-        [FormerlySerializedAs("_mainCanvas")] [SerializeField] private Canvas mainCanvas;
-        [FormerlySerializedAs("_isMenuEnabledAfterStart")] [SerializeField] private bool isMenuEnabledAfterStart = false;
-        [FormerlySerializedAs("_timeScaleTextBox")] [SerializeField] private Text timeScaleTextBox;
-        [FormerlySerializedAs("_stepTextBox")] [SerializeField] private Text stepTextBox;
-        [FormerlySerializedAs("_timeTextBox")] [SerializeField] private Text timeTextBox;
-        [FormerlySerializedAs("_timeScaleSlider")] [SerializeField] private Slider timeScaleSlider;
-        [FormerlySerializedAs("_restartButton")] [SerializeField] private Button restartButton;
-        [FormerlySerializedAs("_trainingTimeScale")] [SerializeField] [Range(0, MaxTimeScale)] private float trainingTimeScale = MaxTimeScale;
-        [FormerlySerializedAs("_gravity")] [SerializeField] private Vector2 gravity = new Vector2(0, 0);
-        [FormerlySerializedAs("_fixedTimestamp")] [SerializeField] private float fixedTimestamp = 0.02f;
+        [FormerlySerializedAs("_mainCanvas")][SerializeField] private Canvas mainCanvas;
+        [FormerlySerializedAs("_isMenuEnabledAfterStart")][SerializeField] private bool isMenuEnabledAfterStart = false;
+        [FormerlySerializedAs("_timeScaleTextBox")][SerializeField] private Text timeScaleTextBox;
+        [FormerlySerializedAs("_stepTextBox")][SerializeField] private Text stepTextBox;
+        [FormerlySerializedAs("_timeTextBox")][SerializeField] private Text timeTextBox;
+        [FormerlySerializedAs("_timeScaleSlider")][SerializeField] private Slider timeScaleSlider;
+        [FormerlySerializedAs("_restartButton")][SerializeField] private Button restartButton;
+        [FormerlySerializedAs("_trainingTimeScale")][SerializeField][Range(0, MaxTimeScale)] private float trainingTimeScale = MaxTimeScale;
+        [FormerlySerializedAs("_gravity")][SerializeField] private Vector2 gravity = new Vector2(0, 0);
+        [FormerlySerializedAs("_fixedTimestamp")][SerializeField] private float fixedTimestamp = 0.02f;
 
         private List<RefereeBase> _allReferees;
         private bool _isOneClick;
@@ -33,7 +36,7 @@ namespace Common
         {
             Physics2D.gravity = gravity;
             Time.fixedDeltaTime = fixedTimestamp;
-            _allReferees = FindObjectsOfType<RefereeBase>().ToList();
+            _allReferees = FindObjectsByType<RefereeBase>(FindObjectsSortMode.None).ToList();
             restartButton.gameObject.SetActive(_allReferees.Any());
             timeScaleSlider.value = Mathf.Log(1 + (IsCommunicatorOn ? trainingTimeScale : 1)) / Mathf.Log(MaxTimeScale + 1);
             _fixedUpdatesCount = 0;
