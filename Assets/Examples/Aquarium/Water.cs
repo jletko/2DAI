@@ -4,24 +4,20 @@ using UnityEngine;
 
 namespace Examples.Aquarium
 {
-    public class AccelerationEffector2D : MonoBehaviour
+    public class Water : MonoBehaviour
     {
-        [SerializeField]
         private Vector2 acceleration;
         private float linearDamping = 3.0f; // Additional damping for smoother motion
-        private float angularDamping = 40.0f;
+        private float angularDamping = 50.0f;
         private List<Rigidbody2D> affectedBodies;
         private Collider2D triggerArea;
 
-        private void Awake()
+        private void Start()
         {
             // Initialize the acceleration vector and list of affected bodies
             acceleration = -0.96f * Physics2D.gravity;
             affectedBodies = new List<Rigidbody2D>();
-        }
 
-        private void Start()
-        {
             // Get the trigger area collider
             triggerArea = GetComponent<Collider2D>();
 

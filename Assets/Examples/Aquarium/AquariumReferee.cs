@@ -1,6 +1,8 @@
+using Common;
+
 namespace Examples.Aquarium
 {
-    public class AquariumReferee
+    public class AquariumReferee : RefereeBase
     {
 
     }
