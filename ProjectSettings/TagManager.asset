@@ -21,7 +21,6 @@ TagManager:
   - PlayerX
   - Fish
   - AquariumTop
-  - Partition
   layers:
   - Default
   - TransparentFX
@@ -34,7 +33,7 @@ TagManager:
   - Hand
   - Wall
   - Net
-  - Partition
+  - Target
   - 
   - 
   - 
