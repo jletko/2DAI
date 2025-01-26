@@ -15,7 +15,7 @@ namespace Examples.Aquarium
         [SerializeField]
         private Water rightWater;
 
-        private const float allowedRoundTime = 60;
+        private const float allowedRoundTime = 120;
         private BoxCollider2D leftWaterCollider;
         private BoxCollider2D rightWaterCollider;
 
@@ -24,9 +24,23 @@ namespace Examples.Aquarium
             base.Restart();
 
             fishAgent.EndEpisode();
-            bool switchWater = Random.value > 0.5f;
-            fishAgent.Restart(GetRandomPositionInsideBoxCollider2D(switchWater ? rightWaterCollider : leftWaterCollider, 0.1f));
-            food.transform.position = GetRandomPositionInsideBoxCollider2D(switchWater ? leftWaterCollider : rightWaterCollider, 0.1f);
+            bool switchedWater = Random.value > 0.5f;
+            bool sameWater = Random.value > 0.5f;
+            BoxCollider2D fishWater;
+            BoxCollider2D foodWater;
+            if (sameWater)
+            {
+                fishWater = switchedWater ? rightWaterCollider : leftWaterCollider;
+                foodWater = fishWater;
+            }
+            else
+            {
+                fishWater = switchedWater ? rightWaterCollider : leftWaterCollider;
+                foodWater = switchedWater ? leftWaterCollider : rightWaterCollider;
+            }
+
+            fishAgent.Restart(GetRandomPositionInsideBoxCollider2D(fishWater, 0.1f));
+            food.transform.position = GetRandomPositionInsideBoxCollider2D(foodWater, 0.1f);
 
             leftWater.Restart();
             rightWater.Restart();
@@ -62,7 +76,7 @@ namespace Examples.Aquarium
 
             if (fishAgent.IsCrashed)
             {
-                fishAgent.AddReward(-0.05f);
+                fishAgent.AddReward(-0.01f);
             }
         }
 

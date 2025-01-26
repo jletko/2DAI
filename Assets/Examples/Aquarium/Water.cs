@@ -9,7 +9,7 @@ namespace Examples.Aquarium
 
         private Rigidbody2D fishAgentRigidBody;
         private Collider2D waterTriggerArea;
-        private float linearDamping = 3.0f;
+        private float linearDamping = 5.0f;
         private float angularDamping = 70.0f;
 
         public void Restart()

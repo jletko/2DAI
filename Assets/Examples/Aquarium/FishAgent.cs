@@ -7,8 +7,8 @@ namespace Examples.Aquarium
 {
     public class FishAgent : Agent
     {
-        private float maxMoveForce = 8f;
-        private float maxTorqueForce = 1f;
+        private float maxMoveForce = 10f;
+        private float maxTorqueForce = 0.25f;
         private Rigidbody2D rigidBody;
 
         public override void Initialize()

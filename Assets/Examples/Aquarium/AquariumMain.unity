@@ -665,7 +665,7 @@ Transform:
   m_GameObject: {fileID: 383633926}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.615, z: 0}
+  m_LocalPosition: {x: 0, y: 0.49, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1077,8 +1077,8 @@ Transform:
   m_GameObject: {fileID: 715286134}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
-  m_LocalScale: {x: 0.05, y: 1.1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.05, y: 0.95, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 395519051}
@@ -1233,10 +1233,10 @@ MonoBehaviour:
   m_DetectableTags:
   - Target
   - Wall
-  m_RaysPerDirection: 5
-  m_MaxRayDegrees: 60
+  m_RaysPerDirection: 10
+  m_MaxRayDegrees: 85
   m_SphereCastRadius: 0.25
-  m_RayLength: 5
+  m_RayLength: 15
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294965960
