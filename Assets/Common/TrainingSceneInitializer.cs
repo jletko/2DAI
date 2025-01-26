@@ -1,16 +1,18 @@
 ﻿using Unity.MLAgents;
+
 using UnityEngine;
 using UnityEngine.Serialization;
+
 using Object = UnityEngine.Object;
 
 namespace Common
 {
     internal class TrainingSceneInitializer : MonoBehaviour
     {
-        [FormerlySerializedAs("_rootPrefab")] [SerializeField] private GameObject rootPrefab;
-        [FormerlySerializedAs("_gym")] [SerializeField] private Transform gym;
-        [FormerlySerializedAs("_padding")] [SerializeField] private float padding;
-        [FormerlySerializedAs("_gymsCount")] [SerializeField] private TraningGymsCount gymsCount = TraningGymsCount.TwentyFive;
+        [FormerlySerializedAs("_rootPrefab")][SerializeField] private GameObject rootPrefab;
+        [FormerlySerializedAs("_gym")][SerializeField] private Transform gym;
+        [FormerlySerializedAs("_padding")][SerializeField] private float padding;
+        [FormerlySerializedAs("_gymsCount")][SerializeField] private TraningGymsCount gymsCount = TraningGymsCount.TwentyFive;
 
         private int _rootsPerRowCount;
 

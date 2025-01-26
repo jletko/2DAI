@@ -8,15 +8,22 @@ namespace Examples.Aquarium
     public class FishAgent : Agent
     {
         private float maxMoveForce = 8f;
-        private float maxTorqueForce = 0.3f;
+        private float maxTorqueForce = 1f;
         private Rigidbody2D rigidBody;
-        public float stuckTimeThreshold = 2.0f; // Time in seconds before considering stuck
-        private float collisionStartTime;
-        private bool isCheckingStuck = false;
 
-        void Start()
+        public override void Initialize()
         {
             rigidBody = GetComponent<Rigidbody2D>();
+        }
+
+        public void Restart(Vector2 startPosition)
+        {
+            rigidBody.angularVelocity = 0;
+            rigidBody.linearVelocity = Vector2.zero;
+            transform.position = startPosition;
+            IsOutsideAquarium = false;
+            IsInWater = false;
+            IsFoodFound = false;
         }
 
         public override void Heuristic(in ActionBuffers actionsOut)
@@ -42,43 +49,28 @@ namespace Examples.Aquarium
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.collider.CompareTag(Tags.AquariumTop))
-            {
-                collisionStartTime = Time.time;
-                isCheckingStuck = true;
-            }
-        }
+        public bool IsInWater { get; set; }
+
+        public bool IsOutsideAquarium { get; set; }
+
+        public bool IsFoodFound { get; private set; }
+
+        public Vector2 WaterUpwardAcceleration { get; set; }
 
         private void OnCollisionStay2D(Collision2D other)
         {
-            if (other.collider.CompareTag(Tags.AquariumTop))
+            if (!IsFoodFound && other.otherCollider.CompareTag(Tags.Mouth) && other.collider.CompareTag(Tags.Target))
             {
-                if (isCheckingStuck && !IsStuckOnAquariumTop)
-                {
-                    float elapsedTime = Time.time - collisionStartTime;
-
-                    if (elapsedTime >= stuckTimeThreshold)
-                    {
-                        IsStuckOnAquariumTop = true;
-                        isCheckingStuck = false;
-                    }
-                }
+                IsFoodFound = true;
             }
         }
 
-        private void OnCollisionExit2D(Collision2D other)
+        private void FixedUpdate()
         {
-            if (other.collider.CompareTag(Tags.AquariumTop))
+            if (IsInWater)
             {
-                isCheckingStuck = false;
-                IsStuckOnAquariumTop = false;
+                rigidBody.AddForce(rigidBody.mass * WaterUpwardAcceleration);
             }
         }
-
-        public bool IsInWater { get; set; }
-
-        public bool IsStuckOnAquariumTop { get; set; }
     }
 }

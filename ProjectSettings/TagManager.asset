@@ -21,6 +21,8 @@ TagManager:
   - PlayerX
   - Fish
   - AquariumTop
+  - Water
+  - Mouth
   layers:
   - Default
   - TransparentFX
