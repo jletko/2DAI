@@ -49,6 +49,8 @@ namespace Examples.Aquarium
             }
         }
 
+        public bool IsCrashed { get; private set; }
+
         public bool IsInWater { get; set; }
 
         public bool IsOutsideAquarium { get; set; }
@@ -63,6 +65,16 @@ namespace Examples.Aquarium
             {
                 IsFoodFound = true;
             }
+
+            if (!IsCrashed && other.collider.CompareTag(Tags.Wall))
+            {
+                IsCrashed = true;
+            }
+        }
+
+        private void OnCollisionExit2D()
+        {
+            IsCrashed = false;
         }
 
         private void FixedUpdate()

@@ -59,6 +59,11 @@ namespace Examples.Aquarium
                 fishAgent.SetReward(1);
                 Restart();
             }
+
+            if (fishAgent.IsCrashed)
+            {
+                fishAgent.AddReward(-0.05f);
+            }
         }
 
         public static Vector2 GetRandomPositionInsideBoxCollider2D(BoxCollider2D boxCollider, float padding)
