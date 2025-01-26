@@ -23,7 +23,7 @@ namespace Common
         [FormerlySerializedAs("_timeTextBox")][SerializeField] private Text timeTextBox;
         [FormerlySerializedAs("_timeScaleSlider")][SerializeField] private Slider timeScaleSlider;
         [FormerlySerializedAs("_restartButton")][SerializeField] private Button restartButton;
-        [FormerlySerializedAs("_trainingTimeScale")][SerializeField][Range(0, MaxTimeScale)] private float trainingTimeScale = MaxTimeScale;
+        [FormerlySerializedAs("_trainingTimeScale")][SerializeField][Range(0, MaxTimeScale)] private float trainingTimeScale = 10;
         [FormerlySerializedAs("_gravity")][SerializeField] private Vector2 gravity = new Vector2(0, 0);
         [FormerlySerializedAs("_fixedTimestamp")][SerializeField] private float fixedTimestamp = 0.02f;
 

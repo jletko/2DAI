@@ -58,25 +58,25 @@ namespace Examples.Aquarium
         {
             if (TimeSinceLastRestart > allowedRoundTime)
             {
-                fishAgent.SetReward(-1);
+                fishAgent.AddReward(-1);
                 Restart();
             }
 
             if (fishAgent.IsOutsideAquarium)
             {
-                fishAgent.SetReward(-1);
+                fishAgent.AddReward(-0.5f);
                 Restart();
             }
 
             if (fishAgent.IsFoodFound)
             {
-                fishAgent.SetReward(1);
+                fishAgent.AddReward(1);
                 Restart();
             }
 
             if (fishAgent.IsCrashed)
             {
-                fishAgent.AddReward(-0.01f);
+                fishAgent.AddReward(-0.001f);
             }
         }
 

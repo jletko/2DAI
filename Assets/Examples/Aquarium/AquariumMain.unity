@@ -345,6 +345,11 @@ PrefabInstance:
       propertyPath: _gravity.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6727305483666367660, guid: beadbd66347167b4799f5c96c54b705e,
+        type: 3}
+      propertyPath: trainingTimeScale
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1234,7 +1239,7 @@ MonoBehaviour:
   - Target
   - Wall
   m_RaysPerDirection: 10
-  m_MaxRayDegrees: 85
+  m_MaxRayDegrees: 90
   m_SphereCastRadius: 0.25
   m_RayLength: 15
   m_RayLayerMask:
