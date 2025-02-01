@@ -23,6 +23,7 @@ TagManager:
   - AquariumTop
   - Water
   - Mouth
+  - Ceiling
   layers:
   - Default
   - TransparentFX

@@ -10,7 +10,7 @@ namespace Examples.Aquarium
         private const float IsOutsideWaterLimitTime = 2;
         private bool WasInWater = true;
 
-        private void Update()
+        private void FixedUpdate()
         {
             CheckOutsideWaterTime();
         }
@@ -24,12 +24,12 @@ namespace Examples.Aquarium
 
             if (!fishAgent.IsInWater && WasInWater)
             {
-                IsOutsideWaterStartTime = Time.time;
+                IsOutsideWaterStartTime = Time.fixedTime;
             }
 
             if (!fishAgent.IsInWater)
             {
-                var outOfWaterTime = Time.time - IsOutsideWaterStartTime;
+                var outOfWaterTime = Time.fixedTime - IsOutsideWaterStartTime;
                 if (outOfWaterTime > IsOutsideWaterLimitTime)
                 {
                     fishAgent.IsOutsideAquarium = true;

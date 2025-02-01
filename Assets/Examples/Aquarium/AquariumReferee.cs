@@ -11,13 +11,10 @@ namespace Examples.Aquarium
         [SerializeField]
         private GameObject food;
         [SerializeField]
-        private Water leftWater;
-        [SerializeField]
-        private Water rightWater;
+        private Water water;
 
-        private const float allowedRoundTime = 120;
-        private BoxCollider2D leftWaterCollider;
-        private BoxCollider2D rightWaterCollider;
+        private const float allowedRoundTime = 60;
+        private BoxCollider2D waterCollider;
 
         public override void Restart()
         {
@@ -26,31 +23,22 @@ namespace Examples.Aquarium
             fishAgent.EndEpisode();
             bool switchedWater = Random.value > 0.5f;
             bool sameWater = Random.value > 0.5f;
-            BoxCollider2D fishWater;
-            BoxCollider2D foodWater;
+            fishAgent.Restart(GetRandomPositionInsideBoxCollider2D(waterCollider, 0.1f, switchedWater));
             if (sameWater)
             {
-                fishWater = switchedWater ? rightWaterCollider : leftWaterCollider;
-                foodWater = fishWater;
+                food.transform.position = GetRandomPositionInsideBoxCollider2D(waterCollider, 0.1f, switchedWater);
             }
             else
             {
-                fishWater = switchedWater ? rightWaterCollider : leftWaterCollider;
-                foodWater = switchedWater ? leftWaterCollider : rightWaterCollider;
+                food.transform.position = GetRandomPositionInsideBoxCollider2D(waterCollider, 0.1f, !switchedWater);
             }
 
-            fishAgent.Restart(GetRandomPositionInsideBoxCollider2D(fishWater, 0.1f));
-            food.transform.position = GetRandomPositionInsideBoxCollider2D(foodWater, 0.1f);
-
-            leftWater.Restart();
-            rightWater.Restart();
+            water.Restart();
         }
 
         private void Start()
         {
-            leftWaterCollider = leftWater.GetComponent<BoxCollider2D>();
-            rightWaterCollider = rightWater.GetComponent<BoxCollider2D>();
-
+            waterCollider = water.GetComponent<BoxCollider2D>();
             Restart();
         }
 
@@ -62,15 +50,9 @@ namespace Examples.Aquarium
                 Restart();
             }
 
-            if (fishAgent.IsOutsideAquarium)
-            {
-                fishAgent.AddReward(-0.5f);
-                Restart();
-            }
-
             if (fishAgent.IsFoodFound)
             {
-                fishAgent.AddReward(1);
+                fishAgent.SetReward(1);
                 Restart();
             }
 
@@ -80,7 +62,7 @@ namespace Examples.Aquarium
             }
         }
 
-        public static Vector2 GetRandomPositionInsideBoxCollider2D(BoxCollider2D boxCollider, float padding)
+        public static Vector2 GetRandomPositionInsideBoxCollider2D(BoxCollider2D boxCollider, float padding, bool leftHalf)
         {
             if (boxCollider == null)
             {
@@ -91,17 +73,39 @@ namespace Examples.Aquarium
             // Get the bounds of the BoxCollider2D
             Bounds bounds = boxCollider.bounds;
 
-            // Ensure padding does not exceed half the width/height
-            float maxPaddingX = (bounds.size.x / 2);
-            float maxPaddingY = (bounds.size.y / 2);
+            // Calculate half width and half height
+            float halfWidth = bounds.size.x / 2f;
+            float halfHeight = bounds.size.y / 2f;
 
+            // For each half, the effective width is halfWidth, so clamp padding accordingly.
+            float maxPaddingX = halfWidth;
+            float maxPaddingY = halfHeight;
             padding = Mathf.Clamp(padding, 0, Mathf.Min(maxPaddingX, maxPaddingY));
 
-            // Generate random position within the bounds with padding
-            float randomX = Random.Range(bounds.min.x + padding, bounds.max.x - padding);
+            // Determine the x-axis midpoint (center of the collider)
+            float midX = bounds.center.x;
+
+            // Define the x-range based on the chosen half
+            float minX, maxX;
+            if (leftHalf)
+            {
+                // For the left half, x goes from the collider's left edge to the midpoint
+                minX = bounds.min.x + padding;
+                maxX = midX - padding;
+            }
+            else
+            {
+                // For the right half, x goes from the midpoint to the collider's right edge
+                minX = midX + padding;
+                maxX = bounds.max.x - padding;
+            }
+
+            // Generate a random x within the specified half and a random y within the full vertical range
+            float randomX = Random.Range(minX, maxX);
             float randomY = Random.Range(bounds.min.y + padding, bounds.max.y - padding);
 
             return new Vector2(randomX, randomY);
         }
+
     }
 }

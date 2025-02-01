@@ -7,7 +7,7 @@ namespace Examples.Aquarium
 {
     public class FishAgent : Agent
     {
-        private float maxMoveForce = 10f;
+        private float maxMoveForce = 15f;
         private float maxTorqueForce = 0.25f;
         private Rigidbody2D rigidBody;
 
@@ -29,7 +29,6 @@ namespace Examples.Aquarium
         public override void Heuristic(in ActionBuffers actionsOut)
         {
             float[] actions = { Input.GetAxis("Vertical"), -Input.GetAxis("Horizontal") };
-
             for (int i = 0; i < actionsOut.ContinuousActions.Length; i++)
             {
                 var continuousActions = actionsOut.ContinuousActions;
@@ -42,6 +41,10 @@ namespace Examples.Aquarium
             if (IsInWater)
             {
                 float forceCoeff = Mathf.Clamp(actions.ContinuousActions[0], -1f, 1f);
+                if (forceCoeff < 0f)
+                {
+                    forceCoeff /= 10;
+                }
                 rigidBody.AddForce(maxMoveForce * forceCoeff * transform.up);
 
                 float torqueCoeff = Mathf.Clamp(actions.ContinuousActions[1], -1f, 1f);
