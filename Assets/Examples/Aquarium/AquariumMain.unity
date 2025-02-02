@@ -817,10 +817,10 @@ MonoBehaviour:
   - Target
   - Wall
   - Ceiling
-  m_RaysPerDirection: 8
+  m_RaysPerDirection: 10
   m_MaxRayDegrees: 90
   m_SphereCastRadius: 0.25
-  m_RayLength: 10
+  m_RayLength: 15
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294965960

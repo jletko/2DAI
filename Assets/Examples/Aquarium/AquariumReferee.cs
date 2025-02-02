@@ -52,7 +52,7 @@ namespace Examples.Aquarium
 
             if (fishAgent.IsFoodFound)
             {
-                fishAgent.SetReward(1);
+                fishAgent.AddReward(2);
                 Restart();
             }
 
@@ -60,6 +60,8 @@ namespace Examples.Aquarium
             {
                 fishAgent.AddReward(-0.001f);
             }
+
+            fishAgent.AddReward(-0.0001f);
         }
 
         public static Vector2 GetRandomPositionInsideBoxCollider2D(BoxCollider2D boxCollider, float padding, bool leftHalf)
